@@ -1,0 +1,26 @@
+@startuml
+
+[-> StateGameFinish : Setup
+activate StateGameFinish
+    StateGameFinish -> StateGameFinish : StartCoroutine(CoRun())
+        activate StateGameFinish
+        deactivate StateGameFinish
+    [<-- StateGameFinish
+deactivate StateGameFinish
+
+[-> StateGameFinish : CoRun
+activate StateGameFinish
+    loop 一定時間経過するまで
+        StateGameFinish -> StateGameFinish : WaitForFixedUpdate()
+        activate StateGameFinish
+        deactivate StateGameFinish
+    end
+    StateGameFinish -> GameController : BootGame
+    activate GameController
+        StateGameFinish <-- GameController
+    deactivate GameController
+    [<-- StateGameFinish
+deactivate StateGameFinish
+
+
+@enduml

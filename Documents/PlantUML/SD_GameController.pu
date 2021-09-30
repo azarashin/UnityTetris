@@ -1,0 +1,77 @@
+@startuml
+
+[-> GameController : Start
+activate GameController
+    GameController -> GameController : BootGame
+    activate GameController
+    deactivate GameController
+[<-- GameController
+deactivate GameController
+
+[-> GameController : BootGame
+activate GameController
+    GameController -> StateGameBoot : SetActive(true)
+    activate StateGameBoot
+        GameController <-- StateGameBoot
+    deactivate StateGameBoot
+    GameController -> StateGameMain : SetActive(false)
+    activate StateGameMain
+        GameController <-- StateGameMain
+    deactivate StateGameMain
+    GameController -> StateGameFinish : SetActive(false)
+    activate StateGameFinish
+        GameController <-- StateGameFinish
+    deactivate StateGameFinish
+
+    GameController -> StateGameBoot : Setup
+    activate StateGameBoot
+        GameController <-- StateGameBoot
+    deactivate StateGameBoot
+[<-- GameController
+deactivate GameController
+
+[-> GameController : RunGame
+activate GameController
+    GameController -> StateGameBoot : SetActive(false)
+    activate StateGameBoot
+        GameController <-- StateGameBoot
+    deactivate StateGameBoot
+    GameController -> StateGameMain : SetActive(true)
+    activate StateGameMain
+        GameController <-- StateGameMain
+    deactivate StateGameMain
+    GameController -> StateGameFinish : SetActive(false)
+    activate StateGameFinish
+        GameController <-- StateGameFinish
+    deactivate StateGameFinish
+
+    GameController -> StateGameMain : Setup
+    activate StateGameMain
+        GameController <-- StateGameMain
+    deactivate StateGameMain
+[<-- GameController
+deactivate GameController
+
+[-> GameController : FinishGame
+activate GameController
+    GameController -> StateGameBoot : SetActive(false)
+    activate StateGameBoot
+        GameController <-- StateGameBoot
+    deactivate StateGameBoot
+    GameController -> StateGameMain : SetActive(false)
+    activate StateGameMain
+        GameController <-- StateGameMain
+    deactivate StateGameMain
+    GameController -> StateGameFinish : SetActive(true)
+    activate StateGameFinish
+        GameController <-- StateGameFinish
+    deactivate StateGameFinish
+
+    GameController -> StateGameFinish : Setup
+    activate StateGameFinish
+        GameController <-- StateGameFinish
+    deactivate StateGameFinish
+[<-- GameController
+deactivate GameController
+
+@enduml

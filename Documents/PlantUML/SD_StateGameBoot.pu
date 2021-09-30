@@ -1,0 +1,29 @@
+@startuml
+
+[-> StateGameBoot : Setup
+activate StateGameBoot
+    StateGameBoot -> StateGameBoot : StartCoroutine(CoRun())
+        activate StateGameBoot
+        deactivate StateGameBoot
+    [<-- StateGameBoot
+deactivate StateGameBoot
+
+[-> StateGameBoot : CoRun
+activate StateGameBoot
+    loop カウントダウンが完了するまで
+        StateGameBoot -> StateGameBoot : カウントダウン更新
+        activate StateGameBoot
+        deactivate StateGameBoot
+        StateGameBoot -> StateGameBoot : WaitForFixedUpdate()
+        activate StateGameBoot
+        deactivate StateGameBoot
+    end
+    StateGameBoot -> GameController : RunGame
+    activate GameController
+        StateGameBoot <-- GameController
+    deactivate GameController
+    [<-- StateGameBoot
+deactivate StateGameBoot
+
+
+@enduml

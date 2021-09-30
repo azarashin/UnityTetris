@@ -1,0 +1,9 @@
+@startuml
+[*] --> StateGameBoot
+StateGameBoot --> StateGameMain
+StateGameMain --> StateGameFinish
+StateGameFinish --> StateGameBoot
+
+StateGameBoot : this is a string
+
+@enduml

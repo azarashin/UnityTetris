@@ -1,0 +1,158 @@
+@startuml
+
+' フィールドの状態を管理する
+class Field
+{
+    - _activeParts : Block[]
+
+    + Reset() : void
+    ' @return ブロックが積みあがってしまったらtrue, そうでなければfalse を返す
+    + SetBlocks(blocks : Block[]) : bool
+}
+
+' ゲームの進行を管理する
+class GameController
+{
+    - _boot : StateGameBoot
+    - _main : StateGameMain
+    - _finish : StateGameFinish
+
+    - Start() : void
+
+    + BootGame() : void
+    + RunGame() : void
+    + FinishGame() : void
+}
+
+class Player
+{
+    - _field : Field
+    - _blockSetOptions : BlockSet[]
+
+    - _currentBlock : BlockSet
+
+    + Setup(blockSetOptions : BlockSet[]) : void
+    - FixedUpdate() : void
+    - PullNextBlock() : void
+}
+
+class StateGameBoot
+{
+    - Setup() : void
+    - CoRun() : IEnumerator
+}
+
+class StateGameMain
+{
+    - _blockSetOptions : BlockSet[]
+
+    + Setup() : void
+    - FixedUpdate() : void
+    - PullNextBlock() : void
+}
+
+class StateGameFinish
+{
+    - Start() : void
+    - CoRun() : IEnumerator
+}
+
+abstract class InputManager
+{
+    + {abstract} IsRotateRight() : bool
+    + {abstract} IsRotateLeft() : bool
+    + {abstract} IsMoveRight() : bool
+    + {abstract} IsMoveLeft() : bool
+    + {abstract} IsMoveDown) : bool
+}
+
+class UnityKeyInputManager
+{
+    + IsRotateRight() : bool
+    + IsRotateLeft() : bool
+    + IsMoveRight() : bool
+    + IsMoveLeft() : bool
+    + IsMoveDown() : bool
+}
+
+' ブロックの状態を管理する
+abstract class BlockSet
+{
+    + {abstract} RotateRight() : void
+    + {abstract} RotateLeft() : void
+    ' @return 移動できる場合はtrue, 何かにぶつかって移動できない場合はfalse
+    + {abstract} MoveLeft() : bool
+    ' @return 移動できる場合はtrue, 何かにぶつかって移動できない場合はfalse
+    + {abstract} MoveRight() : bool
+    + {abstract} MoveDown() : void
+    ' @return フィールドに設置された直後であれば設置されたブロックの配列を、設置されていなければnull を返す
+    + {abstract} IsSetOnField() : Block[]
+}
+
+class DigitalBlockSet
+{
+    - _prefabPart : Block
+    - _partsPositions : Vector2Int[]
+    - _activeBlocks : Block[]
+
+    - SetupParts() : void
+
+    - Start() : void
+    - FixedUpdate() : void
+
+    + RotateRight() : void
+    + RotateLeft() : void
+    ' @return 移動できる場合はtrue, 何かにぶつかって移動できない場合はfalse
+    + MoveLeft() : bool
+    ' @return 移動できる場合はtrue, 何かにぶつかって移動できない場合はfalse
+    + MoveRight() : bool
+    + MoveDown() : void
+    ' @return フィールドに設置された直後であれば設置されたブロックの配列を、設置されていなければnull を返す
+    + IsSetOnField() : Block[]
+}
+
+class AnalogBlockSet
+{
+    - _prefabPart : Block
+    - _partsPositions : Vector2Int[]
+    - _activeBlocks : Block[]
+
+    - SetupParts() : void
+
+    - Start() : void
+    - FixedUpdate() : void
+
+    + RotateRight() : void
+    + RotateLeft() : void
+    ' @return 移動できる場合はtrue, 何かにぶつかって移動できない場合はfalse
+    + MoveLeft() : bool
+    ' @return 移動できる場合はtrue, 何かにぶつかって移動できない場合はfalse
+    + MoveRight() : bool
+    + MoveDown() : void
+    ' @return フィールドに設置された直後であれば設置されたブロックの配列を、設置されていなければnull を返す
+    + IsSetOnField() : Block[]
+}
+
+class StatusPanel
+{
+    - _scoreText : Text
+ 
+    + ResetScore() : void
+    + AddScore(addedScore : int) : void
+}
+
+GameController "1" *-- "1" Field
+GameController "1" *-- "1" BlockSet
+GameController "1" *-- "1" InputManager
+GameController "1" *-- "1" StateGameBoot
+GameController "1" *-- "1" StateGameMain
+GameController "1" *-- "1" StateGameFinish
+
+StatusPanel "1" --o "1" GameController
+
+BlockSet <|.. DigitalBlockSet
+BlockSet <|.. AnalogBlockSet
+
+InputManager <|.. UnityKeyInputManager
+
+@enduml
