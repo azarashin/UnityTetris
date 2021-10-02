@@ -1,105 +1,26 @@
 @startuml
 
+
 [-> StateGameMain : Setup
 activate StateGameMain
-    StateGameMain -> StateGameMain : PullNextBlock
+    StateGameMain -> StateGameMain : プレイヤーの一覧を保持する
     activate StateGameMain
     deactivate StateGameMain
     [<-- StateGameMain
 deactivate StateGameMain
 
-[-> StateGameMain : PullNextBlock
+Player -> StateGameMain : PlayerGameOver
 activate StateGameMain
-    StateGameMain -> StateGameMain : _blockSetOptions からブロックをランダムに選択する
+    StateGameMain -> StateGameMain : GetNumberOfAlivingPlayer
     activate StateGameMain
     deactivate StateGameMain
-    StateGameMain -> MonoBehaviour : Instantiate
-    activate MonoBehaviour
-        MonoBehaviour -> BlockSet : 
-        activate BlockSet
-            MonoBehaviour <-- BlockSet
-        deactivate BlockSet
-        StateGameMain <-- MonoBehaviour : 生成されたインスタンスを_currentBlock に保持する
-    deactivate MonoBehaviour
-    [<-- StateGameMain
-deactivate StateGameMain
-
-[-> StateGameMain : FixedUpdate
-activate StateGameMain
-    StateGameMain -> InuptManager : IsRotateRight
-    activate InuptManager
-        StateGameMain <-- InuptManager
-    deactivate InuptManager
-    opt 右回転キーが押された
-        StateGameMain -> BlockSet : RotateRight
-        activate BlockSet
-            StateGameMain <-- BlockSet
-        deactivate BlockSet
+    opt 残りプレイヤーが一人になった
+        StateGameMain -> GameController : FinishGame
+        activate GameController
+            StateGameMain <-- GameController
+        deactivate GameController
     end
-    StateGameMain -> InuptManager : IsRotateLeft
-    activate InuptManager
-        StateGameMain <-- InuptManager
-    deactivate InuptManager
-    opt 左回転キーが押された
-        StateGameMain -> BlockSet : RotateLeft
-        activate BlockSet
-            StateGameMain <-- BlockSet
-        deactivate BlockSet
-    end
-    StateGameMain -> InuptManager : IsMoveRight
-    activate InuptManager
-        StateGameMain <-- InuptManager
-    deactivate InuptManager
-    opt 右移動キーが押された
-        StateGameMain -> BlockSet : MoveRight
-        activate BlockSet
-            StateGameMain <-- BlockSet
-        deactivate BlockSet
-    end
-    StateGameMain -> InuptManager : IsMoveLeft
-    activate InuptManager
-        StateGameMain <-- InuptManager
-    deactivate InuptManager
-    opt 左移動キーが押された
-        StateGameMain -> BlockSet : MoveLeft
-        activate BlockSet
-            StateGameMain <-- BlockSet
-        deactivate BlockSet
-    end
-    StateGameMain -> InuptManager : IsMoveDown
-    activate InuptManager
-        StateGameMain <-- InuptManager
-    deactivate InuptManager
-    opt 下移動キーが押された
-        StateGameMain -> BlockSet : MoveDown
-        activate BlockSet
-            StateGameMain <-- BlockSet
-            deactivate BlockSet
-    end
-
-    StateGameMain -> BlockSet : IsSetOnField
-    activate BlockSet
-        StateGameMain <-- BlockSet
-    deactivate BlockSet
-    opt 接地した
-        StateGameMain -> Field : SetBlocks
-        activate Field
-            StateGameMain <-- Field
-        deactivate Field
-        alt ブロックが積みあがった
-            StateGameMain -> GameController : FinishGame
-            activate GameController
-                StateGameMain <-- GameController
-            deactivate GameController
-        else
-            StateGameMain -> StateGameMain : PullNextBlock
-            activate StateGameMain
-            deactivate StateGameMain
-        end
-
-    end
-
-    [<-- StateGameMain
+    Player <-- StateGameMain
 deactivate StateGameMain
 
 @enduml

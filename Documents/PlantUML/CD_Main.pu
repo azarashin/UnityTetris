@@ -1,18 +1,31 @@
 @startuml
 
+class Block
+{
+    + Px : int
+    + Py : int
+}
+
 ' フィールドの状態を管理する
 class Field
 {
-    - _activeParts : Block[]
+    - _width : int
+    - _height : int
+    ..
+    - _activeParts : Block[,]
 
+    --
     + ResetField() : void
     ' @return ブロックが積みあがってしまったらtrue, そうでなければfalse を返す
     + SetBlocks(blocks : Block[]) : bool
+
+    + IsHit(blocks : Block[]) : bool
 }
 
 ' ゲームの進行を管理する
 class GameController
 {
+    - _players : Player[]
     - _boot : StateGameBoot
     - _main : StateGameMain
     - _finish : StateGameFinish
@@ -26,34 +39,44 @@ class GameController
 
 class Player
 {
+    - _parent : StateGameMain
     - _field : Field
+    - _input : InputManager
     - _blockSetOptions : BlockSet[]
+    - _alive : bool
 
     - _currentBlock : BlockSet
 
-    + Setup(blockSetOptions : BlockSet[]) : void
+    + Setup(parent : StateGameMain, blockSetOptions : BlockSet[]) : void
+    + IsAlive() : bool
     - FixedUpdate() : void
     - PullNextBlock() : void
 }
 
 class StateGameBoot
 {
-    - Setup() : void
+    - _parent : GameController
+
+    + Setup(parent : GameController) : void
     - CoRun() : IEnumerator
 }
 
 class StateGameMain
 {
+    - _parent : GameController
+    - _players : Player[]
     - _blockSetOptions : BlockSet[]
 
-    + Setup() : void
-    - FixedUpdate() : void
-    - PullNextBlock() : void
+    + Setup(parent : GameController, players : Player[]) : void
+    + PlayerGameOver(player : Player) : void
+    - GetNumberOfAlivingPlayer() : int
 }
 
 class StateGameFinish
 {
-    - Start() : void
+    - _parent : GameController
+
+    + Setup(parent : GameController) : void
     - CoRun() : IEnumerator
 }
 
@@ -76,30 +99,19 @@ class UnityKeyInputManager
 }
 
 ' ブロックの状態を管理する
-abstract class BlockSet
-{
-    + {abstract} RotateRight() : void
-    + {abstract} RotateLeft() : void
-    ' @return 移動できる場合はtrue, 何かにぶつかって移動できない場合はfalse
-    + {abstract} MoveLeft() : bool
-    ' @return 移動できる場合はtrue, 何かにぶつかって移動できない場合はfalse
-    + {abstract} MoveRight() : bool
-    + {abstract} MoveDown() : void
-    ' @return フィールドに設置された直後であれば設置されたブロックの配列を、設置されていなければnull を返す
-    + {abstract} IsSetOnField() : Block[]
-}
-
-class DigitalBlockSet
+class BlockSet
 {
     - _prefabPart : Block
     - _partsPositions : Vector2Int[]
     - _activeBlocks : Block[]
+    - _field : Field
 
     - SetupParts() : void
 
     - Start() : void
     - FixedUpdate() : void
 
+    + SetField(filed: Field) : void
     + RotateRight() : void
     + RotateLeft() : void
     ' @return 移動できる場合はtrue, 何かにぶつかって移動できない場合はfalse
@@ -111,27 +123,6 @@ class DigitalBlockSet
     + IsSetOnField() : Block[]
 }
 
-class AnalogBlockSet
-{
-    - _prefabPart : Block
-    - _partsPositions : Vector2Int[]
-    - _activeBlocks : Block[]
-
-    - SetupParts() : void
-
-    - Start() : void
-    - FixedUpdate() : void
-
-    + RotateRight() : void
-    + RotateLeft() : void
-    ' @return 移動できる場合はtrue, 何かにぶつかって移動できない場合はfalse
-    + MoveLeft() : bool
-    ' @return 移動できる場合はtrue, 何かにぶつかって移動できない場合はfalse
-    + MoveRight() : bool
-    + MoveDown() : void
-    ' @return フィールドに設置された直後であれば設置されたブロックの配列を、設置されていなければnull を返す
-    + IsSetOnField() : Block[]
-}
 
 class StatusPanel
 {
@@ -141,12 +132,16 @@ class StatusPanel
     + AddScore(addedScore : int) : void
 }
 
-GameController "1" *-- "1" Field
-GameController "1" *-- "1" BlockSet
-GameController "1" *-- "1" InputManager
+Player "1" *-- "1" Field
+Player "1" *-- "1" BlockSet
+Player "1" *-- "1" InputManager
+
+GameController "1" *-- "*" Player
 GameController "1" *-- "1" StateGameBoot
 GameController "1" *-- "1" StateGameMain
 GameController "1" *-- "1" StateGameFinish
+
+StateGameMain "1" o--o "*" Player
 
 StatusPanel "1" --o "1" GameController
 
@@ -154,5 +149,9 @@ BlockSet <|.. DigitalBlockSet
 BlockSet <|.. AnalogBlockSet
 
 InputManager <|.. UnityKeyInputManager
+
+Field "1" o-- "*" Block
+DigitalBlockSet "1" o-- "*" Block
+AnalogBlockSet "1" o-- "*" Block
 
 @enduml

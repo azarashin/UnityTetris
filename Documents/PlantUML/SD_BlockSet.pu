@@ -1,0 +1,100 @@
+@startuml
+
+[-> BlockSet : FixedUpdate
+activate BlockSet
+    BlockSet -> BlockSet : 少し落下させる
+        activate BlockSet
+        deactivate BlockSet
+    [<-- BlockSet
+    BlockSet -> BlockSet : 落下中フラグ(_falling)をONにする
+        activate BlockSet
+        deactivate BlockSet
+    [<-- BlockSet
+deactivate BlockSet
+
+[-> BlockSet : SetField
+activate BlockSet
+    BlockSet -> BlockSet : Field のインスタンスを保持する
+        activate BlockSet
+        deactivate BlockSet
+    [<-- BlockSet
+deactivate BlockSet
+
+
+[-> BlockSet : RotateLeft
+activate BlockSet
+    BlockSet -> BlockSet : ブロックを左回転させる
+        activate BlockSet
+        deactivate BlockSet
+    [<-- BlockSet
+deactivate BlockSet
+
+
+[-> BlockSet : RotateRight
+activate BlockSet
+    BlockSet -> BlockSet : ブロックを右回転させる
+        activate BlockSet
+        deactivate BlockSet
+    [<-- BlockSet
+deactivate BlockSet
+
+[-> BlockSet : MoveLeft
+activate BlockSet
+    BlockSet -> BlockSet : 左に移動させる
+    activate BlockSet
+    deactivate BlockSet
+    alt フィールド上の設置済みブロック又は外壁にぶつかった
+        BlockSet -> BlockSet : ブロックの位置を元に戻し、衝突の音を鳴らす
+            activate BlockSet
+            deactivate BlockSet
+    [<-- BlockSet
+    else
+        BlockSet -> BlockSet : 移動の音を鳴らす
+            activate BlockSet
+            deactivate BlockSet
+    [<-- BlockSet
+    end
+deactivate BlockSet
+
+
+[-> BlockSet : MoveRight
+activate BlockSet
+    BlockSet -> BlockSet : 右に移動させる
+    activate BlockSet
+    deactivate BlockSet
+    alt フィールド上の設置済みブロック又は外壁にぶつかった
+        BlockSet -> BlockSet : ブロックの位置を元に戻し、衝突の音を鳴らす
+            activate BlockSet
+            deactivate BlockSet
+    [<-- BlockSet
+    else
+        BlockSet -> BlockSet : 移動の音を鳴らす
+            activate BlockSet
+            deactivate BlockSet
+    [<-- BlockSet
+    end
+deactivate BlockSet
+
+
+[-> BlockSet : MoveDown
+activate BlockSet
+    BlockSet -> BlockSet : 落下中フラグ(_falling)をONにする
+        activate BlockSet
+        deactivate BlockSet
+    [<-- BlockSet
+deactivate BlockSet
+
+
+[-> BlockSet : IsSetOnField
+activate BlockSet
+    BlockSet -> BlockSet : フィールドに設置された直後かどうかを判定する
+    activate BlockSet
+    deactivate BlockSet
+    alt フィールドに設置された直後
+        [<-- BlockSet : 設置されたブロックの配列
+    else
+        [<-- BlockSet : null
+    end
+deactivate BlockSet
+
+@enduml

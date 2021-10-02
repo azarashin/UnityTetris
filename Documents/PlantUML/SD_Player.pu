@@ -1,0 +1,97 @@
+@startuml
+
+
+[-> Player : FixedUpdate
+activate Player
+    Player -> InuptManager : IsRotateRight
+    activate InuptManager
+        Player <-- InuptManager
+    deactivate InuptManager
+    opt 右回転キーが押された
+        Player -> BlockSet : RotateRight
+        activate BlockSet
+            Player <-- BlockSet
+        deactivate BlockSet
+    end
+    Player -> InuptManager : IsRotateLeft
+    activate InuptManager
+        Player <-- InuptManager
+    deactivate InuptManager
+    opt 左回転キーが押された
+        Player -> BlockSet : RotateLeft
+        activate BlockSet
+            Player <-- BlockSet
+        deactivate BlockSet
+    end
+    Player -> InuptManager : IsMoveRight
+    activate InuptManager
+        Player <-- InuptManager
+    deactivate InuptManager
+    opt 右移動キーが押された
+        Player -> BlockSet : MoveRight
+        activate BlockSet
+            Player <-- BlockSet
+        deactivate BlockSet
+    end
+    Player -> InuptManager : IsMoveLeft
+    activate InuptManager
+        Player <-- InuptManager
+    deactivate InuptManager
+    opt 左移動キーが押された
+        Player -> BlockSet : MoveLeft
+        activate BlockSet
+            Player <-- BlockSet
+        deactivate BlockSet
+    end
+    Player -> InuptManager : IsMoveDown
+    activate InuptManager
+        Player <-- InuptManager
+    deactivate InuptManager
+    opt 下移動キーが押された
+        Player -> BlockSet : MoveDown
+        activate BlockSet
+            Player <-- BlockSet
+            deactivate BlockSet
+    end
+
+    Player -> BlockSet : IsSetOnField
+    activate BlockSet
+        Player <-- BlockSet
+    deactivate BlockSet
+    opt 接地した
+        Player -> Field : SetBlocks
+        activate Field
+            Player <-- Field
+        deactivate Field
+        alt ブロックが積みあがった
+            Player -> StateGameMain : PlayerGameOver
+            activate StateGameMain
+                Player <-- StateGameMain
+            deactivate StateGameMain
+        else
+            Player -> Player : PullNextBlock
+            activate Player
+            deactivate Player
+        end
+
+    end
+deactivate Player
+[<-- Player
+
+[-> Player : PullNextBlock
+activate Player
+    Player -> Player : _blockSetOptions からブロックをランダムに選択する
+    activate Player
+    deactivate Player
+    Player -> MonoBehaviour : Instantiate
+    activate MonoBehaviour
+        MonoBehaviour -> BlockSet
+        activate BlockSet
+            MonoBehaviour <-- BlockSet
+        deactivate BlockSet
+        Player <-- MonoBehaviour : 生成されたインスタンスを_currentBlock に保持する
+    deactivate MonoBehaviour
+    [<-- Player
+deactivate Player
+
+@enduml
