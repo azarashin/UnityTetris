@@ -10,15 +10,15 @@ deactivate GameController
 
 [-> GameController : BootGame
 activate GameController
-    GameController -> StateGameBoot : SetActive(true)
+    GameController -> StateGameBoot : gameObject.SetActive(true)
     activate StateGameBoot
         GameController <-- StateGameBoot
     deactivate StateGameBoot
-    GameController -> StateGameMain : SetActive(false)
+    GameController -> StateGameMain : gameObject.SetActive(false)
     activate StateGameMain
         GameController <-- StateGameMain
     deactivate StateGameMain
-    GameController -> StateGameFinish : SetActive(false)
+    GameController -> StateGameFinish : gameObject.SetActive(false)
     activate StateGameFinish
         GameController <-- StateGameFinish
     deactivate StateGameFinish
@@ -32,15 +32,15 @@ deactivate GameController
 
 [-> GameController : RunGame
 activate GameController
-    GameController -> StateGameBoot : SetActive(false)
+    GameController -> StateGameBoot : gameObject.SetActive(false)
     activate StateGameBoot
         GameController <-- StateGameBoot
     deactivate StateGameBoot
-    GameController -> StateGameMain : SetActive(true)
+    GameController -> StateGameMain : gameObject.SetActive(true)
     activate StateGameMain
         GameController <-- StateGameMain
     deactivate StateGameMain
-    GameController -> StateGameFinish : SetActive(false)
+    GameController -> StateGameFinish : gameObject.SetActive(false)
     activate StateGameFinish
         GameController <-- StateGameFinish
     deactivate StateGameFinish
@@ -54,15 +54,15 @@ deactivate GameController
 
 [-> GameController : FinishGame
 activate GameController
-    GameController -> StateGameBoot : SetActive(false)
+    GameController -> StateGameBoot : gameObject.SetActive(false)
     activate StateGameBoot
         GameController <-- StateGameBoot
     deactivate StateGameBoot
-    GameController -> StateGameMain : SetActive(false)
+    GameController -> StateGameMain : gameObject.SetActive(false)
     activate StateGameMain
         GameController <-- StateGameMain
     deactivate StateGameMain
-    GameController -> StateGameFinish : SetActive(true)
+    GameController -> StateGameFinish : gameObject.SetActive(true)
     activate StateGameFinish
         GameController <-- StateGameFinish
     deactivate StateGameFinish

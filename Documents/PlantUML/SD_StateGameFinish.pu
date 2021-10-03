@@ -10,11 +10,17 @@ deactivate StateGameFinish
 
 [-> StateGameFinish : CoRun
 activate StateGameFinish
+    StateGameFinish -> StateGameFinish : ラベル(_message)を表示
+    activate StateGameFinish
+    deactivate StateGameFinish
     loop 一定時間経過するまで
         StateGameFinish -> StateGameFinish : WaitForFixedUpdate()
         activate StateGameFinish
         deactivate StateGameFinish
     end
+    StateGameFinish -> StateGameFinish : ラベル(_message)を非表示
+    activate StateGameFinish
+    deactivate StateGameFinish
     StateGameFinish -> GameController : BootGame
     activate GameController
         StateGameFinish <-- GameController

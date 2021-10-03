@@ -1,13 +1,13 @@
 @startuml
 
-MonoBehaviour <|-- GameController
-MonoBehaviour <|-- BlockSet
-MonoBehaviour <|-- Block
-MonoBehaviour <|-- Field
-MonoBehaviour <|-- StatusPanel
-MonoBehaviour <|-- InputManager
+UnityEngine.MonoBehaviour <|-- GameController
+UnityEngine.MonoBehaviour <|-- BlockSet
+UnityEngine.MonoBehaviour <|-- Block
+UnityEngine.MonoBehaviour <|-- Field
+UnityEngine.MonoBehaviour <|-- StatusPanel
+UnityEngine.MonoBehaviour <|-- InputManager
 
-MonoBehaviour <|-- StateGameBoot
-MonoBehaviour <|-- StateGameMain
-MonoBehaviour <|-- StateGameFinish
+UnityEngine.MonoBehaviour <|-- StateGameBoot
+UnityEngine.MonoBehaviour <|-- StateGameMain
+UnityEngine.MonoBehaviour <|-- StateGameFinish
 @enduml

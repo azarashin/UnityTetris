@@ -2,39 +2,108 @@
 
 [-> BlockSet : FixedUpdate
 activate BlockSet
-    BlockSet -> BlockSet : 少し落下させる
+    BlockSet -> BlockSet : UpdateInput
         activate BlockSet
         deactivate BlockSet
-    [<-- BlockSet
-    BlockSet -> BlockSet : 落下中フラグ(_falling)をONにする
+    BlockSet -> BlockSet : Move
         activate BlockSet
         deactivate BlockSet
-    [<-- BlockSet
+    BlockSet -> BlockSet : ShowBlocks
+        activate BlockSet
+        deactivate BlockSet
 deactivate BlockSet
 
-[-> BlockSet : SetField
+
+[-> BlockSet : UpdateInput
 activate BlockSet
-    BlockSet -> BlockSet : Field のインスタンスを保持する
+    BlockSet -> InuptManager : IsRotateRight
+    activate InuptManager
+        BlockSet <-- InuptManager
+    deactivate InuptManager
+    opt 右回転キーが押された
+        BlockSet -> BlockSet : RotateRight
         activate BlockSet
         deactivate BlockSet
-    [<-- BlockSet
-deactivate BlockSet
-
-
-[-> BlockSet : RotateLeft
-activate BlockSet
-    BlockSet -> BlockSet : ブロックを左回転させる
+    end
+    BlockSet -> InuptManager : IsRotateLeft
+    activate InuptManager
+        BlockSet <-- InuptManager
+    deactivate InuptManager
+    opt 左回転キーが押された
+        BlockSet -> BlockSet : RotateLeft
         activate BlockSet
         deactivate BlockSet
-    [<-- BlockSet
-deactivate BlockSet
+    end
+    BlockSet -> InuptManager : IsMoveRight
+    activate InuptManager
+        BlockSet <-- InuptManager
+    deactivate InuptManager
+    opt 右移動キーが押された
+        BlockSet -> BlockSet : MoveRight
+        activate BlockSet
+        deactivate BlockSet
+    end
+    BlockSet -> InuptManager : IsMoveLeft
+    activate InuptManager
+        BlockSet <-- InuptManager
+    deactivate InuptManager
+    opt 左移動キーが押された
+        BlockSet -> BlockSet : MoveLeft
+        activate BlockSet
+        deactivate BlockSet
+    end
+    BlockSet -> InuptManager : IsMoveDown
+    activate InuptManager
+        BlockSet <-- InuptManager
+    deactivate InuptManager
+    opt 下移動キーが押された
+        BlockSet -> BlockSet : MoveDown
+        activate BlockSet
+        deactivate BlockSet
+    end
 
+deactivate BlockSet
+[<-- BlockSet
 
 [-> BlockSet : RotateRight
 activate BlockSet
-    BlockSet -> BlockSet : ブロックを右回転させる
+    BlockSet -> BlockSet : Rotate(-1)
         activate BlockSet
         deactivate BlockSet
+    [<-- BlockSet
+deactivate BlockSet
+
+[-> BlockSet : RotateLeft
+activate BlockSet
+    BlockSet -> BlockSet : Rotate(1)
+        activate BlockSet
+        deactivate BlockSet
+    [<-- BlockSet
+deactivate BlockSet
+
+[-> BlockSet : Rotate
+activate BlockSet
+    loop 4回まで回転させる
+        loop 原点位置を少しずつずらす
+            BlockSet -> BlockSet : ToBlocks
+            activate BlockSet
+            deactivate BlockSet
+            BlockSet -> Field : IsHit
+            activate Field
+            deactivate Field
+            opt 位置をずらし、回転させてフィールド上のブロックに衝突していない
+                [<-- BlockSet
+            end
+        end
+    end
+    [<-- BlockSet
+deactivate BlockSet
+
+[-> BlockSet : ToBlocks
+activate BlockSet
+    BlockSet -> BlockSet : RotatePart
+    activate BlockSet
+    deactivate BlockSet
     [<-- BlockSet
 deactivate BlockSet
 
@@ -43,10 +112,18 @@ activate BlockSet
     BlockSet -> BlockSet : 左に移動させる
     activate BlockSet
     deactivate BlockSet
+    BlockSet -> Field : IsHit
+    activate Field
+    deactivate Field
     alt フィールド上の設置済みブロック又は外壁にぶつかった
-        BlockSet -> BlockSet : ブロックの位置を元に戻し、衝突の音を鳴らす
-            activate BlockSet
-            deactivate BlockSet
+        BlockSet -> BlockSet : ブロックの位置を元に戻す
+        activate BlockSet
+        deactivate BlockSet
+        BlockSet -> UnityEngine.AudioSource : Play
+        activate UnityEngine.AudioSource
+            BlockSet <-- UnityEngine.AudioSource
+        deactivate UnityEngine.AudioSource
+
     [<-- BlockSet
     else
         BlockSet -> BlockSet : 移動の音を鳴らす
@@ -62,10 +139,18 @@ activate BlockSet
     BlockSet -> BlockSet : 右に移動させる
     activate BlockSet
     deactivate BlockSet
+    BlockSet -> Field : IsHit
+    activate Field
+    deactivate Field
     alt フィールド上の設置済みブロック又は外壁にぶつかった
-        BlockSet -> BlockSet : ブロックの位置を元に戻し、衝突の音を鳴らす
-            activate BlockSet
-            deactivate BlockSet
+        BlockSet -> BlockSet : ブロックの位置を元に戻す
+        activate BlockSet
+        deactivate BlockSet
+        BlockSet -> UnityEngine.AudioSource : Play
+        activate UnityEngine.AudioSource
+            BlockSet <-- UnityEngine.AudioSource
+        deactivate UnityEngine.AudioSource
+
     [<-- BlockSet
     else
         BlockSet -> BlockSet : 移動の音を鳴らす
@@ -85,16 +170,92 @@ activate BlockSet
 deactivate BlockSet
 
 
-[-> BlockSet : IsSetOnField
+[-> BlockSet : Move
 activate BlockSet
-    BlockSet -> BlockSet : フィールドに設置された直後かどうかを判定する
+    BlockSet -> BlockSet : NeedToFall
     activate BlockSet
     deactivate BlockSet
-    alt フィールドに設置された直後
-        [<-- BlockSet : 設置されたブロックの配列
-    else
-        [<-- BlockSet : null
+    opt ブロックを下に移動させるタイミングに到達していない
+        [<-- BlockSet
     end
+    BlockSet -> BlockSet : ブロックを下に移動させる
+    activate BlockSet
+    deactivate BlockSet
+    BlockSet -> Field : IsHit
+    activate Field
+    deactivate Field
+    opt 接地した
+        BlockSet -> BlockSet : ブロックの位置を元に戻す
+        activate BlockSet
+        deactivate BlockSet
+        BlockSet -> Field : SetBlocks
+        activate Field
+            BlockSet <-- Field
+        deactivate Field
+        alt ブロックが積みあがった
+            BlockSet -> Player : Dead()
+            activate Player
+            deactivate Player
+        else
+            BlockSet -> Player : PullNextBlock
+            activate Player
+                BlockSet <-- Player 
+            deactivate Player
+        end
+
+    end
+deactivate BlockSet
+[<-- BlockSet
+
+[-> BlockSet : NeedToFall
+activate BlockSet
+    BlockSet -> BlockSet : 落下待ちカウント(_countWaitFalling)を増やす
+    activate BlockSet
+    deactivate BlockSet
+    opt 落下待ちカウント(_countWaitFalling)が上限に達した
+        BlockSet -> BlockSet : 落下待ちカウント(_countWaitFalling)をリセット
+        activate BlockSet
+        deactivate BlockSet
+        BlockSet -> BlockSet : 落下カウント(_countFalling)を増やす
+        activate BlockSet
+        deactivate BlockSet
+        opt 落下カウント(_countFalling)が上限に達した or 落下中フラグ(_falling)がON
+            BlockSet -> BlockSet : 落下中フラグ(_falling)をOFFにする
+            activate BlockSet
+            deactivate BlockSet
+            BlockSet -> BlockSet : 落下カウント(_countFalling)をリセットする
+            activate BlockSet
+            deactivate BlockSet
+            [<-- BlockSet : true
+        end
+    end
+    [<-- BlockSet : false
+deactivate BlockSet
+
+[-> BlockSet : Setup
+activate BlockSet
+    BlockSet -> BlockSet : Field, BlockSet, Player のインスタンスを保持する
+    activate BlockSet
+    deactivate BlockSet
+    BlockSet -> BlockSet : 落下中フラグ(_falling)をOFFにする
+    activate BlockSet
+    deactivate BlockSet
+    [<-- BlockSet
+    BlockSet -> BlockSet : _activeBlocks を生成する
+    activate BlockSet
+        loop ブロックのパーツ毎に実行する
+            BlockSet -> MonoBehaviour : Instantiate
+            activate MonoBehaviour
+                MonoBehaviour -> Block : create
+                activate Block
+                    MonoBehaviour <-- Block
+                deactivate Block
+                Player <-- MonoBehaviour : _prefabPart を複製してブロックのパーツを構築する
+            deactivate MonoBehaviour
+        end
+    deactivate BlockSet
+    [<-- BlockSet
+    
 deactivate BlockSet
 
 @enduml

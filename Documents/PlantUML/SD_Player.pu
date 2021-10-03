@@ -1,82 +1,33 @@
 @startuml
 
-
-[-> Player : FixedUpdate
+[-> Player : Setup
 activate Player
-    Player -> InuptManager : IsRotateRight
-    activate InuptManager
-        Player <-- InuptManager
-    deactivate InuptManager
-    opt 右回転キーが押された
-        Player -> BlockSet : RotateRight
-        activate BlockSet
-            Player <-- BlockSet
-        deactivate BlockSet
-    end
-    Player -> InuptManager : IsRotateLeft
-    activate InuptManager
-        Player <-- InuptManager
-    deactivate InuptManager
-    opt 左回転キーが押された
-        Player -> BlockSet : RotateLeft
-        activate BlockSet
-            Player <-- BlockSet
-        deactivate BlockSet
-    end
-    Player -> InuptManager : IsMoveRight
-    activate InuptManager
-        Player <-- InuptManager
-    deactivate InuptManager
-    opt 右移動キーが押された
-        Player -> BlockSet : MoveRight
-        activate BlockSet
-            Player <-- BlockSet
-        deactivate BlockSet
-    end
-    Player -> InuptManager : IsMoveLeft
-    activate InuptManager
-        Player <-- InuptManager
-    deactivate InuptManager
-    opt 左移動キーが押された
-        Player -> BlockSet : MoveLeft
-        activate BlockSet
-            Player <-- BlockSet
-        deactivate BlockSet
-    end
-    Player -> InuptManager : IsMoveDown
-    activate InuptManager
-        Player <-- InuptManager
-    deactivate InuptManager
-    opt 下移動キーが押された
-        Player -> BlockSet : MoveDown
-        activate BlockSet
-            Player <-- BlockSet
-            deactivate BlockSet
-    end
-
-    Player -> BlockSet : IsSetOnField
-    activate BlockSet
-        Player <-- BlockSet
-    deactivate BlockSet
-    opt 接地した
-        Player -> Field : SetBlocks
-        activate Field
-            Player <-- Field
-        deactivate Field
-        alt ブロックが積みあがった
-            Player -> StateGameMain : PlayerGameOver
-            activate StateGameMain
-                Player <-- StateGameMain
-            deactivate StateGameMain
-        else
-            Player -> Player : PullNextBlock
-            activate Player
-            deactivate Player
-        end
-
-    end
+    Player -> Player : 生存フラグを有効にする
+    activate Player
+    deactivate Player
+    Player -> Player : ブロック群の選択肢を保持する
+    activate Player
+    deactivate Player
+    Player -> Field : ResetField
+    activate Field
+        Player <-- Field
+    deactivate Field
+    [<-- Player
 deactivate Player
-[<-- Player
+
+[-> Player : StartGame
+activate Player
+    Player -> Player : PullNextBlock
+    activate Player
+    deactivate Player
+    [<-- Player
+deactivate Player
+
+[-> Player : IsAlive
+activate Player
+    [<-- Player : 生存フラグ
+deactivate Player
+
 
 [-> Player : PullNextBlock
 activate Player
@@ -85,13 +36,30 @@ activate Player
     deactivate Player
     Player -> MonoBehaviour : Instantiate
     activate MonoBehaviour
-        MonoBehaviour -> BlockSet
+        MonoBehaviour -> BlockSet : create
         activate BlockSet
             MonoBehaviour <-- BlockSet
         deactivate BlockSet
-        Player <-- MonoBehaviour : 生成されたインスタンスを_currentBlock に保持する
+        Player <-- MonoBehaviour : 生成されたBlockSet クラスのインスタンスを_currentBlock に保持する
     deactivate MonoBehaviour
+    Player -> BlockSet : Setup
+    activate BlockSet
+        Player <-- BlockSet
+    deactivate BlockSet
     [<-- Player
 deactivate Player
+
+[-> Player : Dead()
+activate Player
+    Player -> Player : 生存フラグを無効にする
+    activate Player
+    deactivate Player
+    Player -> StateGameMain : PlayerGameOver
+    activate StateGameMain
+        Player <-- StateGameMain
+    deactivate StateGameMain
+    [<-- Player
+deactivate Player
+
 
 @enduml

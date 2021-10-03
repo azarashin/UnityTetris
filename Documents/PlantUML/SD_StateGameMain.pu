@@ -6,6 +6,11 @@ activate StateGameMain
     StateGameMain -> StateGameMain : プレイヤーの一覧を保持する
     activate StateGameMain
     deactivate StateGameMain
+    loop プレイヤーごとに実行
+        StateGameMain -> Player : StartGame
+        activate Player
+        deactivate Player
+    end
     [<-- StateGameMain
 deactivate StateGameMain
 

@@ -2,6 +2,11 @@
 
 [-> StateGameBoot : Setup
 activate StateGameBoot
+    loop プレイヤーごとに実行
+        StateGameBoot -> Player : Setup
+        activate Player
+        deactivate Player
+    end
     StateGameBoot -> StateGameBoot : StartCoroutine(CoRun())
         activate StateGameBoot
         deactivate StateGameBoot
@@ -10,14 +15,20 @@ deactivate StateGameBoot
 
 [-> StateGameBoot : CoRun
 activate StateGameBoot
-    loop カウントダウンが完了するまで
-        StateGameBoot -> StateGameBoot : カウントダウン更新
+    StateGameBoot -> StateGameBoot : ラベル(_counter)を表示
+    activate StateGameBoot
+    deactivate StateGameBoot
+    loop カウントダウンが完了するまで(_countMax)
+        StateGameBoot -> StateGameBoot : カウントダウン更新(_counter)
         activate StateGameBoot
         deactivate StateGameBoot
         StateGameBoot -> StateGameBoot : WaitForFixedUpdate()
         activate StateGameBoot
         deactivate StateGameBoot
     end
+    StateGameBoot -> StateGameBoot : ラベル(_counter)を非表示
+    activate StateGameBoot
+    deactivate StateGameBoot
     StateGameBoot -> GameController : RunGame
     activate GameController
         StateGameBoot <-- GameController

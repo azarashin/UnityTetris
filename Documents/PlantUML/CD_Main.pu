@@ -19,16 +19,19 @@ class Field
     ' @return ブロックが積みあがってしまったらtrue, そうでなければfalse を返す
     + SetBlocks(blocks : Block[]) : bool
 
-    + IsHit(blocks : Block[]) : bool
+    + IsHit(blocks : Vector2Int[]) : bool
 }
 
 ' ゲームの進行を管理する
 class GameController
 {
     - _players : Player[]
+    - _blockSetOptions : BlockSet[]
     - _boot : StateGameBoot
     - _main : StateGameMain
     - _finish : StateGameFinish
+    ..
+    --
 
     - Start() : void
 
@@ -39,25 +42,34 @@ class GameController
 
 class Player
 {
-    - _parent : StateGameMain
     - _field : Field
     - _input : InputManager
+    - _soundCollide : UnityEngine.AudioSource
+    ..
+    - _parent : StateGameMain
     - _blockSetOptions : BlockSet[]
     - _alive : bool
-
     - _currentBlock : BlockSet
+    --
 
-    + Setup(parent : StateGameMain, blockSetOptions : BlockSet[]) : void
-    + IsAlive() : bool
     - FixedUpdate() : void
-    - PullNextBlock() : void
+
+    + Setup(blockSetOptions : BlockSet[]) : void
+    + StartGame(parent : StateGameMain) : void
+    + IsAlive() : bool
+    + Dead() : void
+    + PullNextBlock() : void
 }
 
 class StateGameBoot
 {
+    - _countMax : int
+    - _counter : UnityEngine.UI.Text
+    ..
     - _parent : GameController
+    --
 
-    + Setup(parent : GameController) : void
+    + Setup(parent : GameController, player : Player[], , blockSetOptions : BlockSet[]) : void
     - CoRun() : IEnumerator
 }
 
@@ -65,16 +77,20 @@ class StateGameMain
 {
     - _parent : GameController
     - _players : Player[]
-    - _blockSetOptions : BlockSet[]
+
+    - GetNumberOfAlivingPlayer() : int
 
     + Setup(parent : GameController, players : Player[]) : void
     + PlayerGameOver(player : Player) : void
-    - GetNumberOfAlivingPlayer() : int
 }
 
 class StateGameFinish
 {
+    - _waitMax : float
+    - _message : UnityEngine.UI.Text
+    ..
     - _parent : GameController
+    --
 
     + Setup(parent : GameController) : void
     - CoRun() : IEnumerator
@@ -101,26 +117,34 @@ class UnityKeyInputManager
 ' ブロックの状態を管理する
 class BlockSet
 {
+    - _soundCollide : UnityEngine.AudioSource
     - _prefabPart : Block
     - _partsPositions : Vector2Int[]
+    ..
     - _activeBlocks : Block[]
+    - _falling : bool
     - _field : Field
+    - _owner : Player
+    - _input : Input
+    --
 
-    - SetupParts() : void
-
-    - Start() : void
     - FixedUpdate() : void
+    - UpdateInput() : void
+    - RotateRight() : void
+    - RotateLeft() : void
+    - Rotate(dir : int) : void
+    - ToBlocks() : Vector2Int[]
+    - RotatePart(p : Vector2Int) : Vector2Int
+    ' @return 移動できる場合はtrue, 何かにぶつかって移動できない場合はfalse
+    - MoveRight() : bool
+    ' @return 移動できる場合はtrue, 何かにぶつかって移動できない場合はfalse
+    - MoveLeft() : bool
+    - MoveDown() : void
+    - Move() : void
+    - ShowBlocks() : void
+    - NeedToFall() : bool
 
-    + SetField(filed: Field) : void
-    + RotateRight() : void
-    + RotateLeft() : void
-    ' @return 移動できる場合はtrue, 何かにぶつかって移動できない場合はfalse
-    + MoveLeft() : bool
-    ' @return 移動できる場合はtrue, 何かにぶつかって移動できない場合はfalse
-    + MoveRight() : bool
-    + MoveDown() : void
-    ' @return フィールドに設置された直後であれば設置されたブロックの配列を、設置されていなければnull を返す
-    + IsSetOnField() : Block[]
+    + Setup(owner: Player, filed: Field, input: InputManager) : void
 }
 
 
@@ -133,7 +157,8 @@ class StatusPanel
 }
 
 Player "1" *-- "1" Field
-Player "1" *-- "1" BlockSet
+Player "1" o-- "0, 1" BlockSet
+Player "1" o-- "1..*" BlockSet
 Player "1" *-- "1" InputManager
 
 GameController "1" *-- "*" Player
