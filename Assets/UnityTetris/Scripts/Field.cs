@@ -12,9 +12,12 @@ namespace UnityTetris
         [SerializeField]
         int _height = 16;
 
+        [SerializeField]
+        int _borderLine = 2;
+
         private Block[,] _activeParts;
 
-        public void ResetField(int width = -1, int height = -1)
+        public void ResetField(int width = -1, int height = -1, int borderLine = -1)
         {
             if (width > 0 && height > 0)
             {
@@ -22,6 +25,11 @@ namespace UnityTetris
                 _height = height;
             }
             _activeParts = new Block[_width, _height];
+
+            if(borderLine != -1)
+            {
+                _borderLine = borderLine; 
+            }
         }
 
         public int Width()
@@ -33,19 +41,37 @@ namespace UnityTetris
         /// 
         /// </summary>
         /// <param name="blocks"></param>
-        /// <returns>ƒuƒƒbƒN‚ªÏ‚İ‚ ‚ª‚Á‚Ä‚µ‚Ü‚Á‚½‚çtrue, ‚»‚¤‚Å‚È‚¯‚ê‚Îfalse ‚ğ•Ô‚·</returns>
+        /// <returns>ãƒ–ãƒ­ãƒƒã‚¯ãŒç©ã¿ã‚ãŒã£ã¦ã—ã¾ã£ãŸã‚‰true, ãã†ã§ãªã‘ã‚Œã°false ã‚’è¿”ã™</returns>
         public bool SetBlocks(Block[] blocks)
         {
             bool ret = false;
             foreach (Block b in blocks)
             {
-                if (b.Px >= 0 && b.Py >= 0 && b.Px < _width && b.Py < _height)
+                if (b.Py >= _borderLine && b.Px >= 0 && b.Py >= 0 && b.Px < _width && b.Py < _height)
                 {
-                    _activeParts[b.Px, b.Py] = b;
+                    if (_activeParts[b.Px, b.Py] != null)
+                    {
+                        ret = true; 
+                    } else
+                    {
+                        _activeParts[b.Px, b.Py] = b;
+                    }
                 }
                 else
                 {
                     ret = true;
+                }
+            }
+            if (ret)
+            {
+                // ç©ã¿ã‚ãŒã£ã¦ã—ã¾ã£ãŸå ´åˆã€ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«ãƒ–ãƒ­ãƒƒã‚¯ã‚’è¨­ç½®ã—ãªã‹ã£ãŸã“ã¨ã«ã™ã‚‹ã€‚
+                foreach (Block b in blocks)
+                {
+                    if (b.Py >= _borderLine && b.Px >= 0 && b.Py >= 0 && b.Px < _width && b.Py < _height)
+                    {
+                        Debug.Log($"--{b.Px}, {b.Py}");
+                        _activeParts[b.Px, b.Py] = null;
+                    }
                 }
             }
             return ret;
@@ -59,17 +85,38 @@ namespace UnityTetris
                 {
                     if (_activeParts[b.x, b.y] != null)
                     {
-                        // ƒtƒB[ƒ‹ƒh‚Ì“à•”‚Å‚ ‚éBŠù‚É‚»‚ÌêŠ‚ÉƒuƒƒbƒN‚ª‘¶İ‚µ‚Ä‚¢‚½‚çÕ“Ë‚µ‚½‚Æ”»’è‚·‚é
+                        // ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®å†…éƒ¨ã§ã‚ã‚‹ã€‚æ—¢ã«ãã®å ´æ‰€ã«ãƒ–ãƒ­ãƒƒã‚¯ãŒå­˜åœ¨ã—ã¦ã„ãŸã‚‰è¡çªã—ãŸã¨åˆ¤å®šã™ã‚‹
                         return true;
                     }
                 }
                 else
                 {
-                    // ƒtƒB[ƒ‹ƒh‚ÌŠO‚É‚Í‚İo‚½•”•ª‚È‚Ì‚ÅÕ“Ë‚µ‚½‚à‚Ì‚Æ‚İ‚È‚·
+                    // ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®å¤–ã«ã¯ã¿å‡ºãŸéƒ¨åˆ†ãªã®ã§è¡çªã—ãŸã‚‚ã®ã¨ã¿ãªã™
                     return true;
                 }
             }
             return false;
+        }
+
+        public string DebugField()
+        {
+            string line = "";
+            for (int y=0;y<_height;y++)
+            {
+                for (int x = 0; x < _width; x++)
+                {
+                    if(_activeParts[x,y] != null)
+                    {
+                        line += "*";
+                    } else
+                    {
+                        line += "o";
+                    }
+
+                }
+                line += "\n"; 
+            }
+            return line; 
         }
     }
 }
