@@ -45,6 +45,7 @@ namespace UnityTetris
         public bool SetBlocks(Block[] blocks)
         {
             bool ret = false;
+            // 設置できるかどうかを確認する
             foreach (Block b in blocks)
             {
                 if (b.Py >= _borderLine && b.Px >= 0 && b.Py >= 0 && b.Px < _width && b.Py < _height)
@@ -52,9 +53,6 @@ namespace UnityTetris
                     if (_activeParts[b.Px, b.Py] != null)
                     {
                         ret = true; 
-                    } else
-                    {
-                        _activeParts[b.Px, b.Py] = b;
                     }
                 }
                 else
@@ -64,17 +62,14 @@ namespace UnityTetris
             }
             if (ret)
             {
-                // 積みあがってしまった場合、フィールドにブロックを設置しなかったことにする。
-                foreach (Block b in blocks)
-                {
-                    if (b.Py >= _borderLine && b.Px >= 0 && b.Py >= 0 && b.Px < _width && b.Py < _height)
-                    {
-                        Debug.Log($"--{b.Px}, {b.Py}");
-                        _activeParts[b.Px, b.Py] = null;
-                    }
-                }
+                return true;
             }
-            return ret;
+            // 実際に設置する
+            foreach (Block b in blocks)
+            {
+                _activeParts[b.Px, b.Py] = b;
+            }
+            return false;
         }
 
         public bool IsHit(Vector2Int[] blocks)
@@ -114,7 +109,7 @@ namespace UnityTetris
                     }
 
                 }
-                line += "\n"; 
+                line += "\r\n"; 
             }
             return line; 
         }
