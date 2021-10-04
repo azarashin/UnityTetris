@@ -49,6 +49,14 @@ using UnityTetris;
         };
         // ボーダーラインより上の設置はアウト
         Assert.IsTrue(f.SetBlocks(blocks));
+
+        blocks = new Block[]
+        {
+            NewBlock(4, 3),
+            NewBlock(4, 2)
+        };
+        // ボーダーラインより上の設置はアウト
+        Assert.IsTrue(f.SetBlocks(blocks));
     }
 
     [Test]
