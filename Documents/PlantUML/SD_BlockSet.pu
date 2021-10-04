@@ -254,6 +254,13 @@ activate BlockSet
             deactivate MonoBehaviour
         end
     deactivate BlockSet
+    BlockSet -> Field : Width
+    activate Field
+        BlockSet <-- Field
+    deactivate Field
+    BlockSet -> BlockSet : ブロックの初期位置を決定する
+    activate BlockSet
+    deactivate BlockSet
     [<-- BlockSet
     
 deactivate BlockSet

@@ -15,7 +15,8 @@ class Field
     - _activeParts : Block[,]
 
     --
-    + ResetField() : void
+    + ResetField() : void[]
+    + Width() : int
     ' @return ブロックが積みあがってしまったらtrue, そうでなければfalse を返す
     + SetBlocks(blocks : Block[]) : bool
 
