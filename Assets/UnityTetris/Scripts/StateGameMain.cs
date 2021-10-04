@@ -3,32 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class StateGameMain : MonoBehaviour
+namespace UnityTetris
 {
-    private GameController _parent;
-    private Player[] _players;
-
-    public void Setup(GameController parent, Player[] players)
+    public class StateGameMain : MonoBehaviour
     {
-        Debug.Log("StateGameMain.Setup");
-        _parent = parent;
-        _players = players;
-        foreach(var p in _players)
+        private GameController _parent;
+        private Player[] _players;
+
+        public void Setup(GameController parent, Player[] players)
         {
-            p.StartGame(this); 
+            Debug.Log("StateGameMain.Setup");
+            _parent = parent;
+            _players = players;
+            foreach (var p in _players)
+            {
+                p.StartGame(this);
+            }
         }
-    }
 
-    public void PlayerGameOver(Player player)
-    {
-        if(GetNumberOfAlivingPlayer() <= 1)
+        public void PlayerGameOver(Player player)
         {
-            _parent.FinishGame(); 
+            if (GetNumberOfAlivingPlayer() <= 1)
+            {
+                _parent.FinishGame();
+            }
         }
-    }
 
-    private int GetNumberOfAlivingPlayer()
-    {
-        return _players.Where(s => s.IsAlive()).Count(); 
+        private int GetNumberOfAlivingPlayer()
+        {
+            return _players.Where(s => s.IsAlive()).Count();
+        }
     }
 }
