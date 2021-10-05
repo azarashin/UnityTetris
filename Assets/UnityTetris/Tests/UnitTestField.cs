@@ -11,17 +11,18 @@ using UnityTetris;
     [Test]
     public void UnitTest001()
     {
-        Field f = new Field();
+        Field f = NewField();
         f.ResetField(4, 5);
         Assert.AreEqual(f.Width(), 4);
         f.ResetField(8, 9, 3);
         Assert.AreEqual(f.Width(), 8);
+        GameObject.Destroy(f.gameObject); 
     }
 
     [Test]
     public void UnitTest002()
     {
-        Field f = new Field();
+        Field f = NewField();
         f.ResetField(8, 9, 3);
         Block[] blocks = new Block[]
         {
@@ -30,39 +31,67 @@ using UnityTetris;
         Assert.IsFalse(f.SetBlocks(blocks));
 
         // 同じところにブロックを重ねたら積み重なり判定される
-        blocks = new Block[]
+        Block[] blocks2 = new Block[]
         {
             NewBlock(4, 4)
         };
-        Assert.IsTrue(f.SetBlocks(blocks));
+        Assert.IsTrue(f.SetBlocks(blocks2));
 
-        blocks = new Block[]
+        Block[] blocks3 = new Block[]
         {
             NewBlock(4, 3)
         };
         // ボーダーライン上の設置はセーフ
-        Assert.IsFalse(f.SetBlocks(blocks));
+        Assert.IsFalse(f.SetBlocks(blocks3));
 
-        blocks = new Block[]
+        Block[] blocks4 = new Block[]
         {
             NewBlock(4, 2)
         };
         // ボーダーラインより上の設置はアウト
-        Assert.IsTrue(f.SetBlocks(blocks));
+        Assert.IsTrue(f.SetBlocks(blocks4));
 
-        blocks = new Block[]
+        Block[] blocks5 = new Block[]
         {
             NewBlock(4, 3),
             NewBlock(4, 2)
         };
         // ボーダーラインより上の設置はアウト
-        Assert.IsTrue(f.SetBlocks(blocks));
+        Assert.IsTrue(f.SetBlocks(blocks5));
+
+        foreach (Block block in blocks)
+        {
+            Assert.AreNotEqual(null, block);
+            GameObject.Destroy(block.gameObject);
+        }
+        foreach (Block block in blocks2)
+        {
+            Assert.AreNotEqual(null, block);
+            GameObject.Destroy(block.gameObject);
+        }
+        foreach (Block block in blocks3)
+        {
+            Assert.AreNotEqual(null, block);
+            GameObject.Destroy(block.gameObject);
+        }
+        foreach (Block block in blocks4)
+        {
+            Assert.AreNotEqual(null, block);
+            GameObject.Destroy(block.gameObject);
+        }
+        foreach (Block block in blocks5)
+        {
+            Assert.AreNotEqual(null, block);
+            GameObject.Destroy(block.gameObject);
+        }
+
+        GameObject.Destroy(f.gameObject);
     }
 
     [Test]
     public void UnitTest003()
     {
-        Field f = new Field();
+        Field f = NewField();
         f.ResetField(8, 8, 3);
         Block[] blocks = new Block[]
         {
@@ -91,7 +120,7 @@ oooo****
         // 設置済みのブロックの配置を確認。
         Assert.AreEqual(expected, f.DebugField());
 
-        blocks = new Block[]
+        Block[] blocks2 = new Block[]
         {
             NewBlock(2, 3),
             NewBlock(3, 3),
@@ -100,18 +129,30 @@ oooo****
         };
 
         // 設置済みのブロックにこれから置こうとするブロックが重なるので置けないはず
-        Assert.IsTrue(f.SetBlocks(blocks));
+        Assert.IsTrue(f.SetBlocks(blocks2));
 
         Debug.Log(f.DebugField());
         // 設置済みのブロックの配置は変わっていないはず。
-        Assert.AreEqual(expected, f.DebugField()); 
+        Assert.AreEqual(expected, f.DebugField());
+
+        foreach (Block block in blocks)
+        {
+            Assert.AreNotEqual(null, block);
+            GameObject.Destroy(block.gameObject);
+        }
+        foreach (Block block in blocks2)
+        {
+            Assert.AreNotEqual(null, block);
+            GameObject.Destroy(block.gameObject);
+        }
+        GameObject.Destroy(f.gameObject);
     }
 
 
     [Test]
     public void UnitTest004()
     {
-        Field f = new Field();
+        Field f = NewField();
         f.ResetField(8, 8, 3);
         Block[] blocks = new Block[]
         {
@@ -216,6 +257,14 @@ oooo****
 
         // 外壁と衝突
         Assert.IsTrue(f.IsHit(nexts));
+
+        foreach(Block block in blocks)
+        {
+            Assert.AreNotEqual(null, block);
+            GameObject.Destroy(block.gameObject); 
+        }
+
+        GameObject.Destroy(f.gameObject);
     }
 
     private Block NewBlock(int x, int y)
@@ -226,7 +275,18 @@ oooo****
         Block ret = obj.GetComponent<Block>();
         ret.Px = x;
         ret.Py = y;
+
         return ret; 
+
+    }
+
+    private Field NewField()
+    {
+        GameObject prefab = Resources.Load<GameObject>("Prefabs/Field");
+        GameObject obj = GameObject.Instantiate(prefab);
+
+        Field ret = obj.GetComponent<Field>();
+        return ret;
 
     }
 }
