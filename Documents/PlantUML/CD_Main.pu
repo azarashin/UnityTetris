@@ -171,13 +171,10 @@ StateGameMain "1" o--o "*" Player
 
 StatusPanel "1" --o "1" GameController
 
-BlockSet <|.. DigitalBlockSet
-BlockSet <|.. AnalogBlockSet
-
 InputManager <|.. UnityKeyInputManager
 
 Field "1" o-- "*" Block
-DigitalBlockSet "1" o-- "*" Block
-AnalogBlockSet "1" o-- "*" Block
+BlockSet "1" o-- "*" Block
+
 
 @enduml
