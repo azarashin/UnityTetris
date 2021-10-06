@@ -1,0 +1,33 @@
+    <!-- content -->
+    <div class="row">
+      <!-- left 画面左側のメニュー  -->
+      <div class="col-md-2">
+          <!-- パネルで囲む -->
+          <div class="panel panel-default"  style="position:fixed">
+              <div class="panel-heading">
+                  Menu
+              </div>
+              <!-- 敢えてbodyを作らないことで、メニューを詰める -->
+              <!-- <div class="panel-body"> -->
+              <ul class="nav nav-pills nav-stacked">
+{{menu_list}}
+              </ul> 
+              <!-- </div> -->
+          </div>
+      </div>
+
+      <!-- main -->
+       <!-- メニューが入らない場合はここのpadding をいじる -->
+       <div class="col-md-9" style="padding:0 0px 0 40px">
+      
+
+    
+
+    <!-- Main component for a primary marketing message or call to action -->
+         <div class="jumbotron">
+{{menu_body}}
+         </div>
+
+      </div> <!-- /container -->
+
+    </div><!-- container[menu & contents] -->
