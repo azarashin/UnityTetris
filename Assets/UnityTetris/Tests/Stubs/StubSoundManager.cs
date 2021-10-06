@@ -5,7 +5,12 @@ using UnityTetris.Interface;
 
 public class StubSoundManager : ISoundManager
 {
-    public string CallList { get; private set; }
+    public string CallList { get; private set; } = "";
+
+    public void ClearCallList()
+    {
+        CallList = "";
+    }
 
     public override void Play(AudioSource sound)
     {

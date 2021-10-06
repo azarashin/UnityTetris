@@ -7,7 +7,7 @@ using UnityTetris.Interface;
 
 public class StubField : IField
 {
-    public string CallList { get; private set; }
+    public string CallList { get; private set; } = "";
 
     public bool ReturnIsHit;
     public Transform ReturnRefTransform;
