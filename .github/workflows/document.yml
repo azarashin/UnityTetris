@@ -2,10 +2,10 @@ name: doxygen - PlantUML
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   generate_doxygen_and_plantuml:
@@ -21,7 +21,7 @@ jobs:
     - name: Get changed UML files
       id: getfile
       run: |
-        echo "::set-output name=files::$(find ./documents/design -name ${{ env.UML_FILES }} | xargs)"
+        echo "::set-output name=files::$(find ./Documents/PlantUML -name ${{ env.UML_FILES }} | xargs)"
     - name: UML files considered echo output
       run: |
         echo ${{ steps.getfile.outputs.files }}
@@ -33,21 +33,21 @@ jobs:
       uses: mattnotmitt/doxygen-action@v1
       with:
         working-directory: ./
-        doxyfile-path: ./documents/doxygen/Doxyfile
+        doxyfile-path: ./Documents/Doxygen/Doxyfile
     - name: show list of .svg which are generated just now
       run: |
-        ls ./documents/design/*.svg
+        ls ./Documents/Design/*.svg
     - name: copy svg for PlantUML into public
       run: |
-        mkdir -p ./documents/public/plant_uml
-        mv ./documents/design/*.svg ./documents/public/plant_uml/
+        mkdir -p ./Documents/public/plant_uml
+        mv ./Documents/Design/*.svg ./Documents/public/plant_uml/
     - name: convert .md to .html in public
       run: |
         pip3 install markdown
-        python3 ./script/md2html.py ./documents/planning/Readme.md ./documents/public/concept.html ./script/template.html ./script/template_menu.html
-        python3 ./script/source2html.py ./script/html_source/index.html ./documents/public/index.html ./script/template.html
+        python3 ./script/md2html.py ./Documents/Planning/Readme.md ./Documents/public/concept.html ./Script/template.html ./Script/template_menu.html
+        python3 ./script/source2html.py ./Script/html_source/index.html ./documents/public/index.html ./Script/template.html
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./documents/public
+        publish_dir: ./Documents/public
