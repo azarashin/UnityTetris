@@ -253,12 +253,30 @@ namespace UnityTetris
             ).ToArray();
 
             int miny = _partsPositions.Min(s => s.y);
+            int maxy = _partsPositions.Max(s => s.y);
             int y = 0;
             if (miny < 0)
             {
                 y = -miny;
             }
-            _centerPos = new Vector2Int(_field.Width() / 2, y);
+            if(y < maxy)
+            {
+                y = maxy; 
+            }
+            int width = _field.Width(); 
+            _centerPos = new Vector2Int(width / 2, y);
+
+            int minx = _partsPositions.Min(s => s.x);
+            int maxx = _partsPositions.Max(s => s.x);
+            if(-minx > width / 2 || maxx > width / 2)
+            {
+                Debug.LogError($"Size of block is too large. (width: {width}, block: {minx} - {maxx})");
+            }
+        }
+
+        public Vector2Int CenterPos()
+        {
+            return _centerPos;
         }
     }
 }

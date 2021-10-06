@@ -7,39 +7,48 @@ public class StubInputManager : IInputManager
 {
     public string CallList { get; private set; }
 
-    public bool ReturnIsMoveDown;
-    public bool ReturnIsMoveLeft;
-    public bool ReturnIsMoveRight;
-    public bool ReturnIsRotateLeft;
-    public bool ReturnIsRotateRight;
+    private bool _returnIsMoveDown;
+    private bool _returnIsMoveLeft;
+    private bool _returnIsMoveRight;
+    private bool _returnIsRotateLeft;
+    private bool _returnIsRotateRight;
+
+    public void SetReturn(bool moveDown, bool moveLeft, bool moveRight, bool rotateLeft, bool rotateRight)
+    {
+        _returnIsMoveDown = moveDown;
+        _returnIsMoveLeft = moveLeft;
+        _returnIsMoveRight = moveRight;
+        _returnIsRotateLeft = rotateLeft;
+        _returnIsRotateRight = rotateRight; 
+    }
 
     public bool IsMoveDown()
     {
         CallList += "IsMoveDown\n"; 
-        return ReturnIsMoveDown; 
+        return _returnIsMoveDown; 
     }
 
     public bool IsMoveLeft()
     {
         CallList += "IsMoveLeft\n";
-        return ReturnIsMoveLeft;
+        return _returnIsMoveLeft;
     }
 
     public bool IsMoveRight()
     {
         CallList += "IsMoveRight\n";
-        return ReturnIsMoveRight;
+        return _returnIsMoveRight;
     }
 
     public bool IsRotateLeft()
     {
         CallList += "IsRotateLeft\n";
-        return ReturnIsRotateLeft;
+        return _returnIsRotateLeft;
     }
 
     public bool IsRotateRight()
     {
         CallList += "IsRotateRight\n";
-        return ReturnIsRotateRight;
+        return _returnIsRotateRight;
     }
 }

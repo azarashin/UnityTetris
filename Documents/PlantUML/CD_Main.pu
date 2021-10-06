@@ -185,6 +185,7 @@ class BlockSet
     - NeedToFall() : bool
 
     + Setup(owner: IPlayer, filed: IField, input: IInputManager, sound: ISoundManager) : void
+    + CenterPos() : Vector2Int
 }
 
 interface ISoundManager
