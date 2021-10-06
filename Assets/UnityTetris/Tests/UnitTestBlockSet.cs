@@ -318,6 +318,96 @@ public class UnitTestBlockSet
         yield return null;
     }
 
+    [UnityTest]
+    public IEnumerator UnityTest005() // 下移動
+    {
+        int fallLevel = 4;
+        BlockSet bs = NewBlockSet("BlockSetC");
+        StubPlayer player = new StubPlayer();
+        StubField field = new StubField();
+        StubInputManager input = new StubInputManager();
+        StubSoundManager sound = new StubSoundManager();
+
+        field.ReturnWidth = 10; // テスト用にフィールド幅を設定
+
+        bs.Setup(player, field, input, sound, fallLevel);
+
+        Assert.AreEqual("Width\n", field.CallList);
+        // ブロックのテンプレートの配置が(0, 0), (0, 1), (1, 1), (1, 0) なので
+        // あらゆる回転がなされてもブロックの各パーツの座標値が０以上になるよう補正され、ブロック全体が1つ下にずらされる
+        // 個のテストケースではフィールド幅が10 なので、ブロック原点のx座標は中央の5 になるはず。
+        Assert.AreEqual(new Vector2Int(5, 1), bs.CenterPos());
+        field.ClearCallList();
+
+        input.SetReturn(false, false, false, false, false);
+
+        // ---
+        for(int i=0;i< fallLevel - 1;i++)
+        {
+            for (int j = 0; j < BlockSet.CountWaitFallingLimit; j++)
+            {
+                yield return new WaitForFixedUpdate();
+
+                // しばらくは移動しない
+                Assert.AreEqual(new Vector2Int(5, 1), bs.CenterPos());
+                Assert.AreEqual("", field.CallList);
+                field.ClearCallList();
+            }
+        }
+
+        for (int j = 0; j < BlockSet.CountWaitFallingLimit-1; j++)
+        {
+            yield return new WaitForFixedUpdate();
+
+            // しばらくは移動しない
+            Assert.AreEqual(new Vector2Int(5, 1), bs.CenterPos());
+            Assert.AreEqual("", field.CallList);
+            field.ClearCallList();
+        }
+
+        // 下移動
+        yield return new WaitForFixedUpdate();
+
+        Assert.AreEqual(new Vector2Int(5, 2), bs.CenterPos());
+        Assert.AreEqual("IsHit((5,2),(5,3),(6,3),(6,2))\n", field.CallList);
+        field.ClearCallList();
+
+        // ---
+        for (int i = 0; i < fallLevel - 1; i++)
+        {
+            for (int j = 0; j < BlockSet.CountWaitFallingLimit; j++)
+            {
+                yield return new WaitForFixedUpdate();
+
+                // しばらくは移動しない
+                Assert.AreEqual(new Vector2Int(5, 2), bs.CenterPos());
+                Assert.AreEqual("", field.CallList);
+                field.ClearCallList();
+            }
+        }
+
+        for (int j = 0; j < BlockSet.CountWaitFallingLimit - 1; j++)
+        {
+            yield return new WaitForFixedUpdate();
+
+            // しばらくは移動しない
+            Assert.AreEqual(new Vector2Int(5, 2), bs.CenterPos());
+            Assert.AreEqual("", field.CallList);
+            field.ClearCallList();
+        }
+
+        // 下移動
+        yield return new WaitForFixedUpdate();
+
+        Assert.AreEqual(new Vector2Int(5, 3), bs.CenterPos());
+        Assert.AreEqual("IsHit((5,3),(5,4),(6,4),(6,3))\n", field.CallList);
+        field.ClearCallList();
+
+        GameObject.Destroy(bs.gameObject);
+
+        yield return null;
+    }
+
     private BlockSet NewBlockSet(string blockName)
     {
         GameObject prefab = Resources.Load<GameObject>("Prefabs/" + blockName);
