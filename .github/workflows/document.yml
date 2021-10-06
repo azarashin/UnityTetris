@@ -45,7 +45,7 @@ jobs:
       run: |
         pip3 install markdown
         python3 ./Script/md2html.py ./Documents/Planning/Readme.md ./Documents/public/concept.html ./Script/template.html ./Script/template_menu.html
-        python3 ./Script/source2html.py ./Script/html_source/index.html ./Documents/public/index.html ./Script/template.html
+        python3 ./Script/source2html.py ./Script/HtmlSource/index.html ./Documents/public/index.html ./Script/template.html
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
