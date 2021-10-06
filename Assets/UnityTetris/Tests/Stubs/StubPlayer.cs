@@ -6,8 +6,13 @@ using UnityTetris.Interface;
 
 public class StubPlayer : IPlayer
 {
-    public string CallList { get; private set; }
+    public string CallList { get; private set; } = ""; 
     public bool RetIsAlive;
+
+    public void ClearCallList()
+    {
+        CallList = "";
+    }
 
     public void Dead()
     {

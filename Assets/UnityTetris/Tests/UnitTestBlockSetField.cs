@@ -37,6 +37,8 @@ public class UnitTestBlockSetField
             Assert.AreEqual(new Vector2Int(i, 1), bs.CenterPos());
             Assert.AreEqual($"Play({SoundMove})\n", sound.CallList); // 移動音
             sound.ClearCallList();
+            Assert.AreEqual("", player.CallList);
+            player.ClearCallList();
         }
 
         // 右移動
@@ -47,6 +49,8 @@ public class UnitTestBlockSetField
         Assert.AreEqual(new Vector2Int(8, 1), bs.CenterPos());
         Assert.AreEqual($"Play({SoundCollide})\n", sound.CallList); // 衝突音
         sound.ClearCallList();
+        Assert.AreEqual("", player.CallList);
+        player.ClearCallList();
 
         for (int i = 7; i >= 0; i--)
         {
@@ -58,6 +62,8 @@ public class UnitTestBlockSetField
             Assert.AreEqual(new Vector2Int(i, 1), bs.CenterPos());
             Assert.AreEqual($"Play({SoundMove})\n", sound.CallList); // 移動音
             sound.ClearCallList();
+            Assert.AreEqual("", player.CallList);
+            player.ClearCallList();
         }
 
         // 左移動
@@ -68,6 +74,8 @@ public class UnitTestBlockSetField
         Assert.AreEqual(new Vector2Int(0, 1), bs.CenterPos());
         Assert.AreEqual($"Play({SoundCollide})\n", sound.CallList); // 衝突音
         sound.ClearCallList();
+        Assert.AreEqual("", player.CallList);
+        player.ClearCallList();
 
         GameObject.Destroy(bs.gameObject);
         GameObject.Destroy(field.gameObject);
@@ -105,12 +113,20 @@ public class UnitTestBlockSetField
 
                 // しばらくは移動しない
                 Assert.AreEqual(new Vector2Int(5, k), bs.CenterPos());
+                Assert.AreEqual("", sound.CallList); // 落下中音はならない
+                sound.ClearCallList();
+                Assert.AreEqual("", player.CallList);
+                player.ClearCallList();
             }
 
             // 下移動
             yield return new WaitForFixedUpdate();
 
             Assert.AreEqual(new Vector2Int(5, 1 + k), bs.CenterPos());
+            Assert.AreEqual("", sound.CallList); // 落下中音はならない
+            sound.ClearCallList();
+            Assert.AreEqual("", player.CallList);
+            player.ClearCallList();
         }
 
         for (int i = 0; i < fallLevel * BlockSet.CountWaitFallingLimit - 1; i++)
@@ -121,6 +137,8 @@ public class UnitTestBlockSetField
             Assert.AreEqual(new Vector2Int(5, 8), bs.CenterPos());
             Assert.AreEqual("", sound.CallList); // 落下中音はならない
             sound.ClearCallList();
+            Assert.AreEqual("", player.CallList);
+            player.ClearCallList();
         }
 
         // 下移動しようとするが、衝突してしまい、移動できずにとどまる
@@ -129,6 +147,8 @@ public class UnitTestBlockSetField
         Assert.AreEqual(new Vector2Int(5, 8), bs.CenterPos());
         Assert.AreEqual($"Play({SoundPlaced})\n", sound.CallList); // 移動音
         sound.ClearCallList();
+        Assert.AreEqual("PullNextBlock\n", player.CallList);
+        player.ClearCallList();
 
         GameObject.Destroy(bs.gameObject);
 

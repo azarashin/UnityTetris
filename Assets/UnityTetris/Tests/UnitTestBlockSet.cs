@@ -435,6 +435,10 @@ public class UnitTestBlockSet
                 Assert.AreEqual(new Vector2Int(5, 1+k), bs.CenterPos());
                 Assert.AreEqual("", field.CallList);
                 field.ClearCallList();
+                Assert.AreEqual("", sound.CallList); // 落下中音はならない
+                sound.ClearCallList();
+                Assert.AreEqual("", player.CallList);
+                player.ClearCallList();
             }
 
             // 下移動
@@ -443,6 +447,10 @@ public class UnitTestBlockSet
             Assert.AreEqual(new Vector2Int(5, 2+k), bs.CenterPos());
             Assert.AreEqual($"IsHit((5,{2+k}),(5,{3+k}),(6,{3+k}),(6,{2+k}))\n", field.CallList);
             field.ClearCallList();
+            Assert.AreEqual("", sound.CallList); // 落下中音はならない
+            sound.ClearCallList();
+            Assert.AreEqual("", player.CallList);
+            player.ClearCallList();
         }
 
         for (int i = 0; i < fallLevel * BlockSet.CountWaitFallingLimit - 1; i++)
@@ -454,7 +462,9 @@ public class UnitTestBlockSet
             Assert.AreEqual("", field.CallList);
             field.ClearCallList();
             Assert.AreEqual("", sound.CallList); // 落下中音はならない
-            sound.ClearCallList(); 
+            sound.ClearCallList();
+            Assert.AreEqual("", player.CallList);
+            player.ClearCallList();
         }
 
         // 下移動しようとするが、衝突してしまい、移動できずにとどまる
@@ -466,7 +476,9 @@ public class UnitTestBlockSet
             + "RefTransform\nRefTransform\nRefTransform\nRefTransform\n"
             + "SetBlocks((5,4),(5,5),(6,5),(6,4))\n", field.CallList);
         field.ClearCallList();
-        sound.ClearCallList();
+        sound.ClearCallList(); // サウンドの確認は本番のField インスタンスと結合する必要があり、ここで確認することができない。
+        Assert.AreEqual("PullNextBlock\n", player.CallList);
+        player.ClearCallList();
 
         GameObject.Destroy(bs.gameObject);
 
