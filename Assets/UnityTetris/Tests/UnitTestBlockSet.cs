@@ -17,7 +17,8 @@ public class UnitTestBlockSet
         IField field = new StubField();
         IInputManager input = new StubInputManager();
         ISoundManager sound = new StubSoundManager(); 
-        bs.Setup(player, field, input, sound, fallLevel); 
+        bs.Setup(player, field, input, sound, fallLevel);
+        GameObject.Destroy(bs.gameObject);
     }
 
     [UnityTest]
@@ -76,6 +77,8 @@ public class UnitTestBlockSet
         Assert.AreEqual(new Vector2Int(5, 2), bs.CenterPos());
         Assert.AreEqual("IsHit((5,1),(5,2),(5,3),(5,4))\n", field.CallList);
         field.ClearCallList();
+
+        GameObject.Destroy(bs.gameObject);
 
         yield return null;
     }
@@ -140,6 +143,8 @@ public class UnitTestBlockSet
         Assert.AreEqual("IsHit((5,1),(6,1),(4,1),(5,2))\n", field.CallList);
         field.ClearCallList();
 
+        GameObject.Destroy(bs.gameObject);
+
         yield return null;
     }
 
@@ -199,6 +204,8 @@ public class UnitTestBlockSet
         Assert.AreEqual(new Vector2Int(5, 1), bs.CenterPos());
         Assert.AreEqual("IsHit((5,1),(5,2),(6,2),(6,1))\n", field.CallList);
         field.ClearCallList();
+
+        GameObject.Destroy(bs.gameObject);
 
         yield return null;
     }
@@ -305,6 +312,8 @@ public class UnitTestBlockSet
         Assert.AreEqual(new Vector2Int(5, 4), bs.CenterPos());
         Assert.AreEqual("", field.CallList);
         field.ClearCallList();
+
+        GameObject.Destroy(bs.gameObject); 
 
         yield return null;
     }
