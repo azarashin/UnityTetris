@@ -1,0 +1,53 @@
+name: doxygen - PlantUML
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  generate_doxygen_and_plantuml:
+    name: doxygen_plantuml
+    runs-on: ubuntu-latest
+    env:
+        UML_FILES: "*.pu"
+    steps:
+    - name: checkout
+      uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Get changed UML files
+      id: getfile
+      run: |
+        echo "::set-output name=files::$(find ./documents/design -name ${{ env.UML_FILES }} | xargs)"
+    - name: UML files considered echo output
+      run: |
+        echo ${{ steps.getfile.outputs.files }}
+    - name: Generate SVG Diagrams
+      uses: cloudbees/plantuml-github-action@master
+      with:
+          args: -charset UTF-8 -tsvg ${{ steps.getfile.outputs.files }}
+    - name: doxygen
+      uses: mattnotmitt/doxygen-action@v1
+      with:
+        working-directory: ./
+        doxyfile-path: ./documents/doxygen/Doxyfile
+    - name: show list of .svg which are generated just now
+      run: |
+        ls ./documents/design/*.svg
+    - name: copy svg for PlantUML into public
+      run: |
+        mkdir -p ./documents/public/plant_uml
+        mv ./documents/design/*.svg ./documents/public/plant_uml/
+    - name: convert .md to .html in public
+      run: |
+        pip3 install markdown
+        python3 ./script/md2html.py ./documents/planning/Readme.md ./documents/public/concept.html ./script/template.html ./script/template_menu.html
+        python3 ./script/source2html.py ./script/html_source/index.html ./documents/public/index.html ./script/template.html
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./documents/public
