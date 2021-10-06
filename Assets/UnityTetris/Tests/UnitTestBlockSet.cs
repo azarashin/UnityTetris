@@ -20,7 +20,7 @@ public class UnitTestBlockSet
     }
 
     [UnityTest]
-    public IEnumerator UnityTest001()
+    public IEnumerator UnityTest001() // 右回転
     {
         BlockSet bs = NewBlockSet("BlockSetA");
         StubPlayer player = new StubPlayer();
@@ -79,7 +79,7 @@ public class UnitTestBlockSet
     }
 
     [UnityTest]
-    public IEnumerator UnityTest002()
+    public IEnumerator UnityTest002() // 左回転
     {
         //    -1 0 1
         //  0   ooo
@@ -135,6 +135,65 @@ public class UnitTestBlockSet
         // 落下する前に凸ブロックを左回転させた状態を確認
         Assert.AreEqual(new Vector2Int(5, 1), bs.CenterPos());
         Assert.AreEqual("IsHit((5,1),(6,1),(4,1),(5,2))\n", field.CallList);
+        field.ClearCallList();
+
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator UnityTest003() // 左右移動
+    {
+        BlockSet bs = NewBlockSet("BlockSetC");
+        StubPlayer player = new StubPlayer();
+        StubField field = new StubField();
+        StubInputManager input = new StubInputManager();
+        StubSoundManager sound = new StubSoundManager();
+
+        field.ReturnWidth = 10; // テスト用にフィールド幅を設定
+
+        bs.Setup(player, field, input, sound);
+
+        Assert.AreEqual("Width\n", field.CallList);
+        // ブロックのテンプレートの配置が(0, 0), (0, 1), (1, 1), (1, 0) なので
+        // あらゆる回転がなされてもブロックの各パーツの座標値が０以上になるよう補正され、ブロック全体が1つ下にずらされる
+        // 個のテストケースではフィールド幅が10 なので、ブロック原点のx座標は中央の5 になるはず。
+        Assert.AreEqual(new Vector2Int(5, 1), bs.CenterPos());
+        field.ClearCallList();
+
+        // 右移動
+        input.SetReturn(false, false, true, false, false);
+        yield return new WaitForFixedUpdate();
+
+        // 落下する前に四角ブロックを右移動させた状態を確認
+        Assert.AreEqual(new Vector2Int(6, 1), bs.CenterPos());
+        Assert.AreEqual("IsHit((6,1),(6,2),(7,2),(7,1))\n", field.CallList);
+        field.ClearCallList();
+
+        // 右移動
+        input.SetReturn(false, false, true, false, false);
+        yield return new WaitForFixedUpdate();
+
+        // 落下する前に四角ブロックを右移動させた状態を確認
+        Assert.AreEqual(new Vector2Int(7, 1), bs.CenterPos());
+        Assert.AreEqual("IsHit((7,1),(7,2),(8,2),(8,1))\n", field.CallList);
+        field.ClearCallList();
+
+        // 左移動
+        input.SetReturn(false, true, false, false, false);
+        yield return new WaitForFixedUpdate();
+
+        // 落下する前に四角ブロックを左移動させた状態を確認
+        Assert.AreEqual(new Vector2Int(6, 1), bs.CenterPos());
+        Assert.AreEqual("IsHit((6,1),(6,2),(7,2),(7,1))\n", field.CallList);
+        field.ClearCallList();
+
+        // 左移動
+        input.SetReturn(false, true, false, false, false);
+        yield return new WaitForFixedUpdate();
+
+        // 落下する前に四角ブロックを左移動させた状態を確認
+        Assert.AreEqual(new Vector2Int(5, 1), bs.CenterPos());
+        Assert.AreEqual("IsHit((5,1),(5,2),(6,2),(6,1))\n", field.CallList);
         field.ClearCallList();
 
         yield return null;
