@@ -166,6 +166,12 @@ class BlockSet
     - _owner : IPlayer
     - _input : IInputManager
     - _sound : ISoundManager
+    - _rotStep : int
+    - _centerPos : Vector2Int
+    - _countWaitFalling : int
+    - _countFalling : int
+    - {const} CountWaitFallingLimit : int
+    + {readonly} CountFallingLimit : int
     --
 
     - FixedUpdate() : void

@@ -198,6 +198,71 @@ public class UnitTestBlockSet
 
         yield return null;
     }
+
+
+    [UnityTest]
+    public IEnumerator UnityTest004() // 下移動
+    {
+        BlockSet bs = NewBlockSet("BlockSetC");
+        StubPlayer player = new StubPlayer();
+        StubField field = new StubField();
+        StubInputManager input = new StubInputManager();
+        StubSoundManager sound = new StubSoundManager();
+
+        field.ReturnWidth = 10; // テスト用にフィールド幅を設定
+
+        bs.Setup(player, field, input, sound);
+
+        Assert.AreEqual("Width\n", field.CallList);
+        // ブロックのテンプレートの配置が(0, 0), (0, 1), (1, 1), (1, 0) なので
+        // あらゆる回転がなされてもブロックの各パーツの座標値が０以上になるよう補正され、ブロック全体が1つ下にずらされる
+        // 個のテストケースではフィールド幅が10 なので、ブロック原点のx座標は中央の5 になるはず。
+        Assert.AreEqual(new Vector2Int(5, 1), bs.CenterPos());
+        field.ClearCallList();
+
+        for(int i=0;i<BlockSet.CountWaitFallingLimit - 1;i++)
+        {
+            // 下移動
+            input.SetReturn(true, false, false, false, false);
+            yield return new WaitForFixedUpdate();
+
+            // ボタンを押してもしばらくは移動しない
+            Assert.AreEqual(new Vector2Int(5, 1), bs.CenterPos());
+            Assert.AreEqual("", field.CallList);
+            field.ClearCallList();
+        }
+        // 下移動
+        input.SetReturn(true, false, false, false, false);
+        yield return new WaitForFixedUpdate();
+
+        // ボタンを押すとすぐに下に移動する
+        Assert.AreEqual(new Vector2Int(5, 2), bs.CenterPos());
+        Assert.AreEqual("IsHit((5,2),(5,3),(6,3),(6,2))\n", field.CallList);
+        field.ClearCallList();
+
+        for (int i = 0; i < BlockSet.CountWaitFallingLimit - 1; i++)
+        {
+            // 下移動
+            input.SetReturn(true, false, false, false, false);
+            yield return new WaitForFixedUpdate();
+
+            // ボタンを押してもしばらくは移動しない
+            Assert.AreEqual(new Vector2Int(5, 2), bs.CenterPos());
+            Assert.AreEqual("", field.CallList);
+            field.ClearCallList();
+        }
+        // 下移動
+        input.SetReturn(true, false, false, false, false);
+        yield return new WaitForFixedUpdate();
+
+        // ボタンを押すとすぐに下に移動する
+        Assert.AreEqual(new Vector2Int(5, 3), bs.CenterPos());
+        Assert.AreEqual("IsHit((5,3),(5,4),(6,4),(6,3))\n", field.CallList);
+        field.ClearCallList();
+
+        yield return null;
+    }
+
     private BlockSet NewBlockSet(string blockName)
     {
         GameObject prefab = Resources.Load<GameObject>("Prefabs/" + blockName);

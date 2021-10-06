@@ -26,6 +26,12 @@ namespace UnityTetris
 
         private int _rotStep;
         private Vector2Int _centerPos;
+        private int _countWaitFalling;
+        private int _countFalling;
+
+
+        public const float CountWaitFallingLimit = 4; // 最速でCountWaitFallingLimit フレームで落下する
+        public float CountFallingLimit { get; private set; } = 4; // _countFalling がCountFallingLimit に達すると落下する
 
         private void FixedUpdate()
         {
@@ -213,19 +219,14 @@ namespace UnityTetris
             transform.localPosition = new Vector3(_centerPos.x, -_centerPos.y);
         }
 
-        private int _countWaitFalling;
-        private int _countFalling;
-
         private bool NeedToFall()
         {
-            float countWaitFallingLimit = 4; // 最速でcountWaitFallingLimit フレームで落下する
-            float countFallingLimit = 4; // _countFalling がcountFallingLimit に達すると落下する
             _countWaitFalling++;
-            if (_countWaitFalling >= countWaitFallingLimit)
+            if (_countWaitFalling >= CountWaitFallingLimit)
             {
                 _countWaitFalling = 0;
                 _countFalling++;
-                if (_countFalling >= countFallingLimit)
+                if (_countFalling >= CountFallingLimit || _falling)
                 {
                     _falling = false;
                     _countFalling = 0;
@@ -245,6 +246,8 @@ namespace UnityTetris
             _sound = sound; 
             _falling = false;
             _rotStep = 0;
+            _countWaitFalling = 0;
+            _countFalling = 0;
             // _prefabPart を複製してブロックのパーツを構築する
             // localPostion のx, y が_partsPositions の座標と一致するようにインスタンスの座標を指定して生成する
             _activeBlocks = _partsPositions.Select(s =>
