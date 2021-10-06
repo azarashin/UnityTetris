@@ -102,7 +102,7 @@ namespace UnityTetris
             Vector2Int org = _centerPos;
             do
             {
-                _rotStep = (_rotStep + dir) % 4;
+                _rotStep = (_rotStep + dir + 4) % 4;
                 foreach (Vector2Int shift in shift_list)
                 {
                     _centerPos = org + shift;
@@ -254,6 +254,8 @@ namespace UnityTetris
 
             int miny = _partsPositions.Min(s => s.y);
             int maxy = _partsPositions.Max(s => s.y);
+            int minx = _partsPositions.Min(s => s.x);
+            int maxx = _partsPositions.Max(s => s.x);
             int y = 0;
             if (miny < 0)
             {
@@ -263,11 +265,17 @@ namespace UnityTetris
             {
                 y = maxy; 
             }
+            if(y < -minx)
+            {
+                y = -minx;
+            }
+            if (y < maxx)
+            {
+                y = maxx;
+            }
             int width = _field.Width(); 
             _centerPos = new Vector2Int(width / 2, y);
 
-            int minx = _partsPositions.Min(s => s.x);
-            int maxx = _partsPositions.Max(s => s.x);
             if(-minx > width / 2 || maxx > width / 2)
             {
                 Debug.LogError($"Size of block is too large. (width: {width}, block: {minx} - {maxx})");
