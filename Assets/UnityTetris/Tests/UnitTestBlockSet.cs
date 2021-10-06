@@ -469,6 +469,7 @@ public class UnitTestBlockSet
 
         // 下移動しようとするが、衝突してしまい、移動できずにとどまる
         field.ReturnIsHit = true; // ここで衝突させる
+        field.ReturnSetBlocks = false; // 上にはつまらない
         yield return new WaitForFixedUpdate();
 
         Assert.AreEqual(new Vector2Int(5, 4), bs.CenterPos());
@@ -478,6 +479,62 @@ public class UnitTestBlockSet
         field.ClearCallList();
         sound.ClearCallList(); // サウンドの確認は本番のField インスタンスと結合する必要があり、ここで確認することができない。
         Assert.AreEqual("PullNextBlock\n", player.CallList);
+        player.ClearCallList();
+
+        GameObject.Destroy(bs.gameObject);
+
+        yield return null;
+    }
+    [UnityTest]
+    public IEnumerator UnityTest007() // 下移動(落下し、設置して上が詰まる)
+    {
+        int fallLevel = 4;
+        BlockSet bs = NewBlockSet("BlockSetC");
+        StubPlayer player = new StubPlayer();
+        StubField field = new StubField();
+        StubInputManager input = new StubInputManager();
+        StubSoundManager sound = new StubSoundManager();
+
+        field.ReturnWidth = 10; // テスト用にフィールド幅を設定
+
+        bs.Setup(player, field, input, sound, fallLevel);
+
+        Assert.AreEqual("Width\n", field.CallList);
+        // ブロックのテンプレートの配置が(0, 0), (0, 1), (1, 1), (1, 0) なので
+        // あらゆる回転がなされてもブロックの各パーツの座標値が０以上になるよう補正され、ブロック全体が1つ下にずらされる
+        // 個のテストケースではフィールド幅が10 なので、ブロック原点のx座標は中央の5 になるはず。
+        Assert.AreEqual(new Vector2Int(5, 1), bs.CenterPos());
+        field.ClearCallList();
+
+        input.SetReturn(false, false, false, false, false);
+
+        // ---
+        for (int i = 0; i < fallLevel * BlockSet.CountWaitFallingLimit - 1; i++)
+        {
+            yield return new WaitForFixedUpdate();
+
+            // しばらくは移動しない
+            Assert.AreEqual(new Vector2Int(5, 1), bs.CenterPos());
+            Assert.AreEqual("", field.CallList);
+            field.ClearCallList();
+            Assert.AreEqual("", sound.CallList); // 落下中音はならない
+            sound.ClearCallList();
+            Assert.AreEqual("", player.CallList);
+            player.ClearCallList();
+        }
+
+        // 下移動しようとするが、衝突してしまい、移動できずにとどまる
+        field.ReturnIsHit = true; // ここで衝突させる
+        field.ReturnSetBlocks = true; // 上に詰まる
+        yield return new WaitForFixedUpdate();
+
+        Assert.AreEqual(new Vector2Int(5, 1), bs.CenterPos());
+        Assert.AreEqual("IsHit((5,2),(5,3),(6,3),(6,2))\n"
+            + "RefTransform\nRefTransform\nRefTransform\nRefTransform\n"
+            + "SetBlocks((5,1),(5,2),(6,2),(6,1))\n", field.CallList);
+        field.ClearCallList();
+        sound.ClearCallList(); // サウンドの確認は本番のField インスタンスと結合する必要があり、ここで確認することができない。
+        Assert.AreEqual("Dead\n", player.CallList);
         player.ClearCallList();
 
         GameObject.Destroy(bs.gameObject);
