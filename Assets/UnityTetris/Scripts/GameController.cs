@@ -24,6 +24,10 @@ namespace UnityTetris
         [SerializeField]
         private StateGameFinish _finish;
 
+        [Range(1, 32)]
+        [SerializeField]
+        private int _fallLevel = 16;
+
         private void Start()
         {
             BootGame();
@@ -35,7 +39,7 @@ namespace UnityTetris
             _boot.gameObject.SetActive(true);
             _main.gameObject.SetActive(false);
             _finish.gameObject.SetActive(false);
-            _boot.Setup(this, _players, _blockSetOptions, _sound);
+            _boot.Setup(this, _players, _blockSetOptions, _sound, _fallLevel);
         }
 
         public void RunGame()

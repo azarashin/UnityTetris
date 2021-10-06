@@ -6,7 +6,7 @@ namespace UnityTetris.Interface
 {
     public interface IPlayer
     {
-        void Setup(BlockSet[] blockSetOptions, ISoundManager sound);
+        void Setup(BlockSet[] blockSetOptions, ISoundManager sound, int fallLevel);
         void StartGame(StateGameMain parent);
         bool IsAlive();
         void Dead();

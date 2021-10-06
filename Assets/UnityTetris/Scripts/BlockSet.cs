@@ -31,7 +31,7 @@ namespace UnityTetris
 
 
         public const float CountWaitFallingLimit = 4; // 最速でCountWaitFallingLimit フレームで落下する
-        public float CountFallingLimit { get; private set; } = 4; // _countFalling がCountFallingLimit に達すると落下する
+        public float CountFallingLimit { get; private set; } // _countFalling がCountFallingLimit に達すると落下する
 
         private void FixedUpdate()
         {
@@ -238,7 +238,7 @@ namespace UnityTetris
             return false;
         }
 
-        public void Setup(IPlayer owner, IField field, IInputManager input, ISoundManager sound)
+        public void Setup(IPlayer owner, IField field, IInputManager input, ISoundManager sound, int fallLevel)
         {
             _field = field;
             _owner = owner;
@@ -248,6 +248,7 @@ namespace UnityTetris
             _rotStep = 0;
             _countWaitFalling = 0;
             _countFalling = 0;
+            CountFallingLimit = fallLevel; 
             // _prefabPart を複製してブロックのパーツを構築する
             // localPostion のx, y が_partsPositions の座標と一致するようにインスタンスの座標を指定して生成する
             _activeBlocks = _partsPositions.Select(s =>

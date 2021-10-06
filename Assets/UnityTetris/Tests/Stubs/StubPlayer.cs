@@ -25,7 +25,7 @@ public class StubPlayer : IPlayer
         CallList += "PullNextBlock\n";
     }
 
-    public void Setup(BlockSet[] blockSetOptions, ISoundManager sound)
+    public void Setup(BlockSet[] blockSetOptions, ISoundManager sound, int fallLevel)
     {
         CallList += "Setup\n";
     }

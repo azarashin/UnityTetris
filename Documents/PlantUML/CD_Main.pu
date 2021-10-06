@@ -44,6 +44,7 @@ class GameController
     - _boot : StateGameBoot
     - _main : StateGameMain
     - _finish : StateGameFinish
+    - _fallLevel: int
     ..
     --
 
@@ -56,7 +57,7 @@ class GameController
 
 interface IPlayer
 {
-    + Setup(blockSetOptions : BlockSet[], sound : ISoundManager) : void
+    + Setup(blockSetOptions : BlockSet[], sound : ISoundManager, fallLevel: int) : void
     + StartGame(parent : StateGameMain) : void
     + IsAlive() : bool
     + Dead() : void
@@ -75,11 +76,12 @@ class Player
     - _sound : ISoundManager
     - _alive : bool
     - _currentBlock : BlockSet
+    - _fallLevel: int
     --
 
     - FixedUpdate() : void
 
-    + Setup(blockSetOptions : BlockSet[], sound : ISoundManager) : void
+    + Setup(blockSetOptions : BlockSet[], sound : ISoundManager, fallLevel: int) : void
     + StartGame(parent : StateGameMain) : void
     + IsAlive() : bool
     + Dead() : void
@@ -94,7 +96,7 @@ class StateGameBoot
     - _parent : GameController
     --
 
-    + Setup(parent : GameController, player : Player[], blockSetOptions : BlockSet[], sound : ISoundManager) : void
+    + Setup(parent : GameController, player : Player[], blockSetOptions : BlockSet[], sound : ISoundManager, fallLevel: int) : void
     - CoRun() : IEnumerator
 }
 
@@ -150,7 +152,7 @@ class UnityKeyInputManager
 
 interface IBlockSet
 {
-    + Setup(owner: IPlayer, filed: IField, input: IInputManager, sound: ISoundManager) : void
+    + Setup(owner: IPlayer, filed: IField, input: IInputManager, sound: ISoundManager, fallLevel: int) : void
 }
 
 ' ブロックの状態を管理する
@@ -190,7 +192,7 @@ class BlockSet
     - ShowBlocks() : void
     - NeedToFall() : bool
 
-    + Setup(owner: IPlayer, filed: IField, input: IInputManager, sound: ISoundManager) : void
+    + Setup(owner: IPlayer, filed: IField, input: IInputManager, sound: ISoundManager, fallLevel: int) : void
     + CenterPos() : Vector2Int
 }
 

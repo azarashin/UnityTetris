@@ -6,6 +6,6 @@ namespace UnityTetris.Interface
 {
     public interface IBlockSet
     {
-        void Setup(IPlayer owner, IField field, IInputManager input, ISoundManager sound);
+        void Setup(IPlayer owner, IField field, IInputManager input, ISoundManager sound, int fallLevel);
     }
 }

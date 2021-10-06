@@ -21,14 +21,16 @@ namespace UnityTetris
         private BlockSet _currentBlock;
         private ISoundManager _sound;
         private bool _alive;
+        private int _fallLevel; 
 
-        public void Setup(BlockSet[] blockSetOptions, ISoundManager sound)
+        public void Setup(BlockSet[] blockSetOptions, ISoundManager sound, int fallLevel)
         {
             Debug.Log("Player.RunGame");
             _alive = true;
             _blockSetOptions = blockSetOptions;
             _sound = sound; 
             _field.ResetField();
+            _fallLevel =fallLevel; 
         }
 
         public void StartGame(StateGameMain parent)
@@ -60,7 +62,7 @@ namespace UnityTetris
             BlockSet next = _blockSetOptions[id];
 
             _currentBlock = Instantiate(next);
-            _currentBlock.Setup(this, _field, _input, _sound);
+            _currentBlock.Setup(this, _field, _input, _sound, _fallLevel);
         }
     }
 }

@@ -16,13 +16,13 @@ namespace UnityTetris
 
         private GameController _parent;
 
-        public void Setup(GameController parent, IPlayer[] players, BlockSet[] blockSetOptions, ISoundManager sound)
+        public void Setup(GameController parent, IPlayer[] players, BlockSet[] blockSetOptions, ISoundManager sound, int fallLevel)
         {
             Debug.Log("StateGameBoot.Setup");
             _parent = parent;
             foreach (var p in players)
             {
-                p.Setup(blockSetOptions, sound);
+                p.Setup(blockSetOptions, sound, fallLevel);
             }
             StartCoroutine(CoRun());
         }

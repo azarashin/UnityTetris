@@ -11,17 +11,19 @@ public class UnitTestBlockSet
     [Test]
     public void Test001()
     {
+        int fallLevel = 4; 
         BlockSet bs = NewBlockSet("BlockSetA");
         IPlayer player = new StubPlayer();
         IField field = new StubField();
         IInputManager input = new StubInputManager();
         ISoundManager sound = new StubSoundManager(); 
-        bs.Setup(player, field, input, sound); 
+        bs.Setup(player, field, input, sound, fallLevel); 
     }
 
     [UnityTest]
     public IEnumerator UnityTest001() // 右回転
     {
+        int fallLevel = 4;
         BlockSet bs = NewBlockSet("BlockSetA");
         StubPlayer player = new StubPlayer();
         StubField field = new StubField();
@@ -30,7 +32,7 @@ public class UnitTestBlockSet
 
         field.ReturnWidth = 10; // テスト用にフィールド幅を設定
 
-        bs.Setup(player, field, input, sound);
+        bs.Setup(player, field, input, sound, fallLevel);
 
         Assert.AreEqual("Width\n", field.CallList);
         // ブロックのテンプレートの配置が(0, -1), (0, 0), (0, 1), (0, 2) なので
@@ -84,6 +86,7 @@ public class UnitTestBlockSet
         //    -1 0 1
         //  0   ooo
         //  1    o
+        int fallLevel = 4;
         BlockSet bs = NewBlockSet("BlockSetB");
         StubPlayer player = new StubPlayer();
         StubField field = new StubField();
@@ -92,7 +95,7 @@ public class UnitTestBlockSet
 
         field.ReturnWidth = 10; // テスト用にフィールド幅を設定
 
-        bs.Setup(player, field, input, sound);
+        bs.Setup(player, field, input, sound, fallLevel);
 
         Assert.AreEqual("Width\n", field.CallList);
         // ブロックのテンプレートの配置が(0, 0), (1, 0), (-1, 0), (0, 1) なので
@@ -143,6 +146,7 @@ public class UnitTestBlockSet
     [UnityTest]
     public IEnumerator UnityTest003() // 左右移動
     {
+        int fallLevel = 4;
         BlockSet bs = NewBlockSet("BlockSetC");
         StubPlayer player = new StubPlayer();
         StubField field = new StubField();
@@ -151,7 +155,7 @@ public class UnitTestBlockSet
 
         field.ReturnWidth = 10; // テスト用にフィールド幅を設定
 
-        bs.Setup(player, field, input, sound);
+        bs.Setup(player, field, input, sound, fallLevel);
 
         Assert.AreEqual("Width\n", field.CallList);
         // ブロックのテンプレートの配置が(0, 0), (0, 1), (1, 1), (1, 0) なので
@@ -203,6 +207,7 @@ public class UnitTestBlockSet
     [UnityTest]
     public IEnumerator UnityTest004() // 下移動
     {
+        int fallLevel = 4;
         BlockSet bs = NewBlockSet("BlockSetC");
         StubPlayer player = new StubPlayer();
         StubField field = new StubField();
@@ -211,7 +216,7 @@ public class UnitTestBlockSet
 
         field.ReturnWidth = 10; // テスト用にフィールド幅を設定
 
-        bs.Setup(player, field, input, sound);
+        bs.Setup(player, field, input, sound, fallLevel);
 
         Assert.AreEqual("Width\n", field.CallList);
         // ブロックのテンプレートの配置が(0, 0), (0, 1), (1, 1), (1, 0) なので
@@ -220,7 +225,8 @@ public class UnitTestBlockSet
         Assert.AreEqual(new Vector2Int(5, 1), bs.CenterPos());
         field.ClearCallList();
 
-        for(int i=0;i<BlockSet.CountWaitFallingLimit - 1;i++)
+        // ---
+        for (int i=0;i<BlockSet.CountWaitFallingLimit - 1;i++)
         {
             // 下移動
             input.SetReturn(true, false, false, false, false);
@@ -240,6 +246,7 @@ public class UnitTestBlockSet
         Assert.AreEqual("IsHit((5,2),(5,3),(6,3),(6,2))\n", field.CallList);
         field.ClearCallList();
 
+        // ---
         for (int i = 0; i < BlockSet.CountWaitFallingLimit - 1; i++)
         {
             // 下移動
@@ -251,13 +258,52 @@ public class UnitTestBlockSet
             Assert.AreEqual("", field.CallList);
             field.ClearCallList();
         }
-        // 下移動
-        input.SetReturn(true, false, false, false, false);
+        // 下移動入力をしない（上記のループで下移動入力済みなので下移動するはず）
+        input.SetReturn(false, false, false, false, false);
         yield return new WaitForFixedUpdate();
 
         // ボタンを押すとすぐに下に移動する
         Assert.AreEqual(new Vector2Int(5, 3), bs.CenterPos());
         Assert.AreEqual("IsHit((5,3),(5,4),(6,4),(6,3))\n", field.CallList);
+        field.ClearCallList();
+
+        // ---
+        for (int i = 0; i < BlockSet.CountWaitFallingLimit - 1; i++)
+        {
+            // 下移動入力をしない
+            input.SetReturn(false, false, false, false, false);
+            yield return new WaitForFixedUpdate();
+
+            Assert.AreEqual(new Vector2Int(5, 3), bs.CenterPos());
+            Assert.AreEqual("", field.CallList);
+            field.ClearCallList();
+        }
+        // 下移動入力をする（上記のループで下移動入力してないが、ここでの入力でギリギリ間に合うはず）
+        input.SetReturn(true, false, false, false, false);
+        yield return new WaitForFixedUpdate();
+
+        // ボタンを押すとすぐに下に移動する
+        Assert.AreEqual(new Vector2Int(5, 4), bs.CenterPos());
+        Assert.AreEqual("IsHit((5,4),(5,5),(6,5),(6,4))\n", field.CallList);
+        field.ClearCallList();
+
+        // ---
+        for (int i = 0; i < BlockSet.CountWaitFallingLimit - 1; i++)
+        {
+            // 下移動入力をしない
+            input.SetReturn(false, false, false, false, false);
+            yield return new WaitForFixedUpdate();
+
+            Assert.AreEqual(new Vector2Int(5, 4), bs.CenterPos());
+            Assert.AreEqual("", field.CallList);
+            field.ClearCallList();
+        }
+        // 下移動入力をしない（移動しないはず）
+        input.SetReturn(false, false, false, false, false);
+        yield return new WaitForFixedUpdate();
+
+        Assert.AreEqual(new Vector2Int(5, 4), bs.CenterPos());
+        Assert.AreEqual("", field.CallList);
         field.ClearCallList();
 
         yield return null;
