@@ -193,14 +193,14 @@ activate BlockSet
             BlockSet <-- Field
         deactivate Field
         alt ブロックが積みあがった
-            BlockSet -> Player : Dead()
-            activate Player
-            deactivate Player
+            BlockSet -> IPlayer : Dead()
+            activate IPlayer
+            deactivate IPlayer
         else
-            BlockSet -> Player : PullNextBlock
-            activate Player
-                BlockSet <-- Player 
-            deactivate Player
+            BlockSet -> IPlayer : PullNextBlock
+            activate IPlayer
+                BlockSet <-- IPlayer 
+            deactivate IPlayer
         end
 
     end
@@ -234,7 +234,7 @@ deactivate BlockSet
 
 [-> BlockSet : Setup
 activate BlockSet
-    BlockSet -> BlockSet : Field, BlockSet, Player のインスタンスを保持する
+    BlockSet -> BlockSet : Field, BlockSet, IPlayer のインスタンスを保持する
     activate BlockSet
     deactivate BlockSet
     BlockSet -> BlockSet : 落下中フラグ(_falling)をOFFにする
