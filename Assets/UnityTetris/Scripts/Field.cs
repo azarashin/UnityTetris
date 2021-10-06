@@ -16,10 +16,15 @@ namespace UnityTetris
         [SerializeField]
         int _borderLine = 2;
 
-        private Block[,] _activeParts;
+        [SerializeField]
+        AudioSource _soundPlaced; 
 
-        public void ResetField(int width = -1, int height = -1, int borderLine = -1)
+        private Block[,] _activeParts;
+        private ISoundManager _sound; 
+
+        public void ResetField(ISoundManager sound, int width = -1, int height = -1, int borderLine = -1)
         {
+            _sound = sound; 
             if (width > 0 && height > 0)
             {
                 _width = width;
@@ -46,6 +51,7 @@ namespace UnityTetris
         public bool SetBlocks(Block[] blocks)
         {
             bool ret = false;
+            _sound.Play(_soundPlaced); 
             // 設置できるかどうかを確認する
             foreach (Block b in blocks)
             {

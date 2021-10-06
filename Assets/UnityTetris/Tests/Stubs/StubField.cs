@@ -35,7 +35,7 @@ public class StubField : IField
         return ReturnRefTransform; 
     }
 
-    public void ResetField(int width, int height, int borderLine)
+    public void ResetField(ISoundManager sound, int width, int height, int borderLine)
     {
         // 例：
         // width=4, height=5, borderLine=2 の時、CallListに追加される文字列：

@@ -29,7 +29,7 @@ namespace UnityTetris
             _alive = true;
             _blockSetOptions = blockSetOptions;
             _sound = sound; 
-            _field.ResetField();
+            _field.ResetField(_sound);
             _fallLevel =fallLevel; 
         }
 

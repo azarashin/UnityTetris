@@ -453,6 +453,8 @@ public class UnitTestBlockSet
             Assert.AreEqual(new Vector2Int(5, 4), bs.CenterPos());
             Assert.AreEqual("", field.CallList);
             field.ClearCallList();
+            Assert.AreEqual("", sound.CallList); // 落下中音はならない
+            sound.ClearCallList(); 
         }
 
         // 下移動しようとするが、衝突してしまい、移動できずにとどまる
@@ -464,11 +466,13 @@ public class UnitTestBlockSet
             + "RefTransform\nRefTransform\nRefTransform\nRefTransform\n"
             + "SetBlocks((5,4),(5,5),(6,5),(6,4))\n", field.CallList);
         field.ClearCallList();
+        sound.ClearCallList();
 
         GameObject.Destroy(bs.gameObject);
 
         yield return null;
     }
+
     private BlockSet NewBlockSet(string blockName)
     {
         GameObject prefab = Resources.Load<GameObject>("Prefabs/" + blockName);

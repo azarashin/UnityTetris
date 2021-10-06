@@ -9,7 +9,7 @@ class Block
 ' フィールドの状態を管理する
 interface IField
 {
-    + ResetField() : void[]
+    + ResetField(sound : ISoundManager, width: int, height: int, borderLine : int) : void[]
     + Width() : int
     ' @return ブロックが積みあがってしまったらtrue, そうでなければfalse を返す
     + SetBlocks(blocks : Block[]) : bool
@@ -22,11 +22,14 @@ class Field
 {
     - _width : int
     - _height : int
+    - _borderLine : int
+    - _soundPlaces : UnityEngine.AudioSource
     ..
     - _activeParts : Block[,]
+    - _sound : ISoundManager
 
     --
-    + ResetField() : void[]
+    + ResetField(sound : ISoundManager, width: int, height: int, borderLine : int) : void[]
     + Width() : int
     ' @return ブロックが積みあがってしまったらtrue, そうでなければfalse を返す
     + SetBlocks(blocks : Block[]) : bool

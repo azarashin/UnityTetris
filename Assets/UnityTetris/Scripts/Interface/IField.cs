@@ -7,7 +7,7 @@ namespace UnityTetris.Interface
     public interface IField
     {
 
-        void ResetField(int width, int height, int borderLine);
+        void ResetField(ISoundManager sound, int width, int height, int borderLine);
 
         int Width();
 

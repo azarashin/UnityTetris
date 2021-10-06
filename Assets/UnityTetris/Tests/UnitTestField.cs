@@ -11,10 +11,11 @@ using UnityTetris;
     [Test]
     public void UnitTest001()
     {
+        StubSoundManager sound = new StubSoundManager();
         Field f = NewField();
-        f.ResetField(4, 5);
+        f.ResetField(sound, 4, 5);
         Assert.AreEqual(f.Width(), 4);
-        f.ResetField(8, 9, 3);
+        f.ResetField(sound, 8, 9, 3);
         Assert.AreEqual(f.Width(), 8);
         GameObject.Destroy(f.gameObject); 
     }
@@ -22,8 +23,9 @@ using UnityTetris;
     [Test]
     public void UnitTest002()
     {
+        StubSoundManager sound = new StubSoundManager();
         Field f = NewField();
-        f.ResetField(8, 9, 3);
+        f.ResetField(sound, 8, 9, 3);
         Block[] blocks = new Block[]
         {
             NewBlock(4, 4)
@@ -91,8 +93,9 @@ using UnityTetris;
     [Test]
     public void UnitTest003()
     {
+        StubSoundManager sound = new StubSoundManager();
         Field f = NewField();
-        f.ResetField(8, 8, 3);
+        f.ResetField(sound, 8, 8, 3);
         Block[] blocks = new Block[]
         {
             NewBlock(0, 4),
@@ -153,7 +156,8 @@ oooo****
     public void UnitTest004()
     {
         Field f = NewField();
-        f.ResetField(8, 8, 3);
+        StubSoundManager sound = new StubSoundManager();
+        f.ResetField(sound, 8, 8, 3);
         Block[] blocks = new Block[]
         {
             NewBlock(0, 4),
