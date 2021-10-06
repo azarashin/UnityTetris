@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityTetris.Interface;
 
 namespace UnityTetris
 {
-    public class BlockSet : MonoBehaviour
+    public class BlockSet : MonoBehaviour, IBlockSet
     {
         [SerializeField]
         private AudioSource _soundCollide;
@@ -18,9 +19,10 @@ namespace UnityTetris
 
         private Block[] _activeBlocks;
         private bool _falling;
-        private Field _field;
-        private Player _owner;
-        private InputManager _input;
+        private IField _field;
+        private IPlayer _owner;
+        private IInputManager _input;
+        private ISoundManager _sound; 
 
         private int _rotStep;
         private Vector2Int _centerPos;
@@ -73,9 +75,9 @@ namespace UnityTetris
         }
 
         /// <summary>
-        /// ƒuƒƒbƒN‚ğ‰ñ“]‚³‚¹‚éB
+        /// ãƒ–ãƒ­ãƒƒã‚¯ã‚’å›è»¢ã•ã›ã‚‹ã€‚
         /// </summary>
-        /// <param name="dir">‰E‰ñ“]‚Ì‚Í-1, ¶‰ñ“]‚Ì‚Í1</param>
+        /// <param name="dir">å³å›è»¢ã®æ™‚ã¯-1, å·¦å›è»¢ã®æ™‚ã¯1</param>
         private void Rotate(int dir)
         {
             Vector2Int[] shift_list = new Vector2Int[]
@@ -106,16 +108,16 @@ namespace UnityTetris
                     _centerPos = org + shift;
                     if (!_field.IsHit(ToBlocks()))
                     {
-                        return; // ‰ñ“]¬—§
+                        return; // å›è»¢æˆç«‹
                     }
                 }
                 limit--;
             } while (limit > 0);
-            _centerPos = org; // ˆÊ’u‚ğŒ³‚É–ß‚·B‰ñ“]Šp‚Íã‹L‚Ìƒ‹[ƒv‚Å‚S‰ñ‚X‚O“x‰ñ“]‚µ‚ÄŒ³‚É–ß‚Á‚Ä‚¢‚é‚Í‚¸B
+            _centerPos = org; // ä½ç½®ã‚’å…ƒã«æˆ»ã™ã€‚å›è»¢è§’ã¯ä¸Šè¨˜ã®ãƒ«ãƒ¼ãƒ—ã§ï¼”å›ï¼™ï¼åº¦å›è»¢ã—ã¦å…ƒã«æˆ»ã£ã¦ã„ã‚‹ã¯ãšã€‚
         }
 
         /// <summary>
-        /// Œ»İ‚Ìp¨‚É‚¨‚¯‚éŠeƒuƒƒbƒN—v‘f‚ğ2ŸŒ³À•W‚Ì”z—ñ‚Æ‚µ‚Ä•Ô‚·
+        /// ç¾åœ¨ã®å§¿å‹¢ã«ãŠã‘ã‚‹å„ãƒ–ãƒ­ãƒƒã‚¯è¦ç´ ã‚’2æ¬¡å…ƒåº§æ¨™ã®é…åˆ—ã¨ã—ã¦è¿”ã™
         /// </summary>
         /// <returns></returns>
         private Vector2Int[] ToBlocks()
@@ -125,10 +127,10 @@ namespace UnityTetris
         }
 
         /// <summary>
-        /// Œ»İ‚Ì‰ñ“]Špî•ñ _rotStep ‚É‡‚í‚¹‚ÄÀ•Wp ‚ğŒ´“_’†S‚É‰ñ“]‚³‚¹‚é
+        /// ç¾åœ¨ã®å›è»¢è§’æƒ…å ± _rotStep ã«åˆã‚ã›ã¦åº§æ¨™p ã‚’åŸç‚¹ä¸­å¿ƒã«å›è»¢ã•ã›ã‚‹
         /// </summary>
-        /// <param name="p">‰ñ“]Œ³‚ÌÀ•W’l</param>
-        /// <returns>‰ñ“]Œã‚ÌÀ•W’l</returns>
+        /// <param name="p">å›è»¢å…ƒã®åº§æ¨™å€¤</param>
+        /// <returns>å›è»¢å¾Œã®åº§æ¨™å€¤</returns>
         private Vector2Int RotatePart(Vector2Int p)
         {
             int[] int_sin = new int[] { 0, 1, 0, -1 };
@@ -188,7 +190,7 @@ namespace UnityTetris
                 {
                     _activeBlocks[i].Px = pos[i].x;
                     _activeBlocks[i].Py = pos[i].y;
-                    _activeBlocks[i].transform.parent = _field.transform;
+                    _activeBlocks[i].transform.parent = _field.RefTransform();
                 }
 
                 if (_field.SetBlocks(_activeBlocks))
@@ -205,7 +207,7 @@ namespace UnityTetris
 
         private void ShowBlocks()
         {
-            float rotSpeed = 0.2f; // ‚±‚ê‚Í“K“–‚ÈŒÅ’è’l‚É‚µ‚Ä‚¨‚­
+            float rotSpeed = 0.2f; // ã“ã‚Œã¯é©å½“ãªå›ºå®šå€¤ã«ã—ã¦ãŠã
             transform.localRotation = Quaternion.Lerp(
                 transform.localRotation, Quaternion.Euler(0.0f, _rotStep * 90.0f, 0.0f), rotSpeed);
             transform.localPosition = new Vector3(_centerPos.x, -_centerPos.y);
@@ -216,8 +218,8 @@ namespace UnityTetris
 
         private bool NeedToFall()
         {
-            float countWaitFallingLimit = 4; // Å‘¬‚ÅcountWaitFallingLimit ƒtƒŒ[ƒ€‚Å—‰º‚·‚é
-            float countFallingLimit = 4; // _countFalling ‚ªcountFallingLimit ‚É’B‚·‚é‚Æ—‰º‚·‚é
+            float countWaitFallingLimit = 4; // æœ€é€Ÿã§countWaitFallingLimit ãƒ•ãƒ¬ãƒ¼ãƒ ã§è½ä¸‹ã™ã‚‹
+            float countFallingLimit = 4; // _countFalling ãŒcountFallingLimit ã«é”ã™ã‚‹ã¨è½ä¸‹ã™ã‚‹
             _countWaitFalling++;
             if (_countWaitFalling >= countWaitFallingLimit)
             {
@@ -235,15 +237,16 @@ namespace UnityTetris
             return false;
         }
 
-        public void Setup(Player owner, Field field, InputManager input)
+        public void Setup(IPlayer owner, IField field, IInputManager input, ISoundManager sound)
         {
             _field = field;
             _owner = owner;
             _input = input;
+            _sound = sound; 
             _falling = false;
             _rotStep = 0;
-            // _prefabPart ‚ğ•¡»‚µ‚ÄƒuƒƒbƒN‚Ìƒp[ƒc‚ğ\’z‚·‚é
-            // localPostion ‚Ìx, y ‚ª_partsPositions ‚ÌÀ•W‚Æˆê’v‚·‚é‚æ‚¤‚ÉƒCƒ“ƒXƒ^ƒ“ƒX‚ÌÀ•W‚ğw’è‚µ‚Ä¶¬‚·‚é
+            // _prefabPart ã‚’è¤‡è£½ã—ã¦ãƒ–ãƒ­ãƒƒã‚¯ã®ãƒ‘ãƒ¼ãƒ„ã‚’æ§‹ç¯‰ã™ã‚‹
+            // localPostion ã®x, y ãŒ_partsPositions ã®åº§æ¨™ã¨ä¸€è‡´ã™ã‚‹ã‚ˆã†ã«ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®åº§æ¨™ã‚’æŒ‡å®šã—ã¦ç”Ÿæˆã™ã‚‹
             _activeBlocks = _partsPositions.Select(s =>
                 Instantiate(_prefabPart,
                     transform.position + (new Vector3(s.x, s.y)), Quaternion.identity, transform)

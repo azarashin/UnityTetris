@@ -119,10 +119,10 @@ activate BlockSet
         BlockSet -> BlockSet : ブロックの位置を元に戻す
         activate BlockSet
         deactivate BlockSet
-        BlockSet -> UnityEngine.AudioSource : Play
-        activate UnityEngine.AudioSource
-            BlockSet <-- UnityEngine.AudioSource
-        deactivate UnityEngine.AudioSource
+        BlockSet -> ISoundManager : Play
+        activate ISoundManager
+            BlockSet <-- ISoundManager
+        deactivate ISoundManager
 
     [<-- BlockSet
     else
@@ -146,10 +146,10 @@ activate BlockSet
         BlockSet -> BlockSet : ブロックの位置を元に戻す
         activate BlockSet
         deactivate BlockSet
-        BlockSet -> UnityEngine.AudioSource : Play
-        activate UnityEngine.AudioSource
-            BlockSet <-- UnityEngine.AudioSource
-        deactivate UnityEngine.AudioSource
+        BlockSet -> ISoundManager : Play
+        activate ISoundManager
+            BlockSet <-- ISoundManager
+        deactivate ISoundManager
 
     [<-- BlockSet
     else
@@ -250,7 +250,7 @@ activate BlockSet
                 activate Block
                     MonoBehaviour <-- Block
                 deactivate Block
-                Player <-- MonoBehaviour : _prefabPart を複製してブロックのパーツを構築する
+                BlockSet <-- MonoBehaviour : _prefabPart を複製してブロックのパーツを構築する
             deactivate MonoBehaviour
         end
     deactivate BlockSet

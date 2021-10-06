@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityTetris.Interface;
 
 namespace UnityTetris
 {
@@ -15,13 +16,13 @@ namespace UnityTetris
 
         private GameController _parent;
 
-        public void Setup(GameController parent, Player[] players, BlockSet[] blockSetOptions)
+        public void Setup(GameController parent, IPlayer[] players, BlockSet[] blockSetOptions, ISoundManager sound)
         {
             Debug.Log("StateGameBoot.Setup");
             _parent = parent;
             foreach (var p in players)
             {
-                p.Setup(blockSetOptions);
+                p.Setup(blockSetOptions, sound);
             }
             StartCoroutine(CoRun());
         }

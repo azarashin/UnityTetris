@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityTetris.Interface;
 
 namespace UnityTetris
 {
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, IPlayer
     {
         [SerializeField]
         private Field _field;
@@ -18,13 +19,15 @@ namespace UnityTetris
         private BlockSet[] _blockSetOptions;
         private StateGameMain _parent;
         private BlockSet _currentBlock;
+        private ISoundManager _sound;
         private bool _alive;
 
-        public void Setup(BlockSet[] blockSetOptions)
+        public void Setup(BlockSet[] blockSetOptions, ISoundManager sound)
         {
             Debug.Log("Player.RunGame");
             _alive = true;
             _blockSetOptions = blockSetOptions;
+            _sound = sound; 
             _field.ResetField();
         }
 
@@ -57,7 +60,7 @@ namespace UnityTetris
             BlockSet next = _blockSetOptions[id];
 
             _currentBlock = Instantiate(next);
-            _currentBlock.Setup(this, _field, _input);
+            _currentBlock.Setup(this, _field, _input, _sound);
         }
     }
 }

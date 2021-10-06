@@ -13,6 +13,9 @@ namespace UnityTetris
         private BlockSet[] _blockSetOptions;
 
         [SerializeField]
+        private UnitySoundManager _sound; 
+
+        [SerializeField]
         private StateGameBoot _boot;
 
         [SerializeField]
@@ -32,7 +35,7 @@ namespace UnityTetris
             _boot.gameObject.SetActive(true);
             _main.gameObject.SetActive(false);
             _finish.gameObject.SetActive(false);
-            _boot.Setup(this, _players, _blockSetOptions);
+            _boot.Setup(this, _players, _blockSetOptions, _sound);
         }
 
         public void RunGame()

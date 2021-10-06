@@ -7,6 +7,17 @@ class Block
 }
 
 ' フィールドの状態を管理する
+interface IField
+{
+    + ResetField() : void[]
+    + Width() : int
+    ' @return ブロックが積みあがってしまったらtrue, そうでなければfalse を返す
+    + SetBlocks(blocks : Block[]) : bool
+
+    + IsHit(blocks : Vector2Int[]) : bool
+    + RefTransform() : Transform
+}
+
 class Field
 {
     - _width : int
@@ -21,6 +32,7 @@ class Field
     + SetBlocks(blocks : Block[]) : bool
 
     + IsHit(blocks : Vector2Int[]) : bool
+    + RefTransform() : Transform
 }
 
 ' ゲームの進行を管理する
@@ -28,6 +40,7 @@ class GameController
 {
     - _players : Player[]
     - _blockSetOptions : BlockSet[]
+    - _sound : UnitySoundManager
     - _boot : StateGameBoot
     - _main : StateGameMain
     - _finish : StateGameFinish
@@ -41,6 +54,16 @@ class GameController
     + FinishGame() : void
 }
 
+interface IPlayer
+{
+    + Setup(blockSetOptions : BlockSet[], sound : ISoundManager) : void
+    + StartGame(parent : StateGameMain) : void
+    + IsAlive() : bool
+    + Dead() : void
+    + PullNextBlock() : void
+}
+
+
 class Player
 {
     - _field : Field
@@ -49,13 +72,14 @@ class Player
     ..
     - _parent : StateGameMain
     - _blockSetOptions : BlockSet[]
+    - _sound : ISoundManager
     - _alive : bool
     - _currentBlock : BlockSet
     --
 
     - FixedUpdate() : void
 
-    + Setup(blockSetOptions : BlockSet[]) : void
+    + Setup(blockSetOptions : BlockSet[], sound : ISoundManager) : void
     + StartGame(parent : StateGameMain) : void
     + IsAlive() : bool
     + Dead() : void
@@ -70,14 +94,14 @@ class StateGameBoot
     - _parent : GameController
     --
 
-    + Setup(parent : GameController, player : Player[], , blockSetOptions : BlockSet[]) : void
+    + Setup(parent : GameController, player : Player[], blockSetOptions : BlockSet[], sound : ISoundManager) : void
     - CoRun() : IEnumerator
 }
 
 class StateGameMain
 {
     - _parent : GameController
-    - _players : Player[]
+    - _players : IPlayer[]
 
     - GetNumberOfAlivingPlayer() : int
 
@@ -95,6 +119,15 @@ class StateGameFinish
 
     + Setup(parent : GameController) : void
     - CoRun() : IEnumerator
+}
+
+interface IInputManager
+{
+    + IsRotateRight() : bool
+    + IsRotateLeft() : bool
+    + IsMoveRight() : bool
+    + IsMoveLeft() : bool
+    + IsMoveDown) : bool
 }
 
 abstract class InputManager
@@ -115,6 +148,11 @@ class UnityKeyInputManager
     + IsMoveDown() : bool
 }
 
+interface IBlockSet
+{
+    + Setup(owner: IPlayer, filed: IField, input: IInputManager, sound: ISoundManager) : void
+}
+
 ' ブロックの状態を管理する
 class BlockSet
 {
@@ -124,9 +162,10 @@ class BlockSet
     ..
     - _activeBlocks : Block[]
     - _falling : bool
-    - _field : Field
-    - _owner : Player
-    - _input : Input
+    - _field : IField
+    - _owner : IPlayer
+    - _input : IInputManager
+    - _sound : ISoundManager
     --
 
     - FixedUpdate() : void
@@ -145,9 +184,20 @@ class BlockSet
     - ShowBlocks() : void
     - NeedToFall() : bool
 
-    + Setup(owner: Player, filed: Field, input: InputManager) : void
+    + Setup(owner: IPlayer, filed: IField, input: IInputManager, sound: ISoundManager) : void
 }
 
+interface ISoundManager
+{
+    + Play(sound : AudioSource) : void
+    + Stop(sound : AudioSource) : void
+}
+
+class UnitySoundManager
+{
+    + Play(sound : AudioSource) : void
+    + Stop(sound : AudioSource) : void
+}
 
 class StatusPanel
 {
@@ -157,24 +207,34 @@ class StatusPanel
     + AddScore(addedScore : int) : void
 }
 
-Player "1" *-- "1" Field
-Player "1" o-- "0, 1" BlockSet
-Player "1" o-- "1..*" BlockSet
+Player "1" *-- "1" IField
+Player "1" o-- "0, 1" IBlockSet
+Player "1" o-- "1..*" IBlockSet
 Player "1" *-- "1" InputManager
+Player "1" o-- "1" ISoundManager
 
-GameController "1" *-- "*" Player
+GameController "1" *-- "1..*" Player
+GameController "1" *-- "1..*" BlockSet
 GameController "1" *-- "1" StateGameBoot
 GameController "1" *-- "1" StateGameMain
 GameController "1" *-- "1" StateGameFinish
+GameController "1" *-- "1" UnitySoundManager
 
-StateGameMain "1" o--o "*" Player
+StateGameMain "1" o--o "*" IPlayer
 
 StatusPanel "1" --o "1" GameController
 
+IInputManager <|.. InputManager
 InputManager <|.. UnityKeyInputManager
+ISoundManager <|.. UnitySoundManager
+IBlockSet <|.. BlockSet
+IField <|.. Field
+IPlayer <|.. Player
 
 Field "1" o-- "*" Block
 BlockSet "1" o-- "*" Block
-
+BlockSet "1" o-- "1" ISoundManager
+BlockSet "1" o-- "1" IPlayer
+BlockSet "1" o-- "1" IField
 
 @enduml

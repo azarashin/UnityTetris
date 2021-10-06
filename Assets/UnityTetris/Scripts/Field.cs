@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityTetris.Interface;
 
 namespace UnityTetris
 {
-    public class Field : MonoBehaviour
+    public class Field : MonoBehaviour, IField
     {
         [SerializeField]
         int _width = 8;
@@ -112,6 +113,11 @@ namespace UnityTetris
                 line += "\r\n"; 
             }
             return line; 
+        }
+
+        public Transform RefTransform()
+        {
+            return transform; 
         }
     }
 }
