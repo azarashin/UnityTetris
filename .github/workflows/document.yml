@@ -36,11 +36,11 @@ jobs:
         doxyfile-path: ./Documents/Doxygen/Doxyfile
     - name: show list of .svg which are generated just now
       run: |
-        ls ./Documents/Design/*.svg
+        ls ./Documents/PlantUML/*.svg
     - name: copy svg for PlantUML into public
       run: |
         mkdir -p ./Documents/public/plant_uml
-        mv ./Documents/Design/*.svg ./Documents/public/plant_uml/
+        mv ./Documents/PlantUML/*.svg ./Documents/public/plant_uml/
     - name: convert .md to .html in public
       run: |
         pip3 install markdown
