@@ -45,7 +45,8 @@ public class StubField : IField
 
     public bool SetBlocks(Block[] blocks)
     {
-        CallList += "SetBlocks\n";
+        string parameter = string.Join(",", blocks.Select(s => $"({s.Px},{s.Py})"));
+        CallList += $"SetBlocks({parameter})\n";
         return ReturnSetBlocks; 
     }
 

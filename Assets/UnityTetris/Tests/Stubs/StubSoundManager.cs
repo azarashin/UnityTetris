@@ -14,11 +14,24 @@ public class StubSoundManager : ISoundManager
 
     public override void Play(AudioSource sound)
     {
-        CallList += "Play\n";
+        if(sound.clip == null)
+        {
+            CallList += "Play(null)\n";
+        } else
+        {
+            CallList += $"Play({sound.clip.name})\n";
+        }
     }
 
     public override void Stop(AudioSource sound)
     {
-        CallList += "Stop\n";
+        if (sound.clip == null)
+        {
+            CallList += "Stop(null)\n";
+        }
+        else
+        {
+            CallList += $"Stop({sound.clip.name})\n";
+        }
     }
 }

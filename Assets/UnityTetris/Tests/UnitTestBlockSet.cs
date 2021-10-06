@@ -8,6 +8,9 @@ using UnityTetris.Interface;
 
 public class UnitTestBlockSet
 {
+    private const string SoundCollide = "null";
+    private const string SoundMove = "null";
+
     [Test]
     public void Test001()
     {
@@ -173,29 +176,54 @@ public class UnitTestBlockSet
         {
             // 右移動
             input.SetReturn(false, false, true, false, false);
+            field.ReturnIsHit = false;
             yield return new WaitForFixedUpdate();
 
             // 落下する前に四角ブロックを右移動させた状態を確認
             Assert.AreEqual(new Vector2Int(i, 1), bs.CenterPos());
             Assert.AreEqual($"IsHit(({i},1),({i},2),({1+i},2),({1+i},1))\n", field.CallList);
             field.ClearCallList();
-            Assert.AreEqual("", sound.CallList); // 音はならない
+            Assert.AreEqual($"Play({SoundMove})\n", sound.CallList); // 移動音
             sound.ClearCallList();
         }
+        // 右移動出来ずに止まる
+        input.SetReturn(false, false, true, false, false);
+        field.ReturnIsHit = true; 
+        yield return new WaitForFixedUpdate();
 
-        for(int i=7;i>=0;i--)
+        // 落下する前に四角ブロックを右移動させた状態を確認
+        Assert.AreEqual(new Vector2Int(8, 1), bs.CenterPos()); // 進みすぎて衝突し、座標が元の位置に戻る
+        Assert.AreEqual($"IsHit((9,1),(9,2),(10,2),(10,1))\n", field.CallList); // 進みすぎた時の座標値が入っている。ブロックの位置はIsHitの呼び出し後に戻される。
+        field.ClearCallList();
+        Assert.AreEqual($"Play({SoundCollide})\n", sound.CallList); // 衝突音
+        sound.ClearCallList();
+
+        for (int i=7;i>=0;i--)
         {
             // 左移動
             input.SetReturn(false, true, false, false, false);
+            field.ReturnIsHit = false;
             yield return new WaitForFixedUpdate();
 
             // 落下する前に四角ブロックを左移動させた状態を確認
             Assert.AreEqual(new Vector2Int(i, 1), bs.CenterPos());
             Assert.AreEqual($"IsHit(({i},1),({i},2),({i+1},2),({i+1},1))\n", field.CallList);
             field.ClearCallList();
-            Assert.AreEqual("", sound.CallList); // 音はならない
+            Assert.AreEqual($"Play({SoundMove})\n", sound.CallList); // 移動音
             sound.ClearCallList();
         }
+        // 左移動出来ずに止まる
+        input.SetReturn(false, true, false, false, false);
+        field.ReturnIsHit = true;
+        yield return new WaitForFixedUpdate();
+
+        // 落下する前に四角ブロックを右移動させた状態を確認
+        Assert.AreEqual(new Vector2Int(0, 1), bs.CenterPos()); // 進みすぎて衝突し、座標が元の位置に戻る
+        Assert.AreEqual($"IsHit((-1,1),(-1,2),(0,2),(0,1))\n", field.CallList); // 進みすぎた時の座標値が入っている。ブロックの位置はIsHitの呼び出し後に戻される。
+        field.ClearCallList();
+        Assert.AreEqual($"Play({SoundCollide})\n", sound.CallList); // 衝突音
+        sound.ClearCallList();
+
 
         GameObject.Destroy(bs.gameObject);
 
@@ -204,7 +232,7 @@ public class UnitTestBlockSet
 
 
     [UnityTest]
-    public IEnumerator UnityTest004() // 下移動
+    public IEnumerator UnityTest004() // 下移動(入力による加速落下)
     {
         int fallLevel = 4;
         BlockSet bs = NewBlockSet("BlockSetC");
@@ -311,7 +339,7 @@ public class UnitTestBlockSet
     }
 
     [UnityTest]
-    public IEnumerator UnityTest005() // 下移動
+    public IEnumerator UnityTest005() // 下移動(自由落下)
     {
         int fallLevel = 4;
         BlockSet bs = NewBlockSet("BlockSetC");
@@ -334,73 +362,113 @@ public class UnitTestBlockSet
         input.SetReturn(false, false, false, false, false);
 
         // ---
-        for(int i=0;i< fallLevel - 1;i++)
+        for(int k=0;k<3;k++) // ３回自由落下させてみる
         {
-            for (int j = 0; j < BlockSet.CountWaitFallingLimit; j++)
+            for (int i = 0; i < fallLevel - 1; i++)
+            {
+                for (int j = 0; j < BlockSet.CountWaitFallingLimit; j++)
+                {
+                    yield return new WaitForFixedUpdate();
+
+                    // しばらくは移動しない
+                    Assert.AreEqual(new Vector2Int(5, 1+k), bs.CenterPos());
+                    Assert.AreEqual("", field.CallList);
+                    field.ClearCallList();
+                }
+            }
+
+            for (int j = 0; j < BlockSet.CountWaitFallingLimit - 1; j++)
             {
                 yield return new WaitForFixedUpdate();
 
                 // しばらくは移動しない
-                Assert.AreEqual(new Vector2Int(5, 1), bs.CenterPos());
+                Assert.AreEqual(new Vector2Int(5, 1+k), bs.CenterPos());
                 Assert.AreEqual("", field.CallList);
                 field.ClearCallList();
             }
-        }
 
-        for (int j = 0; j < BlockSet.CountWaitFallingLimit-1; j++)
-        {
+            // 下移動
             yield return new WaitForFixedUpdate();
 
-            // しばらくは移動しない
-            Assert.AreEqual(new Vector2Int(5, 1), bs.CenterPos());
-            Assert.AreEqual("", field.CallList);
+            Assert.AreEqual(new Vector2Int(5, 2+k), bs.CenterPos());
+            Assert.AreEqual($"IsHit((5,{2+k}),(5,{3+k}),(6,{3+k}),(6,{2+k}))\n", field.CallList);
             field.ClearCallList();
         }
-
-        // 下移動
-        yield return new WaitForFixedUpdate();
-
-        Assert.AreEqual(new Vector2Int(5, 2), bs.CenterPos());
-        Assert.AreEqual("IsHit((5,2),(5,3),(6,3),(6,2))\n", field.CallList);
-        field.ClearCallList();
-
-        // ---
-        for (int i = 0; i < fallLevel - 1; i++)
-        {
-            for (int j = 0; j < BlockSet.CountWaitFallingLimit; j++)
-            {
-                yield return new WaitForFixedUpdate();
-
-                // しばらくは移動しない
-                Assert.AreEqual(new Vector2Int(5, 2), bs.CenterPos());
-                Assert.AreEqual("", field.CallList);
-                field.ClearCallList();
-            }
-        }
-
-        for (int j = 0; j < BlockSet.CountWaitFallingLimit - 1; j++)
-        {
-            yield return new WaitForFixedUpdate();
-
-            // しばらくは移動しない
-            Assert.AreEqual(new Vector2Int(5, 2), bs.CenterPos());
-            Assert.AreEqual("", field.CallList);
-            field.ClearCallList();
-        }
-
-        // 下移動
-        yield return new WaitForFixedUpdate();
-
-        Assert.AreEqual(new Vector2Int(5, 3), bs.CenterPos());
-        Assert.AreEqual("IsHit((5,3),(5,4),(6,4),(6,3))\n", field.CallList);
-        field.ClearCallList();
 
         GameObject.Destroy(bs.gameObject);
 
         yield return null;
     }
 
+    [UnityTest]
+    public IEnumerator UnityTest006() // 下移動(一番下まで自由落下)
+    {
+        int fallLevel = 4;
+        BlockSet bs = NewBlockSet("BlockSetC");
+        StubPlayer player = new StubPlayer();
+        StubField field = new StubField();
+        StubInputManager input = new StubInputManager();
+        StubSoundManager sound = new StubSoundManager();
 
+        field.ReturnWidth = 10; // テスト用にフィールド幅を設定
+
+        bs.Setup(player, field, input, sound, fallLevel);
+
+        Assert.AreEqual("Width\n", field.CallList);
+        // ブロックのテンプレートの配置が(0, 0), (0, 1), (1, 1), (1, 0) なので
+        // あらゆる回転がなされてもブロックの各パーツの座標値が０以上になるよう補正され、ブロック全体が1つ下にずらされる
+        // 個のテストケースではフィールド幅が10 なので、ブロック原点のx座標は中央の5 になるはず。
+        Assert.AreEqual(new Vector2Int(5, 1), bs.CenterPos());
+        field.ClearCallList();
+
+        input.SetReturn(false, false, false, false, false);
+
+        // ---
+        field.ReturnIsHit = false; //しばらくは衝突しない
+        for (int k = 0; k < 3; k++) // ３回自由落下させてみる
+        {
+            for (int i = 0; i < fallLevel * BlockSet.CountWaitFallingLimit - 1; i++)
+            {
+                yield return new WaitForFixedUpdate();
+
+                // しばらくは移動しない
+                Assert.AreEqual(new Vector2Int(5, 1+k), bs.CenterPos());
+                Assert.AreEqual("", field.CallList);
+                field.ClearCallList();
+            }
+
+            // 下移動
+            yield return new WaitForFixedUpdate();
+
+            Assert.AreEqual(new Vector2Int(5, 2+k), bs.CenterPos());
+            Assert.AreEqual($"IsHit((5,{2+k}),(5,{3+k}),(6,{3+k}),(6,{2+k}))\n", field.CallList);
+            field.ClearCallList();
+        }
+
+        for (int i = 0; i < fallLevel * BlockSet.CountWaitFallingLimit - 1; i++)
+        {
+            yield return new WaitForFixedUpdate();
+
+            // しばらくは移動しない
+            Assert.AreEqual(new Vector2Int(5, 4), bs.CenterPos());
+            Assert.AreEqual("", field.CallList);
+            field.ClearCallList();
+        }
+
+        // 下移動しようとするが、衝突してしまい、移動できずにとどまる
+        field.ReturnIsHit = true; // ここで衝突させる
+        yield return new WaitForFixedUpdate();
+
+        Assert.AreEqual(new Vector2Int(5, 4), bs.CenterPos());
+        Assert.AreEqual("IsHit((5,5),(5,6),(6,6),(6,5))\n"
+            + "RefTransform\nRefTransform\nRefTransform\nRefTransform\n"
+            + "SetBlocks((5,4),(5,5),(6,5),(6,4))\n", field.CallList);
+        field.ClearCallList();
+
+        GameObject.Destroy(bs.gameObject);
+
+        yield return null;
+    }
     private BlockSet NewBlockSet(string blockName)
     {
         GameObject prefab = Resources.Load<GameObject>("Prefabs/" + blockName);

@@ -153,7 +153,11 @@ namespace UnityTetris
             if (_field.IsHit(ToBlocks()))
             {
                 _centerPos = org;
+                _sound.Play(_soundCollide);
                 return false;
+            } else
+            {
+                _sound.Play(_soundCollide);
             }
             return true;
         }
@@ -165,7 +169,11 @@ namespace UnityTetris
             if (_field.IsHit(ToBlocks()))
             {
                 _centerPos = org;
+                _sound.Play(_soundCollide);
                 return false;
+            } else
+            {
+                _sound.Play(_soundCollide);
             }
             return true;
         }

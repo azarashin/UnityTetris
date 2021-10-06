@@ -188,6 +188,15 @@ activate BlockSet
         BlockSet -> BlockSet : ブロックの位置を元に戻す
         activate BlockSet
         deactivate BlockSet
+        BlockSet -> BlockSet : ToBlocks
+        activate BlockSet
+        deactivate BlockSet
+        loop 移動中のブロックを構成するパーツの数だけ繰り返す
+            BlockSet -> Field : RefTransform            
+            activate Field
+                BlockSet <-- Field
+            deactivate Field
+        end
         BlockSet -> Field : SetBlocks
         activate Field
             BlockSet <-- Field
