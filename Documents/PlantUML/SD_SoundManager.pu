@@ -1,0 +1,21 @@
+@startuml
+
+[-> UnitySoundManager : Play
+activate UnitySoundManager
+    UnitySoundManager -> UnityEngine.AudioSource : Play
+    activate UnityEngine.AudioSource
+        UnitySoundManager <-- UnityEngine.AudioSource
+    deactivate UnityEngine.AudioSource
+    [<-- UnitySoundManager
+deactivate UnitySoundManager
+
+[-> UnitySoundManager : Stop
+activate UnitySoundManager
+    UnitySoundManager -> UnityEngine.AudioSource : Stop
+    activate UnityEngine.AudioSource
+        UnitySoundManager <-- UnityEngine.AudioSource
+    deactivate UnityEngine.AudioSource
+    [<-- UnitySoundManager
+deactivate UnitySoundManager
+
+@enduml
