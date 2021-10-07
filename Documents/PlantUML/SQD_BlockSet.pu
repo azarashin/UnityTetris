@@ -192,10 +192,6 @@ activate BlockSet
         activate BlockSet
         deactivate BlockSet
         loop 移動中のブロックを構成するパーツの数だけ繰り返す
-            BlockSet -> Field : RefTransform            
-            activate Field
-                BlockSet <-- Field
-            deactivate Field
         end
         BlockSet -> Field : SetBlocks
         activate Field

@@ -7,7 +7,7 @@ class Block
 }
 
 ' フィールドの状態を管理する
-interface IField
+abstract class AbstractField
 {
     + ResetField(sound : ISoundManager, width: int, height: int, borderLine : int) : void[]
     + Width() : int
@@ -15,7 +15,6 @@ interface IField
     + SetBlocks(blocks : Block[]) : bool
 
     + IsHit(blocks : Vector2Int[]) : bool
-    + RefTransform() : Transform
 }
 
 class Field
@@ -219,7 +218,7 @@ class StatusPanel
     + AddScore(addedScore : int) : void
 }
 
-Player "1" *-- "1" IField
+Player "1" *-- "1" AbstractField
 Player "1" o-- "0, 1" IBlockSet
 Player "1" o-- "1..*" IBlockSet
 Player "1" *-- "1" InputManager
@@ -240,13 +239,13 @@ IInputManager <|.. InputManager
 InputManager <|.. UnityKeyInputManager
 ISoundManager <|.. UnitySoundManager
 IBlockSet <|.. BlockSet
-IField <|.. Field
+AbstractField <|.. Field
 IPlayer <|.. Player
 
 Field "1" o-- "*" Block
 BlockSet "1" o-- "*" Block
 BlockSet "1" o-- "1" ISoundManager
 BlockSet "1" o-- "1" IPlayer
-BlockSet "1" o-- "1" IField
+BlockSet "1" o-- "1" AbstractField
 
 @enduml

@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityTetris.Abstract;
 using UnityTetris.Interface;
 
 namespace UnityTetris
 {
-    public class Field : MonoBehaviour, IField
+    public class Field : AbstractField
     {
         [SerializeField]
         int _width = 8;
@@ -22,7 +23,7 @@ namespace UnityTetris
         private Block[,] _activeParts;
         private ISoundManager _sound; 
 
-        public void ResetField(ISoundManager sound, int width = -1, int height = -1, int borderLine = -1)
+        public override void ResetField(ISoundManager sound, int width = -1, int height = -1, int borderLine = -1)
         {
             _sound = sound; 
             if (width > 0 && height > 0)
@@ -38,7 +39,7 @@ namespace UnityTetris
             }
         }
 
-        public int Width()
+        public override int Width()
         {
             return _width;
         }
@@ -48,7 +49,7 @@ namespace UnityTetris
         /// </summary>
         /// <param name="blocks"></param>
         /// <returns>ブロックが積みあがってしまったらtrue, そうでなければfalse を返す</returns>
-        public bool SetBlocks(Block[] blocks)
+        public override bool SetBlocks(Block[] blocks)
         {
             bool ret = false;
             _sound.Play(_soundPlaced); 
@@ -79,7 +80,7 @@ namespace UnityTetris
             return false;
         }
 
-        public bool IsHit(Vector2Int[] blocks)
+        public override bool IsHit(Vector2Int[] blocks)
         {
             foreach (Vector2Int b in blocks)
             {

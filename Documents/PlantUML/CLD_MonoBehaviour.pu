@@ -6,6 +6,7 @@ UnityEngine.MonoBehaviour <|-- Block
 UnityEngine.MonoBehaviour <|-- Field
 UnityEngine.MonoBehaviour <|-- StatusPanel
 UnityEngine.MonoBehaviour <|-- InputManager
+UnityEngine.MonoBehaviour <|-- AbstractField
 
 UnityEngine.MonoBehaviour <|-- StateGameBoot
 UnityEngine.MonoBehaviour <|-- StateGameMain

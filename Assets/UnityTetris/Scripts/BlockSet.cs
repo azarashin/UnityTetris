@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityTetris.Abstract;
 using UnityTetris.Interface;
 
 namespace UnityTetris
@@ -19,7 +20,7 @@ namespace UnityTetris
 
         private Block[] _activeBlocks;
         private bool _falling;
-        private IField _field;
+        private AbstractField _field;
         private IPlayer _owner;
         private IInputManager _input;
         private ISoundManager _sound; 
@@ -204,7 +205,7 @@ namespace UnityTetris
                 {
                     _activeBlocks[i].Px = pos[i].x;
                     _activeBlocks[i].Py = pos[i].y;
-                    _activeBlocks[i].transform.parent = _field.RefTransform();
+                    _activeBlocks[i].transform.parent = _field.transform;
                 }
 
                 if (_field.SetBlocks(_activeBlocks))
@@ -246,7 +247,7 @@ namespace UnityTetris
             return false;
         }
 
-        public void Setup(IPlayer owner, IField field, IInputManager input, ISoundManager sound, int fallLevel)
+        public void Setup(IPlayer owner, AbstractField field, IInputManager input, ISoundManager sound, int fallLevel)
         {
             _field = field;
             _owner = owner;

@@ -4,6 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityTetris;
+using UnityTetris.Abstract;
 using UnityTetris.Interface;
 
 public class UnitTestBlockSet
@@ -17,7 +18,7 @@ public class UnitTestBlockSet
         int fallLevel = 4; 
         BlockSet bs = NewBlockSet("BlockSetA");
         IPlayer player = new StubPlayer();
-        IField field = new StubField();
+        AbstractField field = new StubField();
         IInputManager input = new StubInputManager();
         ISoundManager sound = new StubSoundManager(); 
         bs.Setup(player, field, input, sound, fallLevel);
@@ -406,7 +407,7 @@ public class UnitTestBlockSet
         int fallLevel = 4;
         BlockSet bs = NewBlockSet("BlockSetC");
         StubPlayer player = new StubPlayer();
-        StubField field = new StubField();
+        StubField field = NewStubField();
         StubInputManager input = new StubInputManager();
         StubSoundManager sound = new StubSoundManager();
 
@@ -474,7 +475,6 @@ public class UnitTestBlockSet
 
         Assert.AreEqual(new Vector2Int(5, 4), bs.CenterPos());
         Assert.AreEqual("IsHit((5,5),(5,6),(6,6),(6,5))\n"
-            + "RefTransform\nRefTransform\nRefTransform\nRefTransform\n"
             + "SetBlocks((5,4),(5,5),(6,5),(6,4))\n", field.CallList);
         field.ClearCallList();
         sound.ClearCallList(); // サウンドの確認は本番のField インスタンスと結合する必要があり、ここで確認することができない。
@@ -491,7 +491,7 @@ public class UnitTestBlockSet
         int fallLevel = 4;
         BlockSet bs = NewBlockSet("BlockSetC");
         StubPlayer player = new StubPlayer();
-        StubField field = new StubField();
+        StubField field = NewStubField();
         StubInputManager input = new StubInputManager();
         StubSoundManager sound = new StubSoundManager();
 
@@ -530,7 +530,6 @@ public class UnitTestBlockSet
 
         Assert.AreEqual(new Vector2Int(5, 1), bs.CenterPos());
         Assert.AreEqual("IsHit((5,2),(5,3),(6,3),(6,2))\n"
-            + "RefTransform\nRefTransform\nRefTransform\nRefTransform\n"
             + "SetBlocks((5,1),(5,2),(6,2),(6,1))\n", field.CallList);
         field.ClearCallList();
         sound.ClearCallList(); // サウンドの確認は本番のField インスタンスと結合する必要があり、ここで確認することができない。
@@ -548,6 +547,16 @@ public class UnitTestBlockSet
         GameObject obj = GameObject.Instantiate(prefab);
 
         BlockSet ret = obj.GetComponent<BlockSet>();
+        return ret;
+
+    }
+
+    private StubField NewStubField()
+    {
+        GameObject prefab = Resources.Load<GameObject>("Prefabs/Test/StubField");
+        GameObject obj = GameObject.Instantiate(prefab);
+
+        StubField ret = obj.GetComponent<StubField>();
         return ret;
 
     }
