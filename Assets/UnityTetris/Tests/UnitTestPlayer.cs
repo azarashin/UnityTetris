@@ -25,7 +25,7 @@ public class UnitTestPlayer
 
     private Player NewPlayer()
     {
-        GameObject prefab = Resources.Load<GameObject>("Prefabs/Player");
+        GameObject prefab = Resources.Load<GameObject>("UnityTetris/Prefabs/Player");
         GameObject obj = GameObject.Instantiate(prefab);
 
         Player ret = obj.GetComponent<Player>();

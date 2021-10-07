@@ -543,7 +543,7 @@ public class UnitTestBlockSet
 
     private BlockSet NewBlockSet(string blockName)
     {
-        GameObject prefab = Resources.Load<GameObject>("Prefabs/" + blockName);
+        GameObject prefab = Resources.Load<GameObject>("UnityTetris/Prefabs/" + blockName);
         GameObject obj = GameObject.Instantiate(prefab);
 
         BlockSet ret = obj.GetComponent<BlockSet>();
@@ -553,7 +553,7 @@ public class UnitTestBlockSet
 
     private StubField NewStubField()
     {
-        GameObject prefab = Resources.Load<GameObject>("Prefabs/Test/StubField");
+        GameObject prefab = Resources.Load<GameObject>("UnityTetris/Prefabs/Test/StubField");
         GameObject obj = GameObject.Instantiate(prefab);
 
         StubField ret = obj.GetComponent<StubField>();
