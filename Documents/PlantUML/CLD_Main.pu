@@ -152,7 +152,7 @@ class UnityKeyInputManager
     + IsMoveDown() : bool
 }
 
-interface IBlockSet
+abstract class AbstractBlockSet
 {
     + Setup(owner: IPlayer, filed: IField, input: IInputManager, sound: ISoundManager, fallLevel: int) : void
 }
@@ -219,8 +219,8 @@ class StatusPanel
 }
 
 Player "1" *-- "1" AbstractField
-Player "1" o-- "0, 1" IBlockSet
-Player "1" o-- "1..*" IBlockSet
+Player "1" o-- "0, 1" AbstractBlockSet
+Player "1" o-- "1..*" AbstractBlockSet
 Player "1" *-- "1" InputManager
 Player "1" o-- "1" ISoundManager
 
@@ -238,7 +238,7 @@ StatusPanel "1" --o "1" GameController
 IInputManager <|.. InputManager
 InputManager <|.. UnityKeyInputManager
 ISoundManager <|.. UnitySoundManager
-IBlockSet <|.. BlockSet
+AbstractBlockSet <|.. BlockSet
 AbstractField <|.. Field
 IPlayer <|.. Player
 

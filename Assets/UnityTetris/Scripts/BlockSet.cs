@@ -7,7 +7,7 @@ using UnityTetris.Interface;
 
 namespace UnityTetris
 {
-    public class BlockSet : MonoBehaviour, IBlockSet
+    public class BlockSet : AbstractBlockSet
     {
         [SerializeField]
         private AudioSource _soundCollide;
@@ -247,7 +247,7 @@ namespace UnityTetris
             return false;
         }
 
-        public void Setup(IPlayer owner, AbstractField field, IInputManager input, ISoundManager sound, int fallLevel)
+        public override void Setup(IPlayer owner, AbstractField field, IInputManager input, ISoundManager sound, int fallLevel)
         {
             _field = field;
             _owner = owner;
