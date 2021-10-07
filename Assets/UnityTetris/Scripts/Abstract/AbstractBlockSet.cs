@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityTetris.Abstract;
+using UnityTetris.Interface;
 
-namespace UnityTetris.Interface
+namespace UnityTetris.Abstract
 {
     public abstract class AbstractBlockSet : MonoBehaviour
     {
