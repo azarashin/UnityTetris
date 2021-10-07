@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityTetris.Abstract;
 using UnityTetris.Interface;
 
 namespace UnityTetris
@@ -16,14 +17,14 @@ namespace UnityTetris
         [SerializeField]
         AudioSource _soundCollide;
 
-        private BlockSet[] _blockSetOptions;
+        private AbstractBlockSet[] _blockSetOptions;
         private StateGameMain _parent;
-        private BlockSet _currentBlock;
+        private AbstractBlockSet _currentBlock;
         private ISoundManager _sound;
         private bool _alive;
         private int _fallLevel; 
 
-        public void Setup(BlockSet[] blockSetOptions, ISoundManager sound, int fallLevel)
+        public void Setup(AbstractBlockSet[] blockSetOptions, ISoundManager sound, int fallLevel)
         {
             Debug.Log("Player.RunGame");
             _alive = true;
@@ -59,7 +60,7 @@ namespace UnityTetris
             }
             int id = Random.Range(0, _blockSetOptions.Length);
             Debug.Log($"Player.PullNextBlock: id={id}");
-            BlockSet next = _blockSetOptions[id];
+            AbstractBlockSet next = _blockSetOptions[id];
 
             _currentBlock = Instantiate(next);
             _currentBlock.Setup(this, _field, _input, _sound, _fallLevel);

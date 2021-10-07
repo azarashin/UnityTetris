@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityTetris.Abstract;
 using UnityTetris.Interface;
 
 namespace UnityTetris
@@ -16,7 +17,7 @@ namespace UnityTetris
 
         private GameController _parent;
 
-        public void Setup(GameController parent, IPlayer[] players, BlockSet[] blockSetOptions, ISoundManager sound, int fallLevel)
+        public void Setup(GameController parent, IPlayer[] players, AbstractBlockSet[] blockSetOptions, ISoundManager sound, int fallLevel)
         {
             Debug.Log("StateGameBoot.Setup");
             _parent = parent;

@@ -41,7 +41,7 @@ class Field
 class GameController
 {
     - _players : Player[]
-    - _blockSetOptions : BlockSet[]
+    - _blockSetOptions : AbstractBlockSet[]
     - _sound : UnitySoundManager
     - _boot : StateGameBoot
     - _main : StateGameMain
@@ -59,7 +59,7 @@ class GameController
 
 interface IPlayer
 {
-    + Setup(blockSetOptions : BlockSet[], sound : ISoundManager, fallLevel: int) : void
+    + Setup(blockSetOptions : AbstractBlockSet[], sound : ISoundManager, fallLevel: int) : void
     + StartGame(parent : StateGameMain) : void
     + IsAlive() : bool
     + Dead() : void
@@ -74,16 +74,16 @@ class Player
     - _soundCollide : UnityEngine.AudioSource
     ..
     - _parent : StateGameMain
-    - _blockSetOptions : BlockSet[]
+    - _blockSetOptions : AbstractBlockSet[]
     - _sound : ISoundManager
     - _alive : bool
-    - _currentBlock : BlockSet
+    - _currentBlock : AbstractBlockSet
     - _fallLevel: int
     --
 
     - FixedUpdate() : void
 
-    + Setup(blockSetOptions : BlockSet[], sound : ISoundManager, fallLevel: int) : void
+    + Setup(blockSetOptions : AbstractBlockSet[], sound : ISoundManager, fallLevel: int) : void
     + StartGame(parent : StateGameMain) : void
     + IsAlive() : bool
     + Dead() : void
@@ -98,7 +98,7 @@ class StateGameBoot
     - _parent : GameController
     --
 
-    + Setup(parent : GameController, player : Player[], blockSetOptions : BlockSet[], sound : ISoundManager, fallLevel: int) : void
+    + Setup(parent : GameController, player : Player[], blockSetOptions : AbstractBlockSet[], sound : ISoundManager, fallLevel: int) : void
     - CoRun() : IEnumerator
 }
 

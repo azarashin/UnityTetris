@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityTetris.Abstract;
 
 namespace UnityTetris
 {
@@ -10,7 +11,7 @@ namespace UnityTetris
         private Player[] _players;
 
         [SerializeField]
-        private BlockSet[] _blockSetOptions;
+        private AbstractBlockSet[] _blockSetOptions;
 
         [SerializeField]
         private UnitySoundManager _sound; 
