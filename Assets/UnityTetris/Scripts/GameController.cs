@@ -11,7 +11,10 @@ namespace UnityTetris
         private Player[] _players;
 
         [SerializeField]
-        private AbstractBlockSet[] _blockSetOptions;
+        AbstractField _fieldPrefab;
+
+        [SerializeField]
+        private AbstractBlockSet[] _blockSetPrefabOptions;
 
         [SerializeField]
         private UnitySoundManager _sound; 
@@ -40,7 +43,7 @@ namespace UnityTetris
             _boot.gameObject.SetActive(true);
             _main.gameObject.SetActive(false);
             _finish.gameObject.SetActive(false);
-            _boot.Setup(this, _players, _blockSetOptions, _sound, _fallLevel);
+            _boot.Setup(this, _fieldPrefab, _players, _blockSetPrefabOptions, _sound, _fallLevel);
         }
 
         public void RunGame()

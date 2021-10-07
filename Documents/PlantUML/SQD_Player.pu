@@ -8,10 +8,18 @@ activate Player
     Player -> Player : ブロック群の選択肢を保持する
     activate Player
     deactivate Player
-    Player -> Field : ResetField
-    activate Field
-        Player <-- Field
-    deactivate Field
+    Player -> MonoBehaviour : Instantiate
+    activate MonoBehaviour
+        MonoBehaviour -> AbstractField : create
+        activate AbstractField
+            MonoBehaviour <-- AbstractField
+        deactivate AbstractField
+        Player <-- MonoBehaviour : 生成されたBlockSet クラスのインスタンスを_currentBlock に保持する
+    deactivate MonoBehaviour
+    Player -> AbstractField : ResetField
+    activate AbstractField
+        Player <-- AbstractField
+    deactivate AbstractField
     [<-- Player
 deactivate Player
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityTetris;
+using UnityTetris.Abstract;
 using UnityTetris.Interface;
 
 public class StubPlayer : IPlayer
@@ -30,7 +31,7 @@ public class StubPlayer : IPlayer
         CallList += "PullNextBlock\n";
     }
 
-    public void Setup(BlockSet[] blockSetOptions, ISoundManager sound, int fallLevel)
+    public void Setup(AbstractField fieldPrefab, AbstractBlockSet[] blockSetPrefabOptions, ISoundManager sound, int fallLevel)
     {
         CallList += "Setup\n";
     }
