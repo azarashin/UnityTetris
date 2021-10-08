@@ -15,9 +15,10 @@ namespace UnityTetris
         [SerializeField]
         private Text _counter;
 
-        private GameController _parent;
+        private IGameController _parent;
+        public int CountMax { get { return _countMax;  } } 
 
-        public void Setup(GameController parent, AbstractField fieldPrefab, IPlayer[] players, AbstractBlockSet[] blockSetPrefabOptions, ISoundManager sound, int fallLevel)
+        public void Setup(IGameController parent, AbstractField fieldPrefab, IPlayer[] players, AbstractBlockSet[] blockSetPrefabOptions, ISoundManager sound, int fallLevel)
         {
             Debug.Log("StateGameBoot.Setup");
             _parent = parent;

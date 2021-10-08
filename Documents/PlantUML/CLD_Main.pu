@@ -103,10 +103,10 @@ class StateGameBoot
     - _countMax : int
     - _counter : UnityEngine.UI.Text
     ..
-    - _parent : GameController
+    - _parent : IGameController
     --
 
-    + Setup(fieldPrefab: AbstractField, parent : GameController, player : Player[], blockSetPrefabOptions : AbstractBlockSet[], sound : ISoundManager, fallLevel: int) : void
+    + Setup(fieldPrefab: AbstractField, parent : IGameController, player : Player[], blockSetPrefabOptions : AbstractBlockSet[], sound : ISoundManager, fallLevel: int) : void
     - CoRun() : IEnumerator
 }
 
