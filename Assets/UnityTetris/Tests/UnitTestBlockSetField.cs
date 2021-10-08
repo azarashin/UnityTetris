@@ -29,7 +29,7 @@ public class UnitTestBlockSetField
 
         Assert.AreEqual(new Vector2Int(width / 2, 1), bs.CenterPos());
 
-        for (int i = width / 2; i < width - 1; i++)
+        for (int i = width / 2 + 1; i < width - 1; i++)
         {
             // 右移動
             input.SetReturn(false, false, true, false, false);
@@ -163,7 +163,7 @@ public class UnitTestBlockSetField
 
     private BlockSet NewBlockSet(string blockName)
     {
-        GameObject prefab = Resources.Load<GameObject>("UnityTetris/Prefabs/" + blockName);
+        GameObject prefab = Resources.Load<GameObject>("UnityTetris/Prefabs/BlockSet/" + blockName);
         GameObject obj = GameObject.Instantiate(prefab);
 
         BlockSet ret = obj.GetComponent<BlockSet>();

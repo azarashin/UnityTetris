@@ -543,7 +543,7 @@ public class UnitTestBlockSet
 
     private BlockSet NewBlockSet(string blockName)
     {
-        GameObject prefab = Resources.Load<GameObject>("UnityTetris/Prefabs/" + blockName);
+        GameObject prefab = Resources.Load<GameObject>("UnityTetris/Prefabs/BlockSet/" + blockName);
         GameObject obj = GameObject.Instantiate(prefab);
 
         BlockSet ret = obj.GetComponent<BlockSet>();
