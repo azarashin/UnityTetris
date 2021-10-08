@@ -14,7 +14,7 @@ activate Player
         activate AbstractField
             MonoBehaviour <-- AbstractField
         deactivate AbstractField
-        Player <-- MonoBehaviour : 生成されたBlockSet クラスのインスタンスを_currentBlock に保持する
+        Player <-- MonoBehaviour : 生成されたAbstractField クラスのインスタンスを_currentBlock に保持する
     deactivate MonoBehaviour
     Player -> AbstractField : ResetField
     activate AbstractField
