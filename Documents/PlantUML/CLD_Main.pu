@@ -112,19 +112,19 @@ class StateGameBoot
 
 abstract class AbstractStateGameMain
 {
-    + Setup(parent : GameController, players : Player[]) : void
-    + PlayerGameOver(player : Player) : void
+    + Setup(parent : IGameController, players : IPlayer[]) : void
+    + PlayerGameOver(player : IPlayer) : void
 }
 
 class StateGameMain
 {
-    - _parent : GameController
+    - _parent : IGameController
     - _players : IPlayer[]
 
     - GetNumberOfAlivingPlayer() : int
 
-    + Setup(parent : GameController, players : Player[]) : void
-    + PlayerGameOver(player : Player) : void
+    + Setup(parent : IGameController, players : IPlayer[]) : void
+    + PlayerGameOver(player : IPlayer) : void
 }
 
 class StateGameFinish
