@@ -15,19 +15,21 @@ public class UnitTestBlockSetField
     public IEnumerator UnitTestStateGameMainWithEnumeratorPasses001() // 左右移動
     {
         int fallLevel = 24; // 落下しないよう落下スピードを遅めにする
+        int width = 10;
+        int height = 10;
+        int border = 2;
         BlockSet bs = NewBlockSet("BlockSetC");
         StubPlayer player = new StubPlayer();
         Field field = NewField(); 
         StubInputManager input = new StubInputManager();
         StubSoundManager sound = new StubSoundManager();
 
-        field.ResetField(sound, 10, 10, 2); 
+        field.ResetField(sound, width, height, border); 
         bs.Setup(player, field, input, sound, fallLevel);
 
-        // Field のWidth が10 なので、ブロックの初期x 座標値は5
-        Assert.AreEqual(new Vector2Int(5, 1), bs.CenterPos());
+        Assert.AreEqual(new Vector2Int(width / 2, 1), bs.CenterPos());
 
-        for (int i = 6; i < 9; i++)
+        for (int i = width / 2; i < width - 1; i++)
         {
             // 右移動
             input.SetReturn(false, false, true, false, false);
@@ -52,7 +54,7 @@ public class UnitTestBlockSetField
         Assert.AreEqual("", player.CallList);
         player.ClearCallList();
 
-        for (int i = 7; i >= 0; i--)
+        for (int i = width - 2 - 1; i >= 0; i--)
         {
             // 左移動
             input.SetReturn(false, true, false, false, false);
@@ -87,32 +89,35 @@ public class UnitTestBlockSetField
     public IEnumerator UnitTestStateGameMainWithEnumeratorPasses002() // 下移動(一番下まで自由落下)
     {
         int fallLevel = 4;
+        int width = 10;
+        int height = 10;
+        int border = 2;
         BlockSet bs = NewBlockSet("BlockSetC");
         StubPlayer player = new StubPlayer();
         Field field = NewField();
         StubInputManager input = new StubInputManager();
         StubSoundManager sound = new StubSoundManager();
 
-        field.ResetField(sound, 10, 10, 2);
+        field.ResetField(sound, width, height, border);
 
         bs.Setup(player, field, input, sound, fallLevel);
 
         // ブロックのテンプレートの配置が(0, 0), (0, 1), (1, 1), (1, 0) なので
         // あらゆる回転がなされてもブロックの各パーツの座標値が０以上になるよう補正され、ブロック全体が1つ下にずらされる
         // 個のテストケースではフィールド幅が10 なので、ブロック原点のx座標は中央の5 になるはず。
-        Assert.AreEqual(new Vector2Int(5, 1), bs.CenterPos());
+        Assert.AreEqual(new Vector2Int(width / 2, 1), bs.CenterPos());
 
         input.SetReturn(false, false, false, false, false);
 
         // ---
-        for (int k = 1; k < 8; k++) // 設置直前まで自由落下させてみる
+        for (int k = 1; k < height - 2; k++) // 設置直前まで自由落下させてみる
         {
             for (int i = 0; i < fallLevel * BlockSet.CountWaitFallingLimit - 1; i++)
             {
                 yield return new WaitForFixedUpdate();
 
                 // しばらくは移動しない
-                Assert.AreEqual(new Vector2Int(5, k), bs.CenterPos());
+                Assert.AreEqual(new Vector2Int(width / 2, k), bs.CenterPos());
                 Assert.AreEqual("", sound.CallList); // 落下中音はならない
                 sound.ClearCallList();
                 Assert.AreEqual("", player.CallList);
@@ -122,7 +127,7 @@ public class UnitTestBlockSetField
             // 下移動
             yield return new WaitForFixedUpdate();
 
-            Assert.AreEqual(new Vector2Int(5, 1 + k), bs.CenterPos());
+            Assert.AreEqual(new Vector2Int(width / 2, 1 + k), bs.CenterPos());
             Assert.AreEqual("", sound.CallList); // 落下中音はならない
             sound.ClearCallList();
             Assert.AreEqual("", player.CallList);
@@ -134,7 +139,7 @@ public class UnitTestBlockSetField
             yield return new WaitForFixedUpdate();
 
             // しばらくは移動しない
-            Assert.AreEqual(new Vector2Int(5, 8), bs.CenterPos());
+            Assert.AreEqual(new Vector2Int(width / 2, height - 2), bs.CenterPos());
             Assert.AreEqual("", sound.CallList); // 落下中音はならない
             sound.ClearCallList();
             Assert.AreEqual("", player.CallList);
@@ -144,7 +149,7 @@ public class UnitTestBlockSetField
         // 下移動しようとするが、衝突してしまい、移動できずにとどまる
         yield return new WaitForFixedUpdate();
 
-        Assert.AreEqual(new Vector2Int(5, 8), bs.CenterPos());
+        Assert.AreEqual(new Vector2Int(width / 2, height - 2), bs.CenterPos());
         Assert.AreEqual($"Play({SoundPlaced})\n", sound.CallList); // 移動音
         sound.ClearCallList();
         Assert.AreEqual("PullNextBlock\n", player.CallList);
