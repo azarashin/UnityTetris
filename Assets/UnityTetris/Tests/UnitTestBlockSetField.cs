@@ -12,7 +12,7 @@ public class UnitTestBlockSetField
     private const string SoundPlaced = "null";
 
     [UnityTest]
-    public IEnumerator UnityTest001() // 左右移動
+    public IEnumerator UnitTestStateGameMainWithEnumeratorPasses001() // 左右移動
     {
         int fallLevel = 24; // 落下しないよう落下スピードを遅めにする
         BlockSet bs = NewBlockSet("BlockSetC");
@@ -84,7 +84,7 @@ public class UnitTestBlockSetField
     }
 
     [UnityTest]
-    public IEnumerator UnityTest002() // 下移動(一番下まで自由落下)
+    public IEnumerator UnitTestStateGameMainWithEnumeratorPasses002() // 下移動(一番下まで自由落下)
     {
         int fallLevel = 4;
         BlockSet bs = NewBlockSet("BlockSetC");

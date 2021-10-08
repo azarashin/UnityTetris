@@ -9,7 +9,7 @@ using UnityTetris;
     public class UnitTestField
 {
     [Test]
-    public void UnitTest001()
+    public void UnitTestStateGameMainSimplePasses001()
     {
         StubSoundManager sound = new StubSoundManager();
         Field f = NewField();
@@ -21,7 +21,7 @@ using UnityTetris;
     }
 
     [Test]
-    public void UnitTest002()
+    public void UnitTestStateGameMainSimplePasses002()
     {
         StubSoundManager sound = new StubSoundManager();
         Field f = NewField();
@@ -91,7 +91,7 @@ using UnityTetris;
     }
 
     [Test]
-    public void UnitTest003()
+    public void UnitTestStateGameMainSimplePasses003()
     {
         StubSoundManager sound = new StubSoundManager();
         Field f = NewField();
@@ -153,7 +153,7 @@ oooo****
 
 
     [Test]
-    public void UnitTest004()
+    public void UnitTestStateGameMainSimplePasses004()
     {
         Field f = NewField();
         StubSoundManager sound = new StubSoundManager();
