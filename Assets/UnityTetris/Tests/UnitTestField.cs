@@ -273,24 +273,22 @@ oooo****
 
     private Block NewBlock(int x, int y)
     {
-        GameObject prefab = Resources.Load<GameObject>("UnityTetris/Prefabs/Block");
-        GameObject obj = GameObject.Instantiate(prefab); 
+        Block prefab = Resources.Load<Block>("UnityTetris/Prefabs/Block");
+        Block obj = GameObject.Instantiate(prefab); 
 
-        Block ret = obj.GetComponent<Block>();
-        ret.Px = x;
-        ret.Py = y;
+        obj.Px = x;
+        obj.Py = y;
 
-        return ret; 
+        return obj; 
 
     }
 
     private Field NewField()
     {
-        GameObject prefab = Resources.Load<GameObject>("UnityTetris/Prefabs/Field");
-        GameObject obj = GameObject.Instantiate(prefab);
+        Field prefab = Resources.Load<Field>("UnityTetris/Prefabs/Field");
+        Field obj = GameObject.Instantiate(prefab);
 
-        Field ret = obj.GetComponent<Field>();
-        return ret;
+        return obj;
 
     }
 }

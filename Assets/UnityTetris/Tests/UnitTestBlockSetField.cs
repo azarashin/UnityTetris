@@ -163,21 +163,19 @@ public class UnitTestBlockSetField
 
     private BlockSet NewBlockSet(string blockName)
     {
-        GameObject prefab = Resources.Load<GameObject>("UnityTetris/Prefabs/BlockSet/" + blockName);
-        GameObject obj = GameObject.Instantiate(prefab);
+        BlockSet prefab = Resources.Load<BlockSet>("UnityTetris/Prefabs/BlockSet/" + blockName);
+        BlockSet obj = GameObject.Instantiate(prefab);
 
-        BlockSet ret = obj.GetComponent<BlockSet>();
-        return ret;
+        return obj; 
 
     }
 
     private Field NewField()
     {
-        GameObject prefab = Resources.Load<GameObject>("UnityTetris/Prefabs/Field");
-        GameObject obj = GameObject.Instantiate(prefab);
+        Field prefab = Resources.Load<Field>("UnityTetris/Prefabs/Field");
+        Field obj = GameObject.Instantiate(prefab);
 
-        Field ret = obj.GetComponent<Field>();
-        return ret;
+        return obj;
 
     }
 }

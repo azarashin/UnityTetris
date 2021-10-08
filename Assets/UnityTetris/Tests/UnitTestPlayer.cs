@@ -17,7 +17,7 @@ public class UnitTestPlayer
         int fallLevel = 4;
         Player p = NewPlayer();
         ISoundManager sound = new StubSoundManager();
-        StubBlockSet[] bs = new StubBlockSet[] { StubBlockSet() };
+        StubBlockSet[] bs = new StubBlockSet[] { StubBlockSetPrefab() };
         StubField fieldPrefab = StubFieldPrefab();
         StubStateGameMain gameMain = StubStateGameMain(); 
         fieldPicker.Pick();
@@ -48,7 +48,7 @@ public class UnitTestPlayer
         int fallLevel = 4;
         Player p = NewPlayer();
         ISoundManager sound = new StubSoundManager();
-        StubBlockSet[] bs = new StubBlockSet[] { StubBlockSet() };
+        StubBlockSet[] bs = new StubBlockSet[] { StubBlockSetPrefab() };
         StubField fieldPrefab = StubFieldPrefab();
         StubStateGameMain gameMain = StubStateGameMain();
 
@@ -69,25 +69,23 @@ public class UnitTestPlayer
 
     private StubStateGameMain StubStateGameMain()
     {
-        GameObject prefab = Resources.Load<GameObject>("UnityTetris/Prefabs/Test/StubStateGameMain");
-        GameObject obj = GameObject.Instantiate(prefab);
+        StubStateGameMain prefab = Resources.Load<StubStateGameMain>("UnityTetris/Prefabs/Test/StubStateGameMain");
+        StubStateGameMain obj = GameObject.Instantiate(prefab);
 
-        StubStateGameMain ret = obj.GetComponent<StubStateGameMain>();
-        return ret;
+        return obj;
 
     }
 
     private Player NewPlayer()
     {
-        GameObject prefab = Resources.Load<GameObject>("UnityTetris/Prefabs/Player");
-        GameObject obj = GameObject.Instantiate(prefab);
+        Player prefab = Resources.Load<Player>("UnityTetris/Prefabs/Player");
+        Player obj = GameObject.Instantiate(prefab);
 
-        Player ret = obj.GetComponent<Player>();
-        return ret;
+        return obj;
 
     }
 
-    private StubBlockSet StubBlockSet()
+    private StubBlockSet StubBlockSetPrefab()
     {
         StubBlockSet prefab = Resources.Load<StubBlockSet>("UnityTetris/Prefabs/Test/StubBlockSet");
         return prefab;
@@ -96,9 +94,8 @@ public class UnitTestPlayer
 
     private StubField StubFieldPrefab()
     {
-        GameObject prefab = Resources.Load<GameObject>("UnityTetris/Prefabs/Test/StubField");
-        StubField ret = prefab.GetComponent<StubField>();
-        return ret;
+        StubField prefab = Resources.Load<StubField>("UnityTetris/Prefabs/Test/StubField");
+        return prefab;
 
     }
 }
