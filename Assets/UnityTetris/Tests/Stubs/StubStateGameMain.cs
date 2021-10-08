@@ -15,11 +15,11 @@ public class StubStateGameMain : AbstractStateGameMain
 
     public override void PlayerGameOver(Player player)
     {
-        CallList += $"PlayerGameOver({player.name})";
+        CallList += $"PlayerGameOver({player.name})\n";
     }
 
     public override void Setup(GameController parent, Player[] players)
     {
-        CallList += $"Setup()";
+        CallList += $"Setup()\n";
     }
 }

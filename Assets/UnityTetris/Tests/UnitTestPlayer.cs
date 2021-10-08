@@ -12,18 +12,6 @@ public class UnitTestPlayer
     [Test]
     public void UnitTest001()
     {
-        int fallLevel = 4; 
-        Player p = NewPlayer();
-        ISoundManager sound = new StubSoundManager();
-        StubBlockSet[] bs = new StubBlockSet[] { StubBlockSet() };
-        StubField field = StubFieldPrefab();
-        //Player のインスタンスが問題なく生成されてることを確認。
-        p.Setup(field, bs, sound, fallLevel);
-    }
-
-    [UnityTest]
-    public IEnumerator UnityTest001()
-    {
         ObjectPicker<StubField> fieldPicker = new ObjectPicker<StubField>();
         ObjectPicker<StubBlockSet> blockSetPicker = new ObjectPicker<StubBlockSet>();
         int fallLevel = 4;
@@ -32,7 +20,8 @@ public class UnitTestPlayer
         StubBlockSet[] bs = new StubBlockSet[] { StubBlockSet() };
         StubField fieldPrefab = StubFieldPrefab();
         StubStateGameMain gameMain = StubStateGameMain(); 
-        fieldPicker.Pick(); 
+        fieldPicker.Pick();
+        //Player のインスタンスが問題なく生成されてることを確認。
         p.Setup(fieldPrefab, bs, sound, fallLevel);
 
         // Setup の呼び出しにより、内部でStubField(fieldPrefab) のインスタンスができているはず。
@@ -51,8 +40,31 @@ public class UnitTestPlayer
         Assert.AreEqual(1, blocks.Length); // この時点でブロックが１つで来ているはず
         Assert.AreEqual($"Setup({fallLevel})\n", blocks[0].CallList);
 
-        yield return null;
     }
+
+    [Test]
+    public void UnitTest002()
+    {
+        int fallLevel = 4;
+        Player p = NewPlayer();
+        ISoundManager sound = new StubSoundManager();
+        StubBlockSet[] bs = new StubBlockSet[] { StubBlockSet() };
+        StubField fieldPrefab = StubFieldPrefab();
+        StubStateGameMain gameMain = StubStateGameMain();
+
+        p.Setup(fieldPrefab, bs, sound, fallLevel);
+        p.StartGame(gameMain);
+
+        Assert.AreEqual(true, p.IsAlive()); // まだ生きている
+        Assert.AreEqual("", gameMain.CallList);
+
+        p.Dead();
+
+        Assert.AreEqual(false, p.IsAlive()); // 死んだ
+        Assert.AreEqual($"PlayerGameOver({p.name})\n", gameMain.CallList); // 通知が来た
+
+    }
+
 
 
     private StubStateGameMain StubStateGameMain()
