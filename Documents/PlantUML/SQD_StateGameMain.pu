@@ -14,7 +14,7 @@ activate StateGameMain
     [<-- StateGameMain
 deactivate StateGameMain
 
-Player -> StateGameMain : PlayerGameOver
+[-> StateGameMain : PlayerGameOver
 activate StateGameMain
     StateGameMain -> StateGameMain : GetNumberOfAlivingPlayer
     activate StateGameMain
@@ -25,7 +25,7 @@ activate StateGameMain
             StateGameMain <-- GameController
         deactivate GameController
     end
-    Player <-- StateGameMain
+    [<-- StateGameMain
 deactivate StateGameMain
 
 @enduml
