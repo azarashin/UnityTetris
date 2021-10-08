@@ -61,7 +61,7 @@ public class UnitTestPlayer
         p.Dead();
 
         Assert.AreEqual(false, p.IsAlive()); // 死んだ
-        Assert.AreEqual($"PlayerGameOver({p.name})\n", gameMain.CallList); // 通知が来た
+        Assert.AreEqual($"PlayerGameOver({p.GetHashCode()})\n", gameMain.CallList); // 通知が来た
 
     }
 
