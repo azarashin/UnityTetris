@@ -2,6 +2,7 @@
 
 UnityEngine.MonoBehaviour <|-- AbstractField
 UnityEngine.MonoBehaviour <|-- AbstractBlockSet
+UnityEngine.MonoBehaviour <|-- AbstractStateGameMain
 
 UnityEngine.MonoBehaviour <|-- GameController
 UnityEngine.MonoBehaviour <|-- Block

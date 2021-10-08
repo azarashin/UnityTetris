@@ -36,7 +36,7 @@ public class StubPlayer : IPlayer
         CallList += "Setup\n";
     }
 
-    public void StartGame(StateGameMain parent)
+    public void StartGame(AbstractStateGameMain parent)
     {
         CallList += "StartGame\n";
     }

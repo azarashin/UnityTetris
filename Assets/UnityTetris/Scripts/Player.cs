@@ -15,7 +15,7 @@ namespace UnityTetris
         AudioSource _soundCollide;
 
         private AbstractBlockSet[] _blockSetPrefabOptions;
-        private StateGameMain _parent;
+        private AbstractStateGameMain _parent;
         private AbstractField _field;
         private AbstractBlockSet _currentBlock;
         private ISoundManager _sound;
@@ -33,7 +33,7 @@ namespace UnityTetris
             _fallLevel =fallLevel; 
         }
 
-        public void StartGame(StateGameMain parent)
+        public void StartGame(AbstractStateGameMain parent)
         {
             _parent = parent;
             _currentBlock = null;
