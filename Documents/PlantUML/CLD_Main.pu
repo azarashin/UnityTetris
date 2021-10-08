@@ -104,6 +104,7 @@ class StateGameBoot
     - _counter : UnityEngine.UI.Text
     ..
     - _parent : IGameController
+    + CountMax : int
     --
 
     + Setup(fieldPrefab: AbstractField, parent : IGameController, player : Player[], blockSetPrefabOptions : AbstractBlockSet[], sound : ISoundManager, fallLevel: int) : void
@@ -132,10 +133,11 @@ class StateGameFinish
     - _waitMax : float
     - _message : UnityEngine.UI.Text
     ..
-    - _parent : GameController
+    - _parent : IGameController
+    + WaitMax : float
     --
 
-    + Setup(parent : GameController) : void
+    + Setup(parent : IGameController) : void
     - CoRun() : IEnumerator
 }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityTetris.Interface;
 
 namespace UnityTetris
 {
@@ -13,9 +14,11 @@ namespace UnityTetris
         [SerializeField]
         private Text _message;
 
-        private GameController _parent;
+        private IGameController _parent;
 
-        public void Setup(GameController parent)
+        public float WaitMax { get { return _waitMax; } }
+
+        public void Setup(IGameController parent)
         {
             Debug.Log("StateGameFinish.Setup");
             _parent = parent;
