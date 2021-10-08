@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityTetris.Abstract;
+using UnityTetris.Interface;
 
 namespace UnityTetris
 {
-    public class GameController : MonoBehaviour
+    public class GameController : MonoBehaviour, IGameController
     {
         [SerializeField]
         private Player[] _players;

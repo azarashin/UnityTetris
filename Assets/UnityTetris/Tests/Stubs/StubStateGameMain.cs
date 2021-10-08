@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityTetris;
 using UnityTetris.Abstract;
+using UnityTetris.Interface;
 
 public class StubStateGameMain : AbstractStateGameMain
 {
@@ -13,12 +14,12 @@ public class StubStateGameMain : AbstractStateGameMain
         CallList = "";
     }
 
-    public override void PlayerGameOver(Player player)
+    public override void PlayerGameOver(IPlayer player)
     {
-        CallList += $"PlayerGameOver({player.name})\n";
+        CallList += $"PlayerGameOver({player.GetHashCode()})\n";
     }
 
-    public override void Setup(GameController parent, Player[] players)
+    public override void Setup(IGameController parent, IPlayer[] players)
     {
         CallList += $"Setup()\n";
     }

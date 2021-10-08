@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityTetris.Abstract;
+using UnityTetris.Interface;
 
 namespace UnityTetris
 {
     public class StateGameMain : AbstractStateGameMain
     {
-        private GameController _parent;
-        private Player[] _players;
+        private IGameController _parent;
+        private IPlayer[] _players;
 
-        public override void Setup(GameController parent, Player[] players)
+        public override void Setup(IGameController parent, IPlayer[] players)
         {
             Debug.Log("StateGameMain.Setup");
             _parent = parent;
@@ -22,7 +23,7 @@ namespace UnityTetris
             }
         }
 
-        public override void PlayerGameOver(Player player)
+        public override void PlayerGameOver(IPlayer player)
         {
             if (GetNumberOfAlivingPlayer() <= 1)
             {

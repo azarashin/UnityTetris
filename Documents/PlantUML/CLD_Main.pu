@@ -37,6 +37,13 @@ class Field
     + RefTransform() : Transform
 }
 
+interface IGameController
+{
+    + BootGame() : void
+    + RunGame() : void
+    + FinishGame() : void
+}
+
 ' ゲームの進行を管理する
 class GameController
 {
@@ -245,6 +252,7 @@ StatusPanel "1" --o "1" GameController
 IInputManager <|.. InputManager
 InputManager <|.. UnityKeyInputManager
 ISoundManager <|.. UnitySoundManager
+IGameController <|.. GameController
 AbstractBlockSet <|.. BlockSet
 AbstractField <|.. Field
 AbstractStateGameMain <|.. StateGameMain
