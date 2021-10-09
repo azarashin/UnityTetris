@@ -24,7 +24,7 @@ namespace UnityTetris
 
         public void Setup(AbstractField fieldPrefab, AbstractBlockSet[] blockSetOptions, ISoundManager sound, int fallLevel)
         {
-            Debug.Log("Player.RunGame");
+            Debug.Log("Player.Setup");
             _alive = true;
             _blockSetPrefabOptions = blockSetOptions;
             _sound = sound;
@@ -35,6 +35,7 @@ namespace UnityTetris
 
         public void StartGame(AbstractStateGameMain parent)
         {
+            Debug.Log("Player.StartGame");
             _parent = parent;
             _currentBlock = null;
             PullNextBlock();
