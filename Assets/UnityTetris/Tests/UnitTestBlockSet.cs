@@ -13,7 +13,7 @@ public class UnitTestBlockSet
     private const string SoundMove = "null";
 
     [Test]
-    public void UnitTestStateGameMainSimplePasses001()
+    public void UnitTestBlockSetSimplePasses001()
     {
         int fallLevel = 4; 
         BlockSet bs = NewBlockSet("BlockSetA");
@@ -26,7 +26,7 @@ public class UnitTestBlockSet
     }
 
     [UnityTest]
-    public IEnumerator UnitTestStateGameMainWithEnumeratorPasses001() // 右回転
+    public IEnumerator UnitTestBlockSetWithEnumeratorPasses001() // 右回転
     {
         int fallLevel = 4;
         BlockSet bs = NewBlockSet("BlockSetA");
@@ -89,7 +89,7 @@ public class UnitTestBlockSet
     }
 
     [UnityTest]
-    public IEnumerator UnitTestStateGameMainWithEnumeratorPasses002() // 左回転
+    public IEnumerator UnitTestBlockSetWithEnumeratorPasses002() // 左回転
     {
         //    -1 0 1
         //  0   ooo
@@ -155,7 +155,7 @@ public class UnitTestBlockSet
     }
 
     [UnityTest]
-    public IEnumerator UnitTestStateGameMainWithEnumeratorPasses003() // 左右移動
+    public IEnumerator UnitTestBlockSetWithEnumeratorPasses003() // 左右移動
     {
         int fallLevel = 24; // 落下しないよう落下スピードを遅めにする
         BlockSet bs = NewBlockSet("BlockSetC");
@@ -236,7 +236,7 @@ public class UnitTestBlockSet
 
 
     [UnityTest]
-    public IEnumerator UnitTestStateGameMainWithEnumeratorPasses004() // 下移動(入力による加速落下)
+    public IEnumerator UnitTestBlockSetWithEnumeratorPasses004() // 下移動(入力による加速落下)
     {
         int fallLevel = 4;
         BlockSet bs = NewBlockSet("BlockSetC");
@@ -344,7 +344,7 @@ public class UnitTestBlockSet
     }
 
     [UnityTest]
-    public IEnumerator UnitTestStateGameMainWithEnumeratorPasses005() // 下移動(自由落下)
+    public IEnumerator UnitTestBlockSetWithEnumeratorPasses005() // 下移動(自由落下)
     {
         int fallLevel = 4;
         BlockSet bs = NewBlockSet("BlockSetC");
@@ -407,7 +407,7 @@ public class UnitTestBlockSet
     }
 
     [UnityTest]
-    public IEnumerator UnitTestStateGameMainWithEnumeratorPasses006() // 下移動(一番下まで自由落下)
+    public IEnumerator UnitTestBlockSetWithEnumeratorPasses006() // 下移動(一番下まで自由落下)
     {
         int fallLevel = 4;
         BlockSet bs = NewBlockSet("BlockSetC");
@@ -492,7 +492,7 @@ public class UnitTestBlockSet
         yield return null;
     }
     [UnityTest]
-    public IEnumerator UnitTestStateGameMainWithEnumeratorPasses007() // 下移動(落下し、設置して上が詰まる)
+    public IEnumerator UnitTestBlockSetWithEnumeratorPasses007() // 下移動(落下し、設置して上が詰まる)
     {
         int fallLevel = 4;
         BlockSet bs = NewBlockSet("BlockSetC");

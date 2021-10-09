@@ -12,7 +12,7 @@ public class UnitTestBlockSetField
     private const string SoundPlaced = "null";
 
     [UnityTest]
-    public IEnumerator UnitTestStateGameMainWithEnumeratorPasses001() // 左右移動
+    public IEnumerator UnitTestBlockSetFieldWithEnumeratorPasses001() // 左右移動
     {
         int fallLevel = 24; // 落下しないよう落下スピードを遅めにする
         int width = 10;
@@ -86,7 +86,7 @@ public class UnitTestBlockSetField
     }
 
     [UnityTest]
-    public IEnumerator UnitTestStateGameMainWithEnumeratorPasses002() // 下移動(一番下まで自由落下)
+    public IEnumerator UnitTestBlockSetFieldWithEnumeratorPasses002() // 下移動(一番下まで自由落下)
     {
         int fallLevel = 4;
         int width = 10;
@@ -161,7 +161,7 @@ public class UnitTestBlockSetField
     }
 
     [UnityTest]
-    public IEnumerator UnitTestStateGameMainWithEnumeratorPasses003() // 下移動(一番下まで自由落下)
+    public IEnumerator UnitTestBlockSetFieldWithEnumeratorPasses003() // 下移動(一番下まで自由落下)
     {
         int fallLevel = 24;
         int width = 10;

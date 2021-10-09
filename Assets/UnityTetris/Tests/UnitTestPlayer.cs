@@ -10,7 +10,7 @@ using UnityTetris.Interface;
 public class UnitTestPlayer
 {
     [Test]
-    public void UnitTestStateGameMainSimplePasses001()
+    public void UnitTestPlayerSimplePasses001()
     {
         ObjectPicker<StubField> fieldPicker = new ObjectPicker<StubField>();
         ObjectPicker<StubBlockSet> blockSetPicker = new ObjectPicker<StubBlockSet>();
@@ -43,7 +43,7 @@ public class UnitTestPlayer
     }
 
     [Test]
-    public void UnitTestStateGameMainSimplePasses002()
+    public void UnitTestPlayerSimplePasses002()
     {
         int fallLevel = 4;
         Player p = NewPlayer();
