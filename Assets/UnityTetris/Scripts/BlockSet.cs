@@ -262,7 +262,7 @@ namespace UnityTetris
             // localPostion のx, y が_partsPositions の座標と一致するようにインスタンスの座標を指定して生成する
             _activeBlocks = _partsPositions.Select(s =>
                 Instantiate(_prefabPart,
-                    transform.position + (new Vector3(s.x, -s.y)), Quaternion.identity, transform) // Y軸は
+                    transform.position + (new Vector3(s.x, s.y)), Quaternion.identity, transform) 
             ).ToArray();
 
             int miny = _partsPositions.Min(s => s.y);

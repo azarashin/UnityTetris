@@ -168,102 +168,137 @@ public class UnitTestBlockSetField
         int width = 10;
         int height = 10;
         int border = 7;
-        BlockSet bs = NewBlockSet("BlockSetD");
         StubPlayer player = new StubPlayer();
         Field field = NewField();
         StubInputManager input = new StubInputManager();
         StubSoundManager sound = new StubSoundManager();
+        string expected; 
 
         field.ResetField(sound, width, height, border);
 
-        bs.Setup(player, field, input, sound, fallLevel);
-        yield return MoveBlock(bs, player, input, fallLevel, 1, 8);
-        int limit = 60 * 5;
-        bool pulled = false; 
-        for(int i=0;i<limit;i++)
-        {
-            if(player.CallList == "PullNextBlock\n")
-            {
-                pulled = true;
-                break; 
-            }
-            yield return new WaitForFixedUpdate(); 
-        }
-        GameObject.Destroy(bs.gameObject);
-        Assert.AreEqual("PullNextBlock\n", player.CallList);
-        Assert.IsTrue(pulled);
-        player.ClearCallList();
+        yield return MoveBlock("BlockSetD", true, new (int, int)[] {
+            (1, 8),
+        }, field, sound, player, input, fallLevel);
+        expected = @"oooooooooo
+oooooooooo
+oooooooooo
+oooooooooo
+oooooooooo
+oooooooooo
+oooooooooo
+oooooooooo
+oooooo**oo
+ooooo**ooo
+";
         Debug.Log(field.DebugField());
+        Assert.AreEqual(expected, field.DebugField());
 
-        bs = NewBlockSet("BlockSetD");
-        bs.Setup(player, field, input, sound, fallLevel);
-        yield return MoveBlock(bs, player, input, fallLevel, 0, 8);
-        limit = 60 * 5;
-        pulled = false;
-        for (int i = 0; i < limit; i++)
-        {
-            if (player.CallList == "PullNextBlock\n")
-            {
-                pulled = true;
-                break;
-            }
-            yield return new WaitForFixedUpdate();
-        }
-        GameObject.Destroy(bs.gameObject);
-        Assert.IsTrue(pulled);
-        player.ClearCallList();
+        yield return MoveBlock("BlockSetD", true, new (int, int)[] {
+            (0, 8),
+        }, field, sound, player, input, fallLevel);
+        expected = @"oooooooooo
+oooooooooo
+oooooooooo
+oooooooooo
+oooooooooo
+oooooooooo
+oooooooooo
+ooooo**ooo
+oooo****oo
+ooooo**ooo
+";
         Debug.Log(field.DebugField());
+        Assert.AreEqual(expected, field.DebugField());
 
-        bs = NewBlockSet("BlockSetD");
-        bs.Setup(player, field, input, sound, fallLevel);
-        yield return MoveBlock(bs, player, input, fallLevel, -1, 8);
-        limit = 60 * 5;
-        pulled = false;
-        for (int i = 0; i < limit; i++)
-        {
-            if (player.CallList == "PullNextBlock\n")
-            {
-                pulled = true;
-                break;
-            }
-            yield return new WaitForFixedUpdate();
-        }
-        Assert.IsTrue(pulled);
-        player.ClearCallList();
+        yield return MoveBlock("BlockSetD", true, new (int, int)[] {
+            (-1, 8),
+        }, field, sound, player, input, fallLevel);
+        expected = @"oooooooooo
+oooooooooo
+oooooooooo
+oooooooooo
+oooooooooo
+oooooooooo
+oooo**oooo
+ooo****ooo
+oooo****oo
+ooooo**ooo
+";
         Debug.Log(field.DebugField());
+        Assert.AreEqual(expected, field.DebugField());
 
-        GameObject.Destroy(bs.gameObject);
         GameObject.Destroy(field.gameObject);
 
         yield return null;
     }
 
-    private IEnumerator MoveBlock(BlockSet block, StubPlayer player, StubInputManager input, int fallLevel, int x, int y)
+    /// <summary>
+    /// ブロックを生成し、落としてフィールドに設置させる
+    /// </summary>
+    /// <param name="blockName">ブロックのprefab名</param>
+    /// <param name="pull">このブロックが設置されるべきであればtrue, 設置されずに積みあがったと判定されるべきであればfalse</param>
+    /// <param name="field"></param>
+    /// <param name="sound"></param>
+    /// <param name="player"></param>
+    /// <param name="input"></param>
+    /// <param name="fallLevel"></param>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    private IEnumerator MoveBlock(string blockName, bool pull, (int, int)[] tasks, Field field, StubSoundManager sound, StubPlayer player, StubInputManager input, int fallLevel)
     {
-        if(x < 0)
+        BlockSet bs = NewBlockSet(blockName);
+        bs.Setup(player, field, input, sound, fallLevel);
+
+        foreach((int x, int y) in tasks)
         {
-            for(int i=0;i<-x;i++)
+            if (x < 0)
             {
-                input.SetReturn(false, true, false, false, false); 
-                yield return new WaitForFixedUpdate();
+                for (int i = 0; i < -x; i++)
+                {
+                    input.SetReturn(false, true, false, false, false);
+                    yield return new WaitForFixedUpdate();
+                }
             }
-        } else if(x > 0)
-        {
-            for (int i = 0; i < x; i++)
+            else if (x > 0)
             {
-                input.SetReturn(false, false, true, false, false);
-                yield return new WaitForFixedUpdate();
+                for (int i = 0; i < x; i++)
+                {
+                    input.SetReturn(false, false, true, false, false);
+                    yield return new WaitForFixedUpdate();
+                }
             }
+            for (int i = 0; i < fallLevel * BlockSet.CountWaitFallingLimit - 1; i++)
+            {
+                input.SetReturn(true, false, false, false, false);
+                yield return new WaitForFixedUpdate();
+                if ("PullNextBlock\n" == player.CallList || "Dead\n" == player.CallList)
+                {
+                    break;
+                }
+            }
+            input.SetReturn(false, false, false, false, false);
         }
-        for (int i = 0; i < fallLevel * BlockSet.CountWaitFallingLimit - 1; i++)
+
+        int limit = 60 * 5;
+        bool pulled = false;
+        for (int i = 0; i < limit; i++)
         {
-            input.SetReturn(true, false, false, false, false);
-            yield return new WaitForFixedUpdate();
-            if ("PullNextBlock\n" == player.CallList || "Dead\n" == player.CallList) {
+            if (player.CallList == "PullNextBlock\n")
+            {
+                pulled = true;
                 break;
             }
+            if (player.CallList == "Dead\n")
+            {
+                pulled = false;
+                break;
+            }
+            yield return new WaitForFixedUpdate();
         }
-        input.SetReturn(false, false, false, false, false);
+        GameObject.Destroy(bs.gameObject);
+        Assert.AreEqual(pull, pulled);
+        player.ClearCallList(); 
     }
 
     private BlockSet NewBlockSet(string blockName)
