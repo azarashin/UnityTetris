@@ -34,6 +34,7 @@ public class UnitTestStateGameFinish
         }
         Assert.IsTrue(end - start <= limit);
 
+        GameObject.Destroy(finish.gameObject);
 
         yield return null;
     }

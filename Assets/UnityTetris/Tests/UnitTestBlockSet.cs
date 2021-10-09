@@ -18,11 +18,12 @@ public class UnitTestBlockSet
         int fallLevel = 4; 
         BlockSet bs = NewBlockSet("BlockSetA");
         IPlayer player = new StubPlayer();
-        AbstractField field = new StubField();
+        AbstractField field = StubField();
         IInputManager input = new StubInputManager();
         ISoundManager sound = new StubSoundManager(); 
         bs.Setup(player, field, input, sound, fallLevel);
         GameObject.Destroy(bs.gameObject);
+        GameObject.Destroy(field.gameObject);
     }
 
     [UnityTest]
@@ -31,7 +32,7 @@ public class UnitTestBlockSet
         int fallLevel = 4;
         BlockSet bs = NewBlockSet("BlockSetA");
         StubPlayer player = new StubPlayer();
-        StubField field = new StubField();
+        StubField field = StubField();
         StubInputManager input = new StubInputManager();
         StubSoundManager sound = new StubSoundManager();
 
@@ -84,6 +85,7 @@ public class UnitTestBlockSet
         field.ClearCallList();
 
         GameObject.Destroy(bs.gameObject);
+        GameObject.Destroy(field.gameObject);
 
         yield return null;
     }
@@ -97,7 +99,7 @@ public class UnitTestBlockSet
         int fallLevel = 4;
         BlockSet bs = NewBlockSet("BlockSetB");
         StubPlayer player = new StubPlayer();
-        StubField field = new StubField();
+        StubField field = StubField();
         StubInputManager input = new StubInputManager();
         StubSoundManager sound = new StubSoundManager();
 
@@ -150,6 +152,7 @@ public class UnitTestBlockSet
         field.ClearCallList();
 
         GameObject.Destroy(bs.gameObject);
+        GameObject.Destroy(field.gameObject);
 
         yield return null;
     }
@@ -160,7 +163,7 @@ public class UnitTestBlockSet
         int fallLevel = 24; // 落下しないよう落下スピードを遅めにする
         BlockSet bs = NewBlockSet("BlockSetC");
         StubPlayer player = new StubPlayer();
-        StubField field = new StubField();
+        StubField field = StubField();
         StubInputManager input = new StubInputManager();
         StubSoundManager sound = new StubSoundManager();
 
@@ -230,6 +233,7 @@ public class UnitTestBlockSet
 
 
         GameObject.Destroy(bs.gameObject);
+        GameObject.Destroy(field.gameObject);
 
         yield return null;
     }
@@ -241,7 +245,7 @@ public class UnitTestBlockSet
         int fallLevel = 4;
         BlockSet bs = NewBlockSet("BlockSetC");
         StubPlayer player = new StubPlayer();
-        StubField field = new StubField();
+        StubField field = StubField();
         StubInputManager input = new StubInputManager();
         StubSoundManager sound = new StubSoundManager();
 
@@ -338,7 +342,8 @@ public class UnitTestBlockSet
         Assert.AreEqual("", field.CallList);
         field.ClearCallList();
 
-        GameObject.Destroy(bs.gameObject); 
+        GameObject.Destroy(bs.gameObject);
+        GameObject.Destroy(field.gameObject);
 
         yield return null;
     }
@@ -349,7 +354,7 @@ public class UnitTestBlockSet
         int fallLevel = 4;
         BlockSet bs = NewBlockSet("BlockSetC");
         StubPlayer player = new StubPlayer();
-        StubField field = new StubField();
+        StubField field = StubField();
         StubInputManager input = new StubInputManager();
         StubSoundManager sound = new StubSoundManager();
 
@@ -402,6 +407,7 @@ public class UnitTestBlockSet
         }
 
         GameObject.Destroy(bs.gameObject);
+        GameObject.Destroy(field.gameObject);
 
         yield return null;
     }
@@ -412,7 +418,7 @@ public class UnitTestBlockSet
         int fallLevel = 4;
         BlockSet bs = NewBlockSet("BlockSetC");
         StubPlayer player = new StubPlayer();
-        StubField field = NewStubField();
+        StubField field = StubField();
         StubInputManager input = new StubInputManager();
         StubSoundManager sound = new StubSoundManager();
 
@@ -488,6 +494,7 @@ public class UnitTestBlockSet
         player.ClearCallList();
 
         GameObject.Destroy(bs.gameObject);
+        GameObject.Destroy(field.gameObject);
 
         yield return null;
     }
@@ -497,7 +504,7 @@ public class UnitTestBlockSet
         int fallLevel = 4;
         BlockSet bs = NewBlockSet("BlockSetC");
         StubPlayer player = new StubPlayer();
-        StubField field = NewStubField();
+        StubField field = StubField();
         StubInputManager input = new StubInputManager();
         StubSoundManager sound = new StubSoundManager();
 
@@ -544,6 +551,7 @@ public class UnitTestBlockSet
         player.ClearCallList();
 
         GameObject.Destroy(bs.gameObject);
+        GameObject.Destroy(field.gameObject);
 
         yield return null;
     }
@@ -557,7 +565,7 @@ public class UnitTestBlockSet
 
     }
 
-    private StubField NewStubField()
+    private StubField StubField()
     {
         StubField prefab = Resources.Load<StubField>("UnityTetris/Prefabs/Test/StubField");
         StubField obj = GameObject.Instantiate(prefab);

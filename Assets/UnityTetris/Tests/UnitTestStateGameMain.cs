@@ -18,6 +18,8 @@ public class UnitTestStateGameMain
 
         Assert.AreEqual("StartGame\n", players[0].CallList); // 各プレイヤーに対してゲーム開始していることを確認。
         Assert.AreEqual("StartGame\n", players[1].CallList);
+
+        GameObject.Destroy(main.gameObject); 
     }
 
     [Test]
@@ -43,6 +45,7 @@ public class UnitTestStateGameMain
 
         Assert.AreEqual($"FinishGame\n", controller.CallList); // 残り一人になったのでイベントが呼び出される。
 
+        GameObject.Destroy(main.gameObject);
     }
 
 

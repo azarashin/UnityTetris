@@ -14,7 +14,7 @@ public class UnitTestStateGameBoot
         StateGameBoot boot = NewStateGameBoot();
         StubGameController controller = new StubGameController();
         StubPlayer[] players = new StubPlayer[] { new StubPlayer(), new StubPlayer()};
-        StubField field = new StubField();
+        StubField field = StubField();
         BlockSet[] bss = new BlockSet[] { PrefabBlockSet("BlockSetA"), PrefabBlockSet("BlockSetC") };
         StubSoundManager sound = new StubSoundManager();
 
@@ -40,8 +40,10 @@ public class UnitTestStateGameBoot
             }
             yield return new WaitForFixedUpdate();
         }
-        Assert.IsTrue(end - start <= limit); 
+        Assert.IsTrue(end - start <= limit);
 
+        GameObject.Destroy(boot.gameObject);
+        GameObject.Destroy(field.gameObject); 
 
         yield return null;
     }
@@ -59,6 +61,15 @@ public class UnitTestStateGameBoot
     {
         StateGameBoot prefab = Resources.Load<StateGameBoot>("UnityTetris/Prefabs/State/StateGameBoot");
         StateGameBoot obj = GameObject.Instantiate(prefab);
+
+        return obj;
+
+    }
+
+    private StubField StubField()
+    {
+        StubField prefab = Resources.Load<StubField>("UnityTetris/Prefabs/Test/StubField");
+        StubField obj = GameObject.Instantiate(prefab);
 
         return obj;
 

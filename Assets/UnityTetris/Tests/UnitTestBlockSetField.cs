@@ -156,6 +156,7 @@ public class UnitTestBlockSetField
         player.ClearCallList();
 
         GameObject.Destroy(bs.gameObject);
+        GameObject.Destroy(field.gameObject); 
 
         yield return null;
     }
@@ -227,11 +228,12 @@ public class UnitTestBlockSetField
             }
             yield return new WaitForFixedUpdate();
         }
-        GameObject.Destroy(bs.gameObject);
         Assert.IsTrue(pulled);
         player.ClearCallList();
         Debug.Log(field.DebugField());
 
+        GameObject.Destroy(bs.gameObject);
+        GameObject.Destroy(field.gameObject);
 
         yield return null;
     }
