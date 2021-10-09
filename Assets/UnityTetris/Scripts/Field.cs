@@ -31,6 +31,13 @@ namespace UnityTetris
                 _width = width;
                 _height = height;
             }
+
+            Block[] removings = transform.GetComponentsInChildren<Block>(); 
+            foreach(Block b in removings)
+            {
+                Destroy(b.gameObject); 
+            }
+
             _activeParts = new Block[_width, _height];
 
             if(borderLine != -1)
@@ -81,6 +88,7 @@ namespace UnityTetris
             foreach (Block b in blocks)
             {
                 _activeParts[b.Px, b.Py] = b;
+                b.transform.parent = transform;
             }
             return false;
         }
@@ -125,11 +133,6 @@ namespace UnityTetris
                 line += "\r\n"; 
             }
             return line; 
-        }
-
-        public Transform RefTransform()
-        {
-            return transform; 
         }
     }
 }

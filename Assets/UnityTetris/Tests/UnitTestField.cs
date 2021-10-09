@@ -271,6 +271,59 @@ oooo****
         GameObject.Destroy(f.gameObject);
     }
 
+
+    [UnityTest]
+    public IEnumerator UnitTestFieldWithEnumeratorPasses001()
+    {
+        Field f = NewField();
+        StubSoundManager sound = new StubSoundManager();
+        f.ResetField(sound, 8, 8, 5);
+        yield return new WaitForFixedUpdate(); // 1フレーム待たないと消えない
+
+        Block[] setBlocks;
+        setBlocks = GameObject.FindObjectsOfType<Block>();
+        Assert.AreEqual(0, setBlocks.Length); 
+        Block[] blocks = new Block[]
+        {
+            NewBlock(0, 3),
+            NewBlock(1, 3),
+            NewBlock(2, 3),
+            NewBlock(3, 3),
+        };
+
+        Assert.IsFalse(f.SetBlocks(blocks));
+        setBlocks = GameObject.FindObjectsOfType<Block>();
+        Assert.AreEqual(4, setBlocks.Length);
+
+        string expected = @"oooooooo
+oooooooo
+oooooooo
+oooooooo
+****oooo
+oooooooo
+oooooooo
+oooooooo
+";
+        Assert.AreEqual(expected, f.DebugField());
+
+        f.ResetField(sound, 8, 8, 5);
+
+        yield return new WaitForFixedUpdate(); // 1フレーム待たないと消えない
+        expected = @"oooooooo
+oooooooo
+oooooooo
+oooooooo
+oooooooo
+oooooooo
+oooooooo
+oooooooo
+";
+        setBlocks = GameObject.FindObjectsOfType<Block>();
+        Assert.AreEqual(0, setBlocks.Length); // フィールド上からブロックは消えているはず
+        Assert.AreEqual(expected, f.DebugField());
+
+        GameObject.Destroy(f.gameObject);
+    }
     private Block NewBlock(int x, int y)
     {
         Block prefab = Resources.Load<Block>("UnityTetris/Prefabs/Block");
