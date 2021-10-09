@@ -193,7 +193,7 @@ namespace UnityTetris
             }
 
             Vector2Int org = _centerPos;
-            _centerPos.y++;
+            _centerPos.y--;
 
             Vector2Int[] pos = ToBlocks();
             if (_field.IsHit(pos))
@@ -225,7 +225,7 @@ namespace UnityTetris
             float rotSpeed = 0.2f; // これは適当な固定値にしておく
             transform.localRotation = Quaternion.Lerp(
                 transform.localRotation, Quaternion.Euler(0.0f, _rotStep * 90.0f, 0.0f), rotSpeed);
-            transform.localPosition = new Vector3(_centerPos.x, -_centerPos.y);
+            transform.localPosition = new Vector3(_centerPos.x, _centerPos.y);
         }
 
         private bool NeedToFall()
@@ -262,7 +262,7 @@ namespace UnityTetris
             // localPostion のx, y が_partsPositions の座標と一致するようにインスタンスの座標を指定して生成する
             _activeBlocks = _partsPositions.Select(s =>
                 Instantiate(_prefabPart,
-                    transform.position + (new Vector3(s.x, s.y)), Quaternion.identity, transform)
+                    transform.position + (new Vector3(s.x, -s.y)), Quaternion.identity, transform) // Y軸は
             ).ToArray();
 
             int miny = _partsPositions.Min(s => s.y);
@@ -286,8 +286,9 @@ namespace UnityTetris
             {
                 y = maxx;
             }
-            int width = _field.Width(); 
-            _centerPos = new Vector2Int(width / 2, y);
+            int width = _field.Width();
+            int height = _field.Height(); 
+            _centerPos = new Vector2Int(width / 2, height - y - 1);
 
             if(-minx > width / 2 || maxx > width / 2)
             {

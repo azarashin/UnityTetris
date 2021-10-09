@@ -11,6 +11,7 @@ abstract class AbstractField
 {
     + ResetField(sound : ISoundManager, width: int, height: int, borderLine : int) : void[]
     + Width() : int
+    + Height() : int
     ' @return ブロックが積みあがってしまったらtrue, そうでなければfalse を返す
     + SetBlocks(blocks : Block[]) : bool
 
@@ -30,6 +31,7 @@ class Field
     --
     + ResetField(sound : ISoundManager, width: int, height: int, borderLine : int) : void[]
     + Width() : int
+    + Height() : int
     ' @return ブロックが積みあがってしまったらtrue, そうでなければfalse を返す
     + SetBlocks(blocks : Block[]) : bool
 

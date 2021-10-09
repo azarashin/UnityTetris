@@ -15,7 +15,7 @@ namespace UnityTetris
         int _height = 16;
 
         [SerializeField]
-        int _borderLine = 2;
+        int _borderLine = 14;
 
         [SerializeField]
         AudioSource _soundPlaced; 
@@ -44,6 +44,11 @@ namespace UnityTetris
             return _width;
         }
 
+        public override int Height()
+        {
+            return _height;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -56,7 +61,7 @@ namespace UnityTetris
             // 設置できるかどうかを確認する
             foreach (Block b in blocks)
             {
-                if (b.Py >= _borderLine && b.Px >= 0 && b.Py >= 0 && b.Px < _width && b.Py < _height)
+                if (b.Py <= _borderLine && b.Px >= 0 && b.Py >= 0 && b.Px < _width && b.Py < _height)
                 {
                     if (_activeParts[b.Px, b.Py] != null)
                     {
@@ -108,7 +113,7 @@ namespace UnityTetris
             {
                 for (int x = 0; x < _width; x++)
                 {
-                    if(_activeParts[x,y] != null)
+                    if(_activeParts[x, _height - 1 - y] != null)
                     {
                         line += "*";
                     } else

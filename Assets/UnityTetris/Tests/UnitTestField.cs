@@ -25,7 +25,7 @@ using UnityTetris;
     {
         StubSoundManager sound = new StubSoundManager();
         Field f = NewField();
-        f.ResetField(sound, 8, 9, 3);
+        f.ResetField(sound, 8, 9, 5);
         Block[] blocks = new Block[]
         {
             NewBlock(4, 4)
@@ -41,22 +41,22 @@ using UnityTetris;
 
         Block[] blocks3 = new Block[]
         {
-            NewBlock(4, 3)
+            NewBlock(4, 5)
         };
         // ボーダーライン上の設置はセーフ
         Assert.IsFalse(f.SetBlocks(blocks3));
 
         Block[] blocks4 = new Block[]
         {
-            NewBlock(4, 2)
+            NewBlock(4, 6)
         };
         // ボーダーラインより上の設置はアウト
         Assert.IsTrue(f.SetBlocks(blocks4));
 
         Block[] blocks5 = new Block[]
         {
-            NewBlock(4, 3),
-            NewBlock(4, 2)
+            NewBlock(4, 5),
+            NewBlock(4, 6)
         };
         // ボーダーラインより上の設置はアウト
         Assert.IsTrue(f.SetBlocks(blocks5));
@@ -95,17 +95,17 @@ using UnityTetris;
     {
         StubSoundManager sound = new StubSoundManager();
         Field f = NewField();
-        f.ResetField(sound, 8, 8, 3);
+        f.ResetField(sound, 8, 8, 5);
         Block[] blocks = new Block[]
         {
-            NewBlock(0, 4),
-            NewBlock(1, 4),
-            NewBlock(2, 4),
-            NewBlock(3, 4),
-            NewBlock(7, 7),
-            NewBlock(6, 7),
-            NewBlock(5, 7),
-            NewBlock(4, 7),
+            NewBlock(0, 3),
+            NewBlock(1, 3),
+            NewBlock(2, 3),
+            NewBlock(3, 3),
+            NewBlock(7, 0),
+            NewBlock(6, 0),
+            NewBlock(5, 0),
+            NewBlock(4, 0),
         };
 
         Assert.IsFalse(f.SetBlocks(blocks)); 
@@ -157,17 +157,17 @@ oooo****
     {
         Field f = NewField();
         StubSoundManager sound = new StubSoundManager();
-        f.ResetField(sound, 8, 8, 3);
+        f.ResetField(sound, 8, 8, 5);
         Block[] blocks = new Block[]
         {
-            NewBlock(0, 4),
-            NewBlock(1, 4),
-            NewBlock(2, 4),
-            NewBlock(3, 4),
-            NewBlock(7, 7),
-            NewBlock(6, 7),
-            NewBlock(5, 7),
-            NewBlock(4, 7),
+            NewBlock(0, 3),
+            NewBlock(1, 3),
+            NewBlock(2, 3),
+            NewBlock(3, 3),
+            NewBlock(7, 0),
+            NewBlock(6, 0),
+            NewBlock(5, 0),
+            NewBlock(4, 0),
         };
 
         Assert.IsFalse(f.SetBlocks(blocks));
@@ -198,10 +198,10 @@ oooo****
 
         nexts = new Vector2Int[]
                 {
+            new Vector2Int(2, 4),
+            new Vector2Int(3, 4),
             new Vector2Int(2, 5),
             new Vector2Int(3, 5),
-            new Vector2Int(2, 6),
-            new Vector2Int(3, 6),
                 };
 
         // 設置済みのブロックと衝突しない
@@ -209,10 +209,10 @@ oooo****
 
         nexts = new Vector2Int[]
                 {
-            new Vector2Int(2, 2),
-            new Vector2Int(3, 2),
-            new Vector2Int(2, 3),
-            new Vector2Int(3, 3),
+            new Vector2Int(2, 5),
+            new Vector2Int(3, 5),
+            new Vector2Int(2, 6),
+            new Vector2Int(3, 6),
                 };
 
         // 設置済みのブロックと衝突しない（ボーダーラインは超えている）
@@ -220,10 +220,10 @@ oooo****
 
         nexts = new Vector2Int[]
         {
-            new Vector2Int(-1, 3),
-            new Vector2Int(-1, 3),
-            new Vector2Int(0, 4),
-            new Vector2Int(0, 4),
+            new Vector2Int(-1, 4),
+            new Vector2Int(-1, 4),
+            new Vector2Int(0, 5),
+            new Vector2Int(0, 5),
         };
 
         // 外壁と衝突
@@ -231,10 +231,10 @@ oooo****
 
         nexts = new Vector2Int[]
         {
-            new Vector2Int(7, 3),
-            new Vector2Int(7, 3),
-            new Vector2Int(8, 4),
-            new Vector2Int(8, 4),
+            new Vector2Int(7, 4),
+            new Vector2Int(7, 4),
+            new Vector2Int(8, 5),
+            new Vector2Int(8, 5),
         };
 
         // 外壁と衝突

@@ -12,7 +12,8 @@ public class StubField : AbstractField
 
     public bool ReturnIsHit;
     public bool ReturnSetBlocks;
-    public int ReturnWidth; 
+    public int ReturnWidth;
+    public int ReturnHeight;
 
     public void ClearCallList()
     {
@@ -32,8 +33,8 @@ public class StubField : AbstractField
     public override void ResetField(ISoundManager sound, int width, int height, int borderLine)
     {
         // 例：
-        // width=4, height=5, borderLine=2 の時、CallListに追加される文字列：
-        // "ResetField(4,5,2)\n"
+        // width=4, height=5, borderLine=7 の時、CallListに追加される文字列：
+        // "ResetField(4,5,7)\n"
         CallList += $"ResetField({width},{height},{borderLine})\n";
     }
 
@@ -48,5 +49,11 @@ public class StubField : AbstractField
     {
         CallList += "Width\n";
         return ReturnWidth; 
+    }
+
+    public override int Height()
+    {
+        CallList += "Height\n";
+        return ReturnHeight;
     }
 }

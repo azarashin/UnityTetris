@@ -11,6 +11,7 @@ namespace UnityTetris.Abstract
         public abstract void ResetField(ISoundManager sound, int width, int height, int borderLine);
 
         public abstract int Width();
+        public abstract int Height();
 
         /// <summary>
         /// 
