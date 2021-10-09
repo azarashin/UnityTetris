@@ -39,6 +39,7 @@ public class UnitTestPlayer
         blocks = blockSetPicker.Pick();
         Assert.AreEqual(1, blocks.Length); // この時点でブロックが１つで来ているはず
         Assert.AreEqual($"Setup({fallLevel})\n", blocks[0].CallList);
+        GameObject.Destroy(p); 
 
     }
 
@@ -62,9 +63,38 @@ public class UnitTestPlayer
 
         Assert.AreEqual(false, p.IsAlive()); // 死んだ
         Assert.AreEqual($"PlayerGameOver({p.GetHashCode()})\n", gameMain.CallList); // 通知が来た
+        GameObject.Destroy(p);
 
     }
 
+    [UnityTest]
+    public IEnumerator UnitTestPlayerWithEnumeratorPasses001()
+    {
+        int fallLevel = 4;
+        StubField[] fields; 
+        Player p = NewPlayer();
+        ISoundManager sound = new StubSoundManager();
+        StubBlockSet[] bs = new StubBlockSet[] { StubBlockSetPrefab() };
+        StubField fieldPrefab = StubFieldPrefab();
+        StubStateGameMain gameMain = StubStateGameMain();
+
+        fields = GameObject.FindObjectsOfType<StubField>();
+        Assert.AreEqual(0, fields.Length); 
+        p.Setup(fieldPrefab, bs, sound, fallLevel);
+        yield return new WaitForFixedUpdate(); 
+
+        fields = GameObject.FindObjectsOfType<StubField>();
+        Assert.AreEqual(1, fields.Length);
+        p.Setup(fieldPrefab, bs, sound, fallLevel);
+        yield return new WaitForFixedUpdate();
+
+        fields = GameObject.FindObjectsOfType<StubField>();
+        Assert.AreEqual(1, fields.Length); // プレイヤーが一人に対してフィールドは二つ以上存在してはいけない
+
+        GameObject.Destroy(p);
+
+        yield return null; 
+    }
 
 
     private StubStateGameMain StubStateGameMain()

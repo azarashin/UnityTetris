@@ -16,7 +16,7 @@ namespace UnityTetris
 
         private AbstractBlockSet[] _blockSetPrefabOptions;
         private AbstractStateGameMain _parent;
-        private AbstractField _field;
+        private AbstractField _field = null;
         private AbstractBlockSet _currentBlock;
         private ISoundManager _sound;
         private bool _alive;
@@ -28,6 +28,10 @@ namespace UnityTetris
             _alive = true;
             _blockSetPrefabOptions = blockSetOptions;
             _sound = sound;
+            if(_field != null)
+            {
+                Destroy(_field); 
+            }
             _field = Instantiate<AbstractField>(fieldPrefab);
             _field.ResetField(_sound, -1, -1, -1);
             _fallLevel =fallLevel; 
