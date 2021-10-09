@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace UnityTetris.Interface
 {
-    abstract public class ISoundManager
+    public interface ISoundManager
     {
-        public abstract void Play(AudioSource sound);
-        public abstract void Stop(AudioSource sound);
+        void Play(AudioSource sound);
+        void Stop(AudioSource sound);
     }
 }

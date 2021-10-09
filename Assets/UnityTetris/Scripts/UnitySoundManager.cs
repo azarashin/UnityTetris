@@ -5,14 +5,14 @@ using UnityTetris.Interface;
 
 namespace UnityTetris
 {
-    public class UnitySoundManager : ISoundManager
+    public class UnitySoundManager : MonoBehaviour, ISoundManager
     {
-        public override void Play(AudioSource sound)
+        public void Play(AudioSource sound)
         {
             sound.Play(); 
         }
 
-        public override void Stop(AudioSource sound)
+        public void Stop(AudioSource sound)
         {
             sound.Stop(); 
         }

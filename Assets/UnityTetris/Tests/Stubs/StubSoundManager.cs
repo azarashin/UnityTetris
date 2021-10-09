@@ -12,7 +12,7 @@ public class StubSoundManager : ISoundManager
         CallList = "";
     }
 
-    public override void Play(AudioSource sound)
+    public void Play(AudioSource sound)
     {
         if(sound.clip == null)
         {
@@ -23,7 +23,7 @@ public class StubSoundManager : ISoundManager
         }
     }
 
-    public override void Stop(AudioSource sound)
+    public void Stop(AudioSource sound)
     {
         if (sound.clip == null)
         {
