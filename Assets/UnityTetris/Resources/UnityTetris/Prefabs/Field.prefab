@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _width: 8
   _height: 16
-  _borderLine: 2
+  _borderLine: 12
   _soundPlaced: {fileID: -1292898333426138908}
 --- !u!82 &-1292898333426138908
 AudioSource:
