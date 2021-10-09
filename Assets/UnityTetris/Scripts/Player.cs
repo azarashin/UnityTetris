@@ -25,13 +25,14 @@ namespace UnityTetris
         public void Setup(AbstractField fieldPrefab, AbstractBlockSet[] blockSetOptions, ISoundManager sound, int fallLevel)
         {
             Debug.Log("Player.Setup");
+            if (_field != null)
+            {
+                Destroy(_field.gameObject);
+            }
+
             _alive = true;
             _blockSetPrefabOptions = blockSetOptions;
             _sound = sound;
-            if(_field != null)
-            {
-                Destroy(_field); 
-            }
             _field = Instantiate<AbstractField>(fieldPrefab);
             _field.transform.parent = transform; 
             _field.ResetField(_sound, -1, -1, -1);
@@ -53,6 +54,11 @@ namespace UnityTetris
 
         public void Dead()
         {
+            if (_currentBlock != null)
+            {
+                Destroy(_currentBlock.gameObject);
+            }
+
             _alive = false;
             _parent.PlayerGameOver(this);
         }
@@ -68,6 +74,7 @@ namespace UnityTetris
             AbstractBlockSet next = _blockSetPrefabOptions[id];
 
             _currentBlock = Instantiate(next);
+            _currentBlock.transform.parent = transform; 
             _currentBlock.Setup(this, _field, _input, _sound, _fallLevel);
         }
     }
