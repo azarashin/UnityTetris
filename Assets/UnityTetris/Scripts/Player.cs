@@ -33,6 +33,7 @@ namespace UnityTetris
                 Destroy(_field); 
             }
             _field = Instantiate<AbstractField>(fieldPrefab);
+            _field.transform.parent = transform; 
             _field.ResetField(_sound, -1, -1, -1);
             _fallLevel =fallLevel; 
         }

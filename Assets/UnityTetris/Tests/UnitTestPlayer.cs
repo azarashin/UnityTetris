@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -39,8 +40,8 @@ public class UnitTestPlayer
         blocks = blockSetPicker.Pick();
         Assert.AreEqual(1, blocks.Length); // この時点でブロックが１つで来ているはず
         Assert.AreEqual($"Setup({fallLevel})\n", blocks[0].CallList);
-        GameObject.Destroy(p); 
-
+        GameObject.Destroy(p.gameObject);
+        GameObject.Destroy(gameMain.gameObject);
     }
 
     [Test]
@@ -63,8 +64,8 @@ public class UnitTestPlayer
 
         Assert.AreEqual(false, p.IsAlive()); // 死んだ
         Assert.AreEqual($"PlayerGameOver({p.GetHashCode()})\n", gameMain.CallList); // 通知が来た
-        GameObject.Destroy(p);
-
+        GameObject.Destroy(p.gameObject);
+        GameObject.Destroy(gameMain.gameObject);
     }
 
     [UnityTest]
@@ -77,6 +78,7 @@ public class UnitTestPlayer
         StubBlockSet[] bs = new StubBlockSet[] { StubBlockSetPrefab() };
         StubField fieldPrefab = StubFieldPrefab();
         StubStateGameMain gameMain = StubStateGameMain();
+
 
         fields = GameObject.FindObjectsOfType<StubField>();
         Assert.AreEqual(0, fields.Length); 
@@ -91,7 +93,8 @@ public class UnitTestPlayer
         fields = GameObject.FindObjectsOfType<StubField>();
         Assert.AreEqual(1, fields.Length); // プレイヤーが一人に対してフィールドは二つ以上存在してはいけない
 
-        GameObject.Destroy(p);
+        GameObject.Destroy(p.gameObject);
+        GameObject.Destroy(gameMain.gameObject); 
 
         yield return null; 
     }
