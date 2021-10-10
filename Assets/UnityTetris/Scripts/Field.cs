@@ -19,10 +19,14 @@ namespace UnityTetris
         int _borderLine = 14;
 
         [SerializeField]
-        AudioSource _soundPlaced; 
+        AudioSource _soundPlaced;
+
+        [SerializeField]
+        GameObject _prefabOutsideBlock; 
 
         private Block[,] _activeParts;
-        private ISoundManager _sound; 
+        private ISoundManager _sound;
+        private List<GameObject> _outsideBlocks = new List<GameObject>(); 
 
         public override void ResetField(ISoundManager sound, int width = -1, int height = -1, int borderLine = -1)
         {
@@ -45,6 +49,29 @@ namespace UnityTetris
             if(borderLine != -1)
             {
                 _borderLine = borderLine; 
+            }
+            foreach(GameObject obj in _outsideBlocks)
+            {
+                Destroy(obj); 
+            }
+            for(int y=0;y< _borderLine; y++)
+            {
+                GameObject obj = Instantiate(_prefabOutsideBlock);
+                obj.transform.parent = transform;
+                obj.transform.localPosition = new Vector3(-1, y, 0);
+                _outsideBlocks.Add(obj);
+
+                obj = Instantiate(_prefabOutsideBlock);
+                obj.transform.parent = transform;
+                obj.transform.localPosition = new Vector3(_width, y, 0);
+                _outsideBlocks.Add(obj);
+            }
+            for (int x = -1; x < _width + 1; x++)
+            {
+                GameObject obj = Instantiate(_prefabOutsideBlock);
+                obj.transform.parent = transform;
+                obj.transform.localPosition = new Vector3(x, -1, 0);
+                _outsideBlocks.Add(obj);
             }
         }
 

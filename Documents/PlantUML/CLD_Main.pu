@@ -35,9 +35,11 @@ class Field
     - _height : int
     - _borderLine : int
     - _soundPlaces : UnityEngine.AudioSource
+    - _prefabOutsideBlock
     ..
     - _activeParts : Block[,]
     - _sound : ISoundManager
+    - _outsideBlocks : List<UnityEngine.GameObject>
 
     --
     + ResetField(sound : ISoundManager, width: int, height: int, borderLine : int) : void[]

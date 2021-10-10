@@ -48,6 +48,7 @@ MonoBehaviour:
   _height: 16
   _borderLine: 12
   _soundPlaced: {fileID: -1292898333426138908}
+  _prefabOutsideBlock: {fileID: 3374529990400763733, guid: 934e8a776e9e8fc4ab839f95b26c1c7d, type: 3}
 --- !u!82 &-1292898333426138908
 AudioSource:
   m_ObjectHideFlags: 0

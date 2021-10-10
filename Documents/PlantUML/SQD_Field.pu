@@ -13,6 +13,11 @@ activate Field
     deactivate GameObject
     end
     Field -> Field : マップを再生成
+    activate Field
+    deactivate Field
+    Field -> Field : 外壁を構築
+    activate Field
+    deactivate Field
     [<-- Field
 deactivate Field
 
