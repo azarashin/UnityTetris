@@ -4,6 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityTetris;
+using UnityTetris.Abstract;
 
 public class UnitTestBlockSetField
 {
@@ -152,10 +153,18 @@ public class UnitTestBlockSetField
         Assert.AreEqual(new Vector2Int(width / 2, 0), bs.CenterPos());
         Assert.AreEqual($"Play({SoundPlaced})\n", sound.CallList); // 移動音
         sound.ClearCallList();
-        Assert.AreEqual("PullNextBlock\n", player.CallList);
+        Assert.AreEqual("BlockSetHasBeenPlaced\n", player.CallList); // この時点でPullNextBlock は呼び出されない。
         player.ClearCallList();
 
-        GameObject.Destroy(bs.gameObject);
+        GameObject.Destroy(bs.gameObject); // この時点でBlockSet のインスタンスは破壊される
+
+        for(int i=0;i<AbstractField.NumberOfFramesToStandByNextBlock; i++)
+        {
+            yield return new WaitForFixedUpdate();
+        }
+        Assert.AreEqual("PullNextBlock\n", player.CallList); // 一定時間経過すると次のブロックが落ちてくる
+        player.ClearCallList();
+
         GameObject.Destroy(field.gameObject); 
 
         yield return null;
@@ -232,6 +241,87 @@ ooooo**ooo
         yield return null;
     }
 
+    [UnityTest]
+    public IEnumerator UnitTestBlockSetFieldWithEnumeratorPasses004() // ブロックを消す
+    {
+        int fallLevel = 24;
+        int width = 6;
+        int height = 8;
+        int border = 5;
+        StubPlayer player = new StubPlayer();
+        Field field = NewField();
+        StubInputManager input = new StubInputManager();
+        StubSoundManager sound = new StubSoundManager();
+        string expected;
+
+        field.ResetField(sound, width, height, border);
+
+        yield return MoveBlock("BlockSetC", true, new (int, int)[] {
+            (1, 8),
+        }, field, sound, player, input, fallLevel);
+        expected = @"oooooo
+oooooo
+oooooo
+oooooo
+oooooo
+oooooo
+oooo**
+oooo**
+";
+        Debug.Log(field.DebugField());
+        Assert.AreEqual(expected, field.DebugField());
+
+        yield return MoveBlock("BlockSetC", true, new (int, int)[] {
+            (-3, 8),
+        }, field, sound, player, input, fallLevel);
+        expected = @"oooooo
+oooooo
+oooooo
+oooooo
+oooooo
+oooooo
+**oo**
+**oo**
+";
+        Debug.Log(field.DebugField());
+        Assert.AreEqual(expected, field.DebugField());
+
+        yield return MoveBlock("BlockSetC", true, new (int, int)[] {
+            (-3, 8),
+        }, field, sound, player, input, fallLevel);
+        expected = @"oooooo
+oooooo
+oooooo
+oooooo
+**oooo
+**oooo
+**oo**
+**oo**
+";
+        Debug.Log(field.DebugField());
+        Assert.AreEqual(expected, field.DebugField());
+
+        yield return MoveBlock("BlockSetC", true, new (int, int)[] {
+            (-1, 8),
+        }, field, sound, player, input, fallLevel);
+        expected = @"oooooo
+oooooo
+oooooo
+oooooo
+oooooo
+oooooo
+**oooo
+**oooo
+";
+        Debug.Log(field.DebugField());
+        Assert.AreEqual(expected, field.DebugField());
+
+        GameObject.Destroy(field.gameObject);
+
+        yield return null;
+    }
+
+
     /// <summary>
     /// ブロックを生成し、落としてフィールドに設置させる
     /// </summary>
@@ -272,6 +362,15 @@ ooooo**ooo
             {
                 input.SetReturn(true, false, false, false, false);
                 yield return new WaitForFixedUpdate();
+                if(player.CallList == "BlockSetHasBeenPlaced\n")
+                {
+                    Debug.Log(player.CallList);
+                }
+                if(bs != null && player.CallList == "BlockSetHasBeenPlaced\n")
+                {
+                    player.ClearCallList();
+                    GameObject.Destroy(bs.gameObject);
+                }
                 if ("PullNextBlock\n" == player.CallList || "Dead\n" == player.CallList)
                 {
                     break;
@@ -284,6 +383,10 @@ ooooo**ooo
         bool pulled = false;
         for (int i = 0; i < limit; i++)
         {
+            if (player.CallList == "BlockSetHasBeenPlaced\n")
+            {
+                Debug.Log(player.CallList);
+            }
             if (player.CallList == "PullNextBlock\n")
             {
                 pulled = true;
@@ -296,7 +399,6 @@ ooooo**ooo
             }
             yield return new WaitForFixedUpdate();
         }
-        GameObject.Destroy(bs.gameObject);
         Assert.AreEqual(pull, pulled);
         player.ClearCallList(); 
     }

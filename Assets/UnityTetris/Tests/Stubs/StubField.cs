@@ -56,4 +56,9 @@ public class StubField : AbstractField
         CallList += "Height\n";
         return ReturnHeight;
     }
+
+    public override void ReduceLines(IPlayer owner)
+    {
+        CallList += $"ReduceLines({owner.GetHashCode()})\n";
+    }
 }

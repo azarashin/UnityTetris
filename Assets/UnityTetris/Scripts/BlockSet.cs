@@ -208,13 +208,15 @@ namespace UnityTetris
                     _activeBlocks[i].transform.parent = _field.transform;
                 }
 
+                _owner.BlockSetHasBeenPlaced();
+
                 if (_field.SetBlocks(_activeBlocks))
                 {
                     _owner.Dead();
                 }
                 else
                 {
-                    _owner.PullNextBlock();
+                    _field.ReduceLines(_owner);
                 }
             }
 
@@ -239,7 +241,6 @@ namespace UnityTetris
                 {
                     _falling = false;
                     _countFalling = 0;
-                    Debug.Log("Fall");
                     return true;
 
                 }

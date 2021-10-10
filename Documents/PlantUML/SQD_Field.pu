@@ -1,0 +1,110 @@
+@startuml
+
+[-> Field : ResetField
+activate Field
+    opt Block のインスタンスがFiled インスタンスに関連付けられたまま
+    Field -> GameObject : Destroy
+    activate GameObject
+        GameObject -> Block : GameObject を削除
+        activate Block
+            GameObject <-- Block
+        deactivate Block
+        Field <-- GameObject
+    deactivate GameObject
+    end
+    Field -> Field : マップを再生成
+    [<-- Field
+deactivate Field
+
+[-> Field : Width
+activate Field
+    [<-- Field : フィールドの幅を返す
+deactivate Field
+
+[-> Field : Height
+activate Field
+    [<-- Field : フィールドの高さを返す
+deactivate Field
+
+[-> Field : SetBlocks
+activate Field
+    Field -> Field : 設置できるかどうかを確認する
+    activate Field
+    deactivate Field
+    opt 障害物があって設置できないか、ボーダーラインを超えてしまっている
+        [<-- Field : true
+    end
+    Field -> Field : 実際に設置し、\nBlock インスタンスの親オブジェクトを\nこのField クラスのインスタンスに設定する
+    activate Field
+    deactivate Field
+
+    [<-- Field : false
+deactivate Field
+
+[-> Field : IsHit
+activate Field
+    loop 設置しようとしている各ポイントについて処理を実行する
+        alt そのポイントがフィールドの内部である
+            opt 既にその場所にブロックが存在している
+                [<-- Field : true
+            end
+        else
+            [<-- Field : true
+        end
+    end
+    [<-- Field : false
+deactivate Field
+
+[-> Field : ReduceLines
+activate Field
+    Field -> Field : 削除判定をする
+    activate Field
+    deactivate Field
+    opt 削除される行がない
+        Field -> Field : StartCoroutine(CoStandbyNextBlock)
+            activate Field
+            deactivate Field
+    else
+        Field -> Field : StartCoroutine(CoReduceLines)
+            activate Field
+            deactivate Field
+    end
+
+    [<-- Field
+deactivate Field
+
+[-> Field : CoStandbyNextBlock
+activate Field
+    Field -> Field : 一定時間待機する
+    activate Field
+    deactivate Field
+    Field -> IPlayer : PullNextBlock
+    activate IPlayer
+        Field <-- IPlayer
+    deactivate IPlayer
+    [<-- Field
+deactivate Field
+
+[-> Field : CoReduceLines
+activate Field
+    loop 削除するブロックに対して実行する
+        Field -> Block : Remove
+        activate Block
+        deactivate Block
+    end
+    Field -> Field : ブロックを消し始めてから一定時間待機する
+    activate Field
+    deactivate Field
+    loop 残ったブロックを少しずつ下にスライドさせる
+    end
+    Field -> Field : 内部のマップを更新する
+    activate Field
+    deactivate Field
+    Field -> IPlayer : PullNextBlock
+    activate IPlayer
+        Field <-- IPlayer
+    deactivate IPlayer
+    [<-- Field
+deactivate Field
+
+@enduml

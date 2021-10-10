@@ -193,6 +193,10 @@ activate BlockSet
         deactivate BlockSet
         loop 移動中のブロックを構成するパーツの数だけ繰り返す
         end
+        BlockSet -> Player : BlockSetHasBeenPlaced
+        activate Player
+            BlockSet <-- Player
+        deactivate Player
         BlockSet -> Field : SetBlocks
         activate Field
             BlockSet <-- Field
@@ -200,12 +204,13 @@ activate BlockSet
         alt ブロックが積みあがった
             BlockSet -> IPlayer : Dead()
             activate IPlayer
+                BlockSet <-- IPlayer
             deactivate IPlayer
         else
-            BlockSet -> IPlayer : PullNextBlock
-            activate IPlayer
-                BlockSet <-- IPlayer 
-            deactivate IPlayer
+            BlockSet -> Field : ReduceLines
+            activate Field
+                BlockSet <-- Field 
+            deactivate Field
         end
 
     end

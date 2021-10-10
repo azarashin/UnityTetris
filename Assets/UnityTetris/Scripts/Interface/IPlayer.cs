@@ -12,5 +12,6 @@ namespace UnityTetris.Interface
         bool IsAlive();
         void Dead();
         void PullNextBlock();
+        void BlockSetHasBeenPlaced(); 
     }
 }

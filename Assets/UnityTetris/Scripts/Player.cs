@@ -34,7 +34,8 @@ namespace UnityTetris
             _blockSetPrefabOptions = blockSetOptions;
             _sound = sound;
             _field = Instantiate<AbstractField>(fieldPrefab);
-            _field.transform.parent = transform; 
+            _field.transform.parent = transform;
+            _field.transform.localPosition = Vector3.zero; 
             _field.ResetField(_sound, -1, -1, -1);
             _fallLevel =fallLevel; 
         }
@@ -54,21 +55,21 @@ namespace UnityTetris
 
         public void Dead()
         {
-            if (_currentBlock != null)
-            {
-                Destroy(_currentBlock.gameObject);
-            }
 
             _alive = false;
             _parent.PlayerGameOver(this);
         }
 
-        public void PullNextBlock()
+        public void BlockSetHasBeenPlaced()
         {
             if (_currentBlock != null)
             {
                 Destroy(_currentBlock.gameObject);
             }
+        }
+
+        public void PullNextBlock()
+        {
             int id = Random.Range(0, _blockSetPrefabOptions.Length);
             Debug.Log($"Player.PullNextBlock: id={id}");
             AbstractBlockSet next = _blockSetPrefabOptions[id];

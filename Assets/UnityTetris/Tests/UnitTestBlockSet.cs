@@ -487,10 +487,11 @@ public class UnitTestBlockSet
 
         Assert.AreEqual(new Vector2Int(5, 5), bs.CenterPos());
         Assert.AreEqual("IsHit((5,4),(5,5),(6,5),(6,4))\n"
-            + "SetBlocks((5,5),(5,6),(6,6),(6,5))\n", field.CallList);
+            + "SetBlocks((5,5),(5,6),(6,6),(6,5))\n"
+            + $"ReduceLines({player.GetHashCode()})\n", field.CallList);
         field.ClearCallList();
         sound.ClearCallList(); // サウンドの確認は本番のField インスタンスと結合する必要があり、ここで確認することができない。
-        Assert.AreEqual("PullNextBlock\n", player.CallList);
+        Assert.AreEqual("BlockSetHasBeenPlaced\n", player.CallList);
         player.ClearCallList();
 
         GameObject.Destroy(bs.gameObject);
@@ -544,10 +545,10 @@ public class UnitTestBlockSet
 
         Assert.AreEqual(new Vector2Int(5, 8), bs.CenterPos());
         Assert.AreEqual("IsHit((5,7),(5,8),(6,8),(6,7))\n"
-            + "SetBlocks((5,8),(5,9),(6,9),(6,8))\n", field.CallList);
+            + "SetBlocks((5,8),(5,9),(6,9),(6,8))\n", field.CallList); // 上に詰まったのでReduceLines は呼び出されない。
         field.ClearCallList();
         sound.ClearCallList(); // サウンドの確認は本番のField インスタンスと結合する必要があり、ここで確認することができない。
-        Assert.AreEqual("Dead\n", player.CallList);
+        Assert.AreEqual("BlockSetHasBeenPlaced\nDead\n", player.CallList); // 上に詰まった場合でも操作中のブロックは排除される
         player.ClearCallList();
 
         GameObject.Destroy(bs.gameObject);

@@ -36,6 +36,18 @@ activate Player
     [<-- Player : 生存フラグ
 deactivate Player
 
+[-> Player : BlockSetHasBeenPlaced
+activate Player
+    Player -> GameObject : Destroy
+    activate GameObject
+        GameObject -> BlockSet : GameObject を削除
+        activate BlockSet
+            GameObject <-- BlockSet
+        deactivate BlockSet
+        Player <-- GameObject
+    deactivate GameObject
+    [<-- Player
+deactivate Player
 
 [-> Player : PullNextBlock
 activate Player

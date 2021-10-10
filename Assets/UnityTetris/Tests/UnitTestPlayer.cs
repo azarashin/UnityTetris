@@ -133,6 +133,7 @@ public class UnitTestPlayer
         Assert.AreEqual(fields[0], childFields[0]);
         fieldObj = fields[0].gameObject;
 
+        p.BlockSetHasBeenPlaced(); 
         p.Dead();
 
         Assert.AreEqual(false, p.IsAlive()); // 死んだ

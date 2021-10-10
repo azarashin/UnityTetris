@@ -40,4 +40,9 @@ public class StubPlayer : IPlayer
     {
         CallList += "StartGame\n";
     }
+
+    public void BlockSetHasBeenPlaced()
+    {
+        CallList += "BlockSetHasBeenPlaced\n";
+    }
 }

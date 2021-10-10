@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,11 @@ namespace UnityTetris
     {
         public int Px;
         public int Py;
+
+        public void Remove()
+        {
+            Destroy(gameObject); 
+        }
     }
 
 }

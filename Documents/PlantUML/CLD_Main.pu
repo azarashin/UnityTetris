@@ -4,11 +4,21 @@ class Block
 {
     + Px : int
     + Py : int
+    ..
+    --
+
+    + Remove() : void
 }
 
 ' フィールドの状態を管理する
 abstract class AbstractField
 {
+    --
+    + NumberOfFramesToStandByNextBlock: int
+    + NumberOfFramesToSlide: int
+    + NumberOfFramesToReduce: int
+    ..
+
     + ResetField(sound : ISoundManager, width: int, height: int, borderLine : int) : void[]
     + Width() : int
     + Height() : int
@@ -16,6 +26,7 @@ abstract class AbstractField
     + SetBlocks(blocks : Block[]) : bool
 
     + IsHit(blocks : Vector2Int[]) : bool
+    + ReduceLines(owner : IPlyaer) : void
 }
 
 class Field
@@ -36,7 +47,7 @@ class Field
     + SetBlocks(blocks : Block[]) : bool
 
     + IsHit(blocks : Vector2Int[]) : bool
-    + RefTransform() : Transform
+    + ReduceLines(owner : IPlyaer) : void
 }
 
 interface IGameController
@@ -74,6 +85,7 @@ interface IPlayer
     + IsAlive() : bool
     + Dead() : void
     + PullNextBlock() : void
+    + BlockSetHasBeenPlaced : void
 }
 
 
@@ -98,6 +110,7 @@ class Player
     + IsAlive() : bool
     + Dead() : void
     + PullNextBlock() : void
+    + BlockSetHasBeenPlaced : void
 }
 
 class StateGameBoot

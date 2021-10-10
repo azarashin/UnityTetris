@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityTetris.Abstract;
 using UnityTetris.Interface;
@@ -38,6 +39,7 @@ namespace UnityTetris
                 Destroy(b.gameObject); 
             }
 
+            // マップを再生成
             _activeParts = new Block[_width, _height];
 
             if(borderLine != -1)
@@ -133,6 +135,124 @@ namespace UnityTetris
                 line += "\r\n"; 
             }
             return line; 
+        }
+
+        public override void ReduceLines(IPlayer owner)
+        {
+            List<int> reducedIndex = new List<int>();
+            Dictionary<int, int> reduceMap = new Dictionary<int, int>(); 
+            int bottomIndex = 0; 
+            // 削除判定をする
+            for(int y=0;y<_activeParts.GetLength(1);y++)
+            {
+                bool reduce = true;
+                for (int x = 0; x < _activeParts.GetLength(0); x++)
+                {
+                    if(_activeParts[x, y] == null)
+                    {
+                        reduce = false; 
+                    }
+                }
+                if(reduce)
+                {
+                    reducedIndex.Add(y); 
+                } else
+                {
+                    reduceMap[y] = bottomIndex; 
+                    bottomIndex++; 
+                }
+            }
+
+            if(reducedIndex.Count() == 0)
+            {
+                // 削除された行がないので、一定時間待機した後、次のブロックを動かし始める
+                StartCoroutine(CoStandbyNextBlock(owner));
+            }
+            else
+            {
+                StartCoroutine(CoReduceLines(owner, reducedIndex, reduceMap));
+            }
+        }
+
+        private IEnumerator CoStandbyNextBlock(IPlayer owner)
+        {
+            for(int i=0;i<AbstractField.NumberOfFramesToStandByNextBlock;i++)
+            {
+                yield return new WaitForFixedUpdate(); 
+            }
+
+            owner.PullNextBlock();
+        }
+
+        private IEnumerator CoReduceLines(IPlayer owner, List<int> reducedIndex, Dictionary<int, int> reduceMap)
+        {
+            Dictionary<(int, int), Vector3> toPosition = new Dictionary<(int, int), Vector3>();
+            // 削除するブロックの描画を止める
+            foreach (int y in reducedIndex)
+            {
+                for (int x = 0; x < _activeParts.GetLength(0); x++)
+                {
+                    if (_activeParts[x, y] != null)
+                    {
+                        _activeParts[x, y].Remove();
+                    }
+                }
+            }
+            foreach (int y in reduceMap.Keys)
+            {
+                for (int x = 0; x < _activeParts.GetLength(0); x++)
+                {
+                    if (_activeParts[x, y] != null)
+                    {
+                        toPosition[(x, y)] = Vector3.Scale(_activeParts[x, y].transform.localPosition, Vector3.right + Vector3.forward) + Vector3.up * reduceMap[y];
+                    }
+                }
+            }
+            // ブロックを消し始めて少し待つ
+            for (int i = 0; i <= NumberOfFramesToReduce; i++)
+            {
+                yield return new WaitForFixedUpdate();
+            }
+
+            // ブロックをゆっくり下にスライドさせる
+            float speed = 0.9f;
+            for (int i=0;i<=NumberOfFramesToSlide;i++)
+            {
+                float weight = ((float)i / (float)NumberOfFramesToSlide);
+                foreach((int x, int y ) in toPosition.Keys)
+                {
+                    Vector3 cur = _activeParts[x, y].transform.localPosition;
+                    Vector3 nxt = toPosition[(x, y)];
+                    _activeParts[x, y].transform.localPosition = cur + (nxt - cur) * speed;
+                }
+                yield return new WaitForFixedUpdate(); 
+            }
+
+            // マップを更新する
+            List<Block> refresh = new List<Block>();
+            foreach ((int x, int y) in toPosition.Keys)
+            {
+                _activeParts[x, y].transform.localPosition = toPosition[(x, y)];
+                _activeParts[x, y].Py = reduceMap[y];
+                refresh.Add(_activeParts[x, y]); 
+            }
+
+            for (int y = 0; y < _activeParts.GetLength(1); y++)
+            {
+                for (int x = 0; x < _activeParts.GetLength(0); x++)
+                {
+                    _activeParts[x, y] = null; 
+                }
+            }
+
+            foreach(Block b in refresh)
+            {
+                _activeParts[b.Px, b.Py] = b; 
+            }
+
+
+            owner.PullNextBlock();
+            yield return null; 
         }
     }
 }
