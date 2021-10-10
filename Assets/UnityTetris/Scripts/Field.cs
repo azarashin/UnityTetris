@@ -56,7 +56,7 @@ namespace UnityTetris
             {
                 Destroy(obj); 
             }
-            for(int y=0;y< _borderLine; y++)
+            for(int y=0;y<= _borderLine; y++)
             {
                 GameObject obj = Instantiate(_prefabOutsideBlock);
                 obj.transform.parent = transform;
