@@ -226,7 +226,7 @@ namespace UnityTetris
         {
             float rotSpeed = 0.2f; // これは適当な固定値にしておく
             transform.localRotation = Quaternion.Lerp(
-                transform.localRotation, Quaternion.Euler(0.0f, _rotStep * 90.0f, 0.0f), rotSpeed);
+                transform.localRotation, Quaternion.Euler(0.0f, 0.0f, _rotStep * 90.0f), rotSpeed);
             transform.localPosition = new Vector3(_centerPos.x, _centerPos.y);
         }
 
