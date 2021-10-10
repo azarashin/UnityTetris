@@ -70,31 +70,16 @@ activate Field
     activate Field
     deactivate Field
     opt 削除される行がない
-        Field -> Field : StartCoroutine(CoStandbyNextBlock)
-            activate Field
-            deactivate Field
+        Field -> IPlayer : PullNextBlock
+        activate IPlayer
+            Field <-- IPlayer
+        deactivate IPlayer
     else
         Field -> Field : StartCoroutine(CoReduceLines)
-            activate Field
-            deactivate Field
+        activate Field
+        deactivate Field
     end
 
-    [<-- Field
-deactivate Field
-
-[-> Field : CoStandbyNextBlock
-activate Field
-    Field -> Field : 一定時間待機する
-    activate Field
-    deactivate Field
-    Field -> IStatusPanel : AddScore
-    activate IStatusPanel
-        Field <-- IStatusPanel
-    deactivate IStatusPanel
-    Field -> IPlayer : PullNextBlock
-    activate IPlayer
-        Field <-- IPlayer
-    deactivate IPlayer
     [<-- Field
 deactivate Field
 
@@ -113,6 +98,10 @@ activate Field
     Field -> Field : 内部のマップを更新する
     activate Field
     deactivate Field
+    Field -> IStatusPanel : AddScore
+    activate IStatusPanel
+        Field <-- IStatusPanel
+    deactivate IStatusPanel
     Field -> IPlayer : PullNextBlock
     activate IPlayer
         Field <-- IPlayer

@@ -208,6 +208,7 @@ class BlockSet
     - _centerPos : Vector2Int
     - _countWaitFalling : int
     - _countFalling : int
+    - _working : bool
     - {const} CountWaitFallingLimit : int
     + {readonly} CountFallingLimit : int
     --
@@ -225,6 +226,7 @@ class BlockSet
     - MoveLeft() : bool
     - MoveDown() : void
     - Move() : void
+    - PlaceBlock() : IEnumerator
     - ShowBlocks() : void
     - NeedToFall() : bool
 

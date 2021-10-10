@@ -196,23 +196,13 @@ namespace UnityTetris
 
             if(reducedIndex.Count() == 0)
             {
-                // 削除された行がないので、一定時間待機した後、次のブロックを動かし始める
-                StartCoroutine(CoStandbyNextBlock(owner));
+                // 削除された行がないので、次のブロックを動かし始める
+                owner.PullNextBlock();
             }
             else
             {
                 StartCoroutine(CoReduceLines(owner, reducedIndex, reduceMap));
             }
-        }
-
-        private IEnumerator CoStandbyNextBlock(IPlayer owner)
-        {
-            for(int i=0;i<AbstractField.NumberOfFramesToStandByNextBlock;i++)
-            {
-                yield return new WaitForFixedUpdate(); 
-            }
-
-            owner.PullNextBlock();
         }
 
         private IEnumerator CoReduceLines(IPlayer owner, List<int> reducedIndex, Dictionary<int, int> reduceMap)
@@ -240,14 +230,14 @@ namespace UnityTetris
                 }
             }
             // ブロックを消し始めて少し待つ
-            for (int i = 0; i <= NumberOfFramesToReduce; i++)
+            for (int i = 0; i < NumberOfFramesToReduce; i++)
             {
                 yield return new WaitForFixedUpdate();
             }
 
             // ブロックをゆっくり下にスライドさせる
             float speed = 0.9f;
-            for (int i=0;i<=NumberOfFramesToSlide;i++)
+            for (int i=0;i<NumberOfFramesToSlide;i++)
             {
                 float weight = ((float)i / (float)NumberOfFramesToSlide);
                 foreach((int x, int y ) in toPosition.Keys)

@@ -327,13 +327,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameController
       objectReference: {fileID: 0}
-    - target: {fileID: 3881114718934782661, guid: bda07a2750cc41f4397c6d0a19ffa68a, type: 3}
-      propertyPath: _blockSetPrefabOptions.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3881114718934782661, guid: bda07a2750cc41f4397c6d0a19ffa68a, type: 3}
-      propertyPath: _blockSetPrefabOptions.Array.data[0]
-      value: 
-      objectReference: {fileID: 7490188450380276105, guid: b27302352a935614686a8de022bc1c56, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bda07a2750cc41f4397c6d0a19ffa68a, type: 3}

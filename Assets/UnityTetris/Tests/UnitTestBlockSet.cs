@@ -484,6 +484,10 @@ public class UnitTestBlockSet
         field.ReturnIsHit = true; // ここで衝突させる
         field.ReturnSetBlocks = false; // 上にはつまらない
         yield return new WaitForFixedUpdate();
+        for (int i = 0; i < AbstractField.NumberOfFramesToStandByNextBlock; i++)
+        {
+            yield return new WaitForFixedUpdate();
+        }
 
         Assert.AreEqual(new Vector2Int(5, 5), bs.CenterPos());
         Assert.AreEqual("IsHit((5,4),(5,5),(6,5),(6,4))\n"
@@ -542,6 +546,10 @@ public class UnitTestBlockSet
         field.ReturnIsHit = true; // ここで衝突させる
         field.ReturnSetBlocks = true; // 上に詰まる
         yield return new WaitForFixedUpdate();
+        for (int i = 0; i < AbstractField.NumberOfFramesToStandByNextBlock; i++)
+        {
+            yield return new WaitForFixedUpdate();
+        }
 
         Assert.AreEqual(new Vector2Int(5, 8), bs.CenterPos());
         Assert.AreEqual("IsHit((5,7),(5,8),(6,8),(6,7))\n"

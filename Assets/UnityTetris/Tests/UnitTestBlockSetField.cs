@@ -153,22 +153,18 @@ public class UnitTestBlockSetField
 
         // 下移動しようとするが、衝突してしまい、移動できずにとどまる
         yield return new WaitForFixedUpdate();
+        for (int i = 0; i < AbstractField.NumberOfFramesToStandByNextBlock; i++)
+        {
+            yield return new WaitForFixedUpdate();
+        }
 
         Assert.AreEqual(new Vector2Int(width / 2, 0), bs.CenterPos());
         Assert.AreEqual($"Play({SoundPlaced})\n", sound.CallList); // 移動音
         sound.ClearCallList();
-        Assert.AreEqual("BlockSetHasBeenPlaced\n", player.CallList); // この時点でPullNextBlock は呼び出されない。
+        Assert.AreEqual("BlockSetHasBeenPlaced\nPullNextBlock\n", player.CallList); // この時点でPullNextBlock は呼び出されない。
         player.ClearCallList();
 
         GameObject.Destroy(bs.gameObject); // この時点でBlockSet のインスタンスは破壊される
-
-        for(int i=0;i<AbstractField.NumberOfFramesToStandByNextBlock; i++)
-        {
-            yield return new WaitForFixedUpdate();
-        }
-        Assert.AreEqual("PullNextBlock\n", player.CallList); // 一定時間経過すると次のブロックが落ちてくる
-        player.ClearCallList();
-
         GameObject.Destroy(field.gameObject); 
 
         yield return null;
@@ -348,10 +344,14 @@ oooooo
     /// <returns></returns>
     private IEnumerator MoveBlock(string blockName, bool pull, (int, int)[] tasks, Field field, StubSoundManager sound, StubPlayer player, StubInputManager input, int fallLevel)
     {
+        // 横移動の量はBlockSet.CountWaitFallingLimit 未満でなければ移動中に下に落下してしまう。
+        // このことを想定してテストシナリオを記述すること
+
         BlockSet bs = NewBlockSet(blockName);
         bs.Setup(player, field, input, sound, fallLevel);
 
-        foreach((int x, int y) in tasks)
+        bool placed = false; 
+        foreach ((int x, int y) in tasks)
         {
             if (x < 0)
             {
@@ -359,6 +359,11 @@ oooooo
                 {
                     input.SetReturn(false, true, false, false, false);
                     yield return new WaitForFixedUpdate();
+                    if(player.CallList != "")
+                    {
+                        placed = true;
+                        break; 
+                    }
                 }
             }
             else if (x > 0)
@@ -367,51 +372,97 @@ oooooo
                 {
                     input.SetReturn(false, false, true, false, false);
                     yield return new WaitForFixedUpdate();
+                    if (player.CallList != "")
+                    {
+                        placed = true;
+                        break;
+                    }
                 }
             }
-            for (int i = 0; i < fallLevel * BlockSet.CountWaitFallingLimit - 1; i++)
+            if(placed)
+            {
+                break; 
+            }
+
+            for (int i = 0; i < y * (BlockSet.CountWaitFallingLimit + 1); i++)
             {
                 input.SetReturn(true, false, false, false, false);
                 yield return new WaitForFixedUpdate();
-                if(player.CallList == "BlockSetHasBeenPlaced\n")
+
+                if (player.CallList != "")
                 {
-                    Debug.Log(player.CallList);
-                }
-                if(bs != null && player.CallList == "BlockSetHasBeenPlaced\n")
-                {
-                    player.ClearCallList();
-                    GameObject.Destroy(bs.gameObject);
-                }
-                if ("PullNextBlock\n" == player.CallList || "Dead\n" == player.CallList)
-                {
+                    placed = true;
                     break;
                 }
+
             }
-            input.SetReturn(false, false, false, false, false);
+            if (placed)
+            {
+                break;
+            }
+
+        }
+        Assert.AreEqual("", player.CallList); // この時点では何もイベントは発生していないはず
+
+
+        if(!placed)
+        {
+            for (int i = 0; i < AbstractField.NumberOfFramesToStandByNextBlock; i++) // 落下してイベントが発生するまで十分な時間待つ
+            {
+                yield return new WaitForFixedUpdate();
+                if (player.CallList != "")
+                {
+                    Debug.Log(i); 
+                    placed = true;
+                    break;
+                }
+
+            }
         }
 
-        int limit = 60 * 5;
-        bool pulled = false;
-        for (int i = 0; i < limit; i++)
+        input.SetReturn(false, false, false, false, false);
+
+        if (player.CallList != "")
         {
-            if (player.CallList == "BlockSetHasBeenPlaced\n")
-            {
-                Debug.Log(player.CallList);
-            }
-            if (player.CallList == "PullNextBlock\n")
-            {
-                pulled = true;
-                break;
-            }
-            if (player.CallList == "Dead\n")
-            {
-                pulled = false;
-                break;
-            }
-            yield return new WaitForFixedUpdate();
+            Debug.Log(player.CallList);
         }
-        Assert.AreEqual(pull, pulled);
-        player.ClearCallList(); 
+        if (bs != null && player.CallList == "BlockSetHasBeenPlaced\n") // ブロックが消されてしばらく待っている場合
+        {
+            player.ClearCallList();
+
+            for (int i = 0; i < AbstractField.NumberOfFramesToReduce + AbstractField.NumberOfFramesToSlide; i++)
+            {
+                yield return new WaitForFixedUpdate();
+                if (player.CallList == "PullNextBlock\n")
+                {
+                    Debug.Log(i);
+                    player.ClearCallList();
+                    GameObject.Destroy(bs.gameObject);
+                    Assert.IsTrue(pull);
+                    yield break;
+                }
+
+            }
+        }
+
+        if (bs != null && player.CallList == "BlockSetHasBeenPlaced\nPullNextBlock\n")
+        {
+            player.ClearCallList();
+            GameObject.Destroy(bs.gameObject);
+            Assert.IsTrue(pull);
+            yield break;
+        }
+        if (bs != null && player.CallList == "BlockSetHasBeenPlaced\nDead\n")
+        {
+            player.ClearCallList();
+            GameObject.Destroy(bs.gameObject);
+            Assert.IsFalse(pull);
+            yield break;
+        }
+
+
+        Assert.Fail(); // イベントが発生していなかったらこのテストケースは失敗
+
     }
 
     private BlockSet NewBlockSet(string blockName)

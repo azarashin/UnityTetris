@@ -2,15 +2,18 @@
 
 [-> BlockSet : FixedUpdate
 activate BlockSet
-    BlockSet -> BlockSet : UpdateInput
+    opt 操作可能な状態である(_working==true)
+        BlockSet -> BlockSet : UpdateInput
         activate BlockSet
         deactivate BlockSet
-    BlockSet -> BlockSet : Move
+        BlockSet -> BlockSet : Move
         activate BlockSet
         deactivate BlockSet
-    BlockSet -> BlockSet : ShowBlocks
+        BlockSet -> BlockSet : ShowBlocks
         activate BlockSet
         deactivate BlockSet
+    end
+    [<-- BlockSet
 deactivate BlockSet
 
 
@@ -193,10 +196,32 @@ activate BlockSet
         deactivate BlockSet
         loop 移動中のブロックを構成するパーツの数だけ繰り返す
         end
-        BlockSet -> Player : BlockSetHasBeenPlaced
-        activate Player
-            BlockSet <-- Player
-        deactivate Player
+
+        BlockSet -> BlockSet : 操作不能な状態にする(_working <- false)
+        activate BlockSet
+        deactivate BlockSet
+
+        BlockSet -> BlockSet : StartCoroutine(PlaceBlock)
+        activate BlockSet
+        deactivate BlockSet
+    end
+deactivate BlockSet
+[<-- BlockSet
+
+[-> BlockSet : PlaceBlock
+activate BlockSet
+        loop 回転アニメーションが完了するまでアニメーションを一定回数実施する
+            BlockSet -> BlockSet : ShowBlocks
+            activate BlockSet
+            deactivate BlockSet
+        end
+        BlockSet -> BlockSet : 回転アニメーションを完了させる
+        activate BlockSet
+        deactivate BlockSet
+        BlockSet -> IPlayer : BlockSetHasBeenPlaced
+        activate IPlayer
+            BlockSet <-- IPlayer
+        deactivate IPlayer
         BlockSet -> Field : SetBlocks
         activate Field
             BlockSet <-- Field
@@ -213,9 +238,8 @@ activate BlockSet
             deactivate Field
         end
 
-    end
+    [<-- BlockSet
 deactivate BlockSet
-[<-- BlockSet
 
 [-> BlockSet : NeedToFall
 activate BlockSet

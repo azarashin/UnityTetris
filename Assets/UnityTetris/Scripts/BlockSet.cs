@@ -29,6 +29,7 @@ namespace UnityTetris
         private Vector2Int _centerPos;
         private int _countWaitFalling;
         private int _countFalling;
+        private bool _working; 
 
 
         public const float CountWaitFallingLimit = 4; // 最速でCountWaitFallingLimit フレームで落下する
@@ -36,9 +37,12 @@ namespace UnityTetris
 
         private void FixedUpdate()
         {
-            UpdateInput();
-            Move();
-            ShowBlocks();
+            if(_working)
+            {
+                UpdateInput();
+                Move();
+                ShowBlocks();
+            }
         }
 
 
@@ -205,21 +209,35 @@ namespace UnityTetris
                 {
                     _activeBlocks[i].Px = pos[i].x;
                     _activeBlocks[i].Py = pos[i].y;
-                    _activeBlocks[i].transform.parent = _field.transform;
                 }
+                _working = false; 
+                StartCoroutine(PlaceBlock()); 
 
-                _owner.BlockSetHasBeenPlaced();
-
-                if (_field.SetBlocks(_activeBlocks))
-                {
-                    _owner.Dead();
-                }
-                else
-                {
-                    _field.ReduceLines(_owner);
-                }
             }
 
+        }
+
+        private IEnumerator PlaceBlock()
+        {
+            for(int i=0;i< AbstractField.NumberOfFramesToStandByNextBlock; i++)
+            {
+                ShowBlocks();
+                yield return new WaitForFixedUpdate();
+            }
+            // 回転し終わってない場合はここで回転を終わらせる
+            transform.localRotation = Quaternion.Euler(0.0f, 0.0f, _rotStep * 90.0f);
+
+            _owner.BlockSetHasBeenPlaced();
+
+            if (_field.SetBlocks(_activeBlocks))
+            {
+                _owner.Dead();
+            }
+            else
+            {
+                _field.ReduceLines(_owner);
+            }
+            yield return null; 
         }
 
         private void ShowBlocks()
@@ -255,6 +273,7 @@ namespace UnityTetris
             _input = input;
             _sound = sound; 
             _falling = false;
+            _working = true; 
             _rotStep = 0;
             _countWaitFalling = 0;
             _countFalling = 0;
