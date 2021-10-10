@@ -96,9 +96,9 @@ Collaboration diagram for UnityTetris.Field:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a38b9feac1512f621a72e7d1522968020"><td class="memItemLeft" align="right" valign="top"><a id="a38b9feac1512f621a72e7d1522968020"></a>
-override void&#160;</td><td class="memItemRight" valign="bottom"><b>ResetField</b> (<a class="el" href="interface_unity_tetris_1_1_interface_1_1_i_sound_manager.html">ISoundManager</a> sound, int width=-1, int height=-1, int borderLine=-1)</td></tr>
-<tr class="separator:a38b9feac1512f621a72e7d1522968020"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5141f795ae436d91fdb8ce2513e826b"><td class="memItemLeft" align="right" valign="top"><a id="ae5141f795ae436d91fdb8ce2513e826b"></a>
+override void&#160;</td><td class="memItemRight" valign="bottom"><b>ResetField</b> (<a class="el" href="interface_unity_tetris_1_1_interface_1_1_i_status_panel.html">IStatusPanel</a> statusPanel, <a class="el" href="interface_unity_tetris_1_1_interface_1_1_i_sound_manager.html">ISoundManager</a> sound, int width=-1, int height=-1, int borderLine=-1)</td></tr>
+<tr class="separator:ae5141f795ae436d91fdb8ce2513e826b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a934474e65a706188c0c86e7e50515f3a"><td class="memItemLeft" align="right" valign="top"><a id="a934474e65a706188c0c86e7e50515f3a"></a>
 override int&#160;</td><td class="memItemRight" valign="bottom"><b>Width</b> ()</td></tr>
 <tr class="separator:a934474e65a706188c0c86e7e50515f3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -113,6 +113,22 @@ override bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsHit</b> (V
 <tr class="memitem:a97b432413af63fcdc6491a4c01385e13"><td class="memItemLeft" align="right" valign="top"><a id="a97b432413af63fcdc6491a4c01385e13"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>DebugField</b> ()</td></tr>
 <tr class="separator:a97b432413af63fcdc6491a4c01385e13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57753b0e9fa16ff092ba330faede96fe"><td class="memItemLeft" align="right" valign="top"><a id="a57753b0e9fa16ff092ba330faede96fe"></a>
+override void&#160;</td><td class="memItemRight" valign="bottom"><b>ReduceLines</b> (<a class="el" href="interface_unity_tetris_1_1_interface_1_1_i_player.html">IPlayer</a> owner)</td></tr>
+<tr class="separator:a57753b0e9fa16ff092ba330faede96fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_static_attribs_class_unity_tetris_1_1_abstract_1_1_abstract_field"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_class_unity_tetris_1_1_abstract_1_1_abstract_field')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="class_unity_tetris_1_1_abstract_1_1_abstract_field.html">UnityTetris.Abstract.AbstractField</a></td></tr>
+<tr class="memitem:a42ebeb0355fe69962eefdc0cba6b6b24 inherit pub_static_attribs_class_unity_tetris_1_1_abstract_1_1_abstract_field"><td class="memItemLeft" align="right" valign="top"><a id="a42ebeb0355fe69962eefdc0cba6b6b24"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>NumberOfFramesToStandByNextBlock</b> = 30</td></tr>
+<tr class="separator:a42ebeb0355fe69962eefdc0cba6b6b24 inherit pub_static_attribs_class_unity_tetris_1_1_abstract_1_1_abstract_field"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d36ed2590ce0997e8f6f66300c4d53d inherit pub_static_attribs_class_unity_tetris_1_1_abstract_1_1_abstract_field"><td class="memItemLeft" align="right" valign="top"><a id="a1d36ed2590ce0997e8f6f66300c4d53d"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>NumberOfFramesToSlide</b> = 30</td></tr>
+<tr class="separator:a1d36ed2590ce0997e8f6f66300c4d53d inherit pub_static_attribs_class_unity_tetris_1_1_abstract_1_1_abstract_field"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf6827b718dfefa73afa8eb51521db54 inherit pub_static_attribs_class_unity_tetris_1_1_abstract_1_1_abstract_field"><td class="memItemLeft" align="right" valign="top"><a id="acf6827b718dfefa73afa8eb51521db54"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>NumberOfFramesToReduce</b> = 30</td></tr>
+<tr class="separator:acf6827b718dfefa73afa8eb51521db54 inherit pub_static_attribs_class_unity_tetris_1_1_abstract_1_1_abstract_field"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="aeda7623db4beb83e36f558981e2ae001"></a>

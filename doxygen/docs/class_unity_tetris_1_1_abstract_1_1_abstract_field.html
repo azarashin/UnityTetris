@@ -68,6 +68,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="class_unity_tetris_1_1_abstract_1_1_abstract_field-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">UnityTetris.Abstract.AbstractField Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -95,9 +96,9 @@ Collaboration diagram for UnityTetris.Abstract.AbstractField:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5c843b0072e32123bc9b731eb376b92f"><td class="memItemLeft" align="right" valign="top"><a id="a5c843b0072e32123bc9b731eb376b92f"></a>
-abstract void&#160;</td><td class="memItemRight" valign="bottom"><b>ResetField</b> (<a class="el" href="interface_unity_tetris_1_1_interface_1_1_i_sound_manager.html">ISoundManager</a> sound, int width, int height, int borderLine)</td></tr>
-<tr class="separator:a5c843b0072e32123bc9b731eb376b92f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb5eccfa0e6f0930524f82fc4d1ca5e0"><td class="memItemLeft" align="right" valign="top"><a id="afb5eccfa0e6f0930524f82fc4d1ca5e0"></a>
+abstract void&#160;</td><td class="memItemRight" valign="bottom"><b>ResetField</b> (<a class="el" href="interface_unity_tetris_1_1_interface_1_1_i_status_panel.html">IStatusPanel</a> statusPanel, <a class="el" href="interface_unity_tetris_1_1_interface_1_1_i_sound_manager.html">ISoundManager</a> sound, int width, int height, int borderLine)</td></tr>
+<tr class="separator:afb5eccfa0e6f0930524f82fc4d1ca5e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84ec5fd1e93398b3980b468d5542b6c3"><td class="memItemLeft" align="right" valign="top"><a id="a84ec5fd1e93398b3980b468d5542b6c3"></a>
 abstract int&#160;</td><td class="memItemRight" valign="bottom"><b>Width</b> ()</td></tr>
 <tr class="separator:a84ec5fd1e93398b3980b468d5542b6c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -109,6 +110,21 @@ abstract int&#160;</td><td class="memItemRight" valign="bottom"><b>Height</b> ()
 <tr class="memitem:a90e1d3b99dd8dac4338296e02bb030fe"><td class="memItemLeft" align="right" valign="top"><a id="a90e1d3b99dd8dac4338296e02bb030fe"></a>
 abstract bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsHit</b> (Vector2Int[] blocks)</td></tr>
 <tr class="separator:a90e1d3b99dd8dac4338296e02bb030fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46126a4911f4efa5973ec66cd7aef873"><td class="memItemLeft" align="right" valign="top"><a id="a46126a4911f4efa5973ec66cd7aef873"></a>
+abstract void&#160;</td><td class="memItemRight" valign="bottom"><b>ReduceLines</b> (<a class="el" href="interface_unity_tetris_1_1_interface_1_1_i_player.html">IPlayer</a> owner)</td></tr>
+<tr class="separator:a46126a4911f4efa5973ec66cd7aef873"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a42ebeb0355fe69962eefdc0cba6b6b24"><td class="memItemLeft" align="right" valign="top"><a id="a42ebeb0355fe69962eefdc0cba6b6b24"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>NumberOfFramesToStandByNextBlock</b> = 30</td></tr>
+<tr class="separator:a42ebeb0355fe69962eefdc0cba6b6b24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d36ed2590ce0997e8f6f66300c4d53d"><td class="memItemLeft" align="right" valign="top"><a id="a1d36ed2590ce0997e8f6f66300c4d53d"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>NumberOfFramesToSlide</b> = 30</td></tr>
+<tr class="separator:a1d36ed2590ce0997e8f6f66300c4d53d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf6827b718dfefa73afa8eb51521db54"><td class="memItemLeft" align="right" valign="top"><a id="acf6827b718dfefa73afa8eb51521db54"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>NumberOfFramesToReduce</b> = 30</td></tr>
+<tr class="separator:acf6827b718dfefa73afa8eb51521db54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a959d1994214937a2b5312794f589af9c"></a>
