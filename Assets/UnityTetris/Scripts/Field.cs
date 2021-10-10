@@ -236,7 +236,7 @@ namespace UnityTetris
             }
 
             // ブロックをゆっくり下にスライドさせる
-            float speed = 0.9f;
+            float speed = 0.2f;
             for (int i=0;i<NumberOfFramesToSlide;i++)
             {
                 float weight = ((float)i / (float)NumberOfFramesToSlide);
@@ -247,6 +247,10 @@ namespace UnityTetris
                     _activeParts[x, y].transform.localPosition = cur + (nxt - cur) * speed;
                 }
                 yield return new WaitForFixedUpdate(); 
+            }
+            foreach ((int x, int y) in toPosition.Keys)
+            {
+                _activeParts[x, y].transform.localPosition = toPosition[(x, y)];
             }
 
             // マップを更新する
