@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _soundCollide: {fileID: 4420129380948336423}
-  _prefabPart: {fileID: 3453323996974552851, guid: 922f185ea149f02419e65c2829be99e9, type: 3}
+  _prefabPart: {fileID: 2894093265198478344, guid: 95bc5c60774a8324ba8bcb5ca943597d, type: 3}
   _partsPositions:
   - {x: 0, y: 0}
   - {x: -1, y: 0}
