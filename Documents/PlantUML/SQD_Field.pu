@@ -3,14 +3,14 @@
 [-> Field : ResetField
 activate Field
     opt Block のインスタンスがFiled インスタンスに関連付けられたまま
-    Field -> GameObject : Destroy
-    activate GameObject
-        GameObject -> Block : GameObject を削除
-        activate Block
-            GameObject <-- Block
-        deactivate Block
-        Field <-- GameObject
-    deactivate GameObject
+        Field -> GameObject : Destroy
+        activate GameObject
+            GameObject -> Block : GameObject を削除
+            activate Block
+                GameObject <-- Block
+            deactivate Block
+            Field <-- GameObject
+        deactivate GameObject
     end
     Field -> Field : マップを再生成
     activate Field
@@ -18,6 +18,10 @@ activate Field
     Field -> Field : 外壁を構築
     activate Field
     deactivate Field
+    Field -> IStatusPanel : ResetScore
+    activate IStatusPanel
+        Field <-- IStatusPanel
+    deactivate IStatusPanel
     [<-- Field
 deactivate Field
 
@@ -83,6 +87,10 @@ activate Field
     Field -> Field : 一定時間待機する
     activate Field
     deactivate Field
+    Field -> IStatusPanel : AddScore
+    activate IStatusPanel
+        Field <-- IStatusPanel
+    deactivate IStatusPanel
     Field -> IPlayer : PullNextBlock
     activate IPlayer
         Field <-- IPlayer

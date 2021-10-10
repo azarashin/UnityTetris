@@ -24,8 +24,10 @@ public class UnitTestBlockSetField
         Field field = NewField(); 
         StubInputManager input = new StubInputManager();
         StubSoundManager sound = new StubSoundManager();
+        StubStatusPanel statusPanel = new StubStatusPanel();
 
-        field.ResetField(sound, width, height, border); 
+        field.ResetField(statusPanel, sound, width, height, border);
+        Assert.AreEqual("ResetScore\n", statusPanel.CallList);
         bs.Setup(player, field, input, sound, fallLevel);
 
         Assert.AreEqual(new Vector2Int(width / 2, 8), bs.CenterPos());
@@ -98,8 +100,10 @@ public class UnitTestBlockSetField
         Field field = NewField();
         StubInputManager input = new StubInputManager();
         StubSoundManager sound = new StubSoundManager();
+        StubStatusPanel statusPanel = new StubStatusPanel(); 
 
-        field.ResetField(sound, width, height, border);
+        field.ResetField(statusPanel, sound, width, height, border);
+        Assert.AreEqual("ResetScore\n", statusPanel.CallList);
 
         bs.Setup(player, field, input, sound, fallLevel);
 
@@ -181,9 +185,11 @@ public class UnitTestBlockSetField
         Field field = NewField();
         StubInputManager input = new StubInputManager();
         StubSoundManager sound = new StubSoundManager();
+        StubStatusPanel statusPanel = new StubStatusPanel();
         string expected; 
 
-        field.ResetField(sound, width, height, border);
+        field.ResetField(statusPanel, sound, width, height, border);
+        Assert.AreEqual("ResetScore\n", statusPanel.CallList);
 
         yield return MoveBlock("BlockSetD", true, new (int, int)[] {
             (1, 8),
@@ -252,9 +258,12 @@ ooooo**ooo
         Field field = NewField();
         StubInputManager input = new StubInputManager();
         StubSoundManager sound = new StubSoundManager();
+        StubStatusPanel statusPanel = new StubStatusPanel();
         string expected;
 
-        field.ResetField(sound, width, height, border);
+        field.ResetField(statusPanel, sound, width, height, border);
+        Assert.AreEqual("ResetScore\n", statusPanel.CallList);
+        statusPanel.ClearCallList();
 
         yield return MoveBlock("BlockSetC", true, new (int, int)[] {
             (1, 8),
@@ -301,6 +310,7 @@ oooooo
         Debug.Log(field.DebugField());
         Assert.AreEqual(expected, field.DebugField());
 
+        Assert.AreEqual("", statusPanel.CallList); // この時点でステータスパネルに更新なし。
         yield return MoveBlock("BlockSetC", true, new (int, int)[] {
             (-1, 8),
         }, field, sound, player, input, fallLevel);
@@ -315,6 +325,7 @@ oooooo
 ";
         Debug.Log(field.DebugField());
         Assert.AreEqual(expected, field.DebugField());
+        Assert.AreEqual("AddScore(2)\n", statusPanel.CallList);
 
         GameObject.Destroy(field.gameObject);
 

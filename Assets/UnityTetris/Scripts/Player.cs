@@ -12,6 +12,9 @@ namespace UnityTetris
         private InputManager _input;
 
         [SerializeField]
+        StatusPanel _statusPanel; 
+
+        [SerializeField]
         AudioSource _soundCollide;
 
         private AbstractBlockSet[] _blockSetPrefabOptions;
@@ -36,8 +39,8 @@ namespace UnityTetris
             _field = Instantiate<AbstractField>(fieldPrefab);
             _field.transform.parent = transform;
             _field.transform.localPosition = Vector3.zero; 
-            _field.ResetField(_sound, -1, -1, -1);
-            _fallLevel =fallLevel; 
+            _field.ResetField(_statusPanel, _sound, -1, -1, -1);
+            _fallLevel =fallLevel;
         }
 
         public void StartGame(AbstractStateGameMain parent)

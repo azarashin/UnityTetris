@@ -12,10 +12,14 @@ using UnityTetris;
     public void UnitTestFieldSimplePasses001()
     {
         StubSoundManager sound = new StubSoundManager();
+        StubStatusPanel statusPanel = new StubStatusPanel();
         Field f = NewField();
-        f.ResetField(sound, 4, 5);
+        f.ResetField(statusPanel, sound, 4, 5);
+        Assert.AreEqual("ResetScore\n", statusPanel.CallList);
         Assert.AreEqual(f.Width(), 4);
-        f.ResetField(sound, 8, 9, 3);
+        statusPanel.ClearCallList(); 
+        f.ResetField(statusPanel, sound, 8, 9, 3);
+        Assert.AreEqual("ResetScore\n", statusPanel.CallList);
         Assert.AreEqual(f.Width(), 8);
         GameObject.Destroy(f.gameObject); 
     }
@@ -25,7 +29,9 @@ using UnityTetris;
     {
         StubSoundManager sound = new StubSoundManager();
         Field f = NewField();
-        f.ResetField(sound, 8, 9, 5);
+        StubStatusPanel statusPanel = new StubStatusPanel();
+        f.ResetField(statusPanel, sound, 8, 9, 5);
+        Assert.AreEqual("ResetScore\n", statusPanel.CallList);
         Block[] blocks = new Block[]
         {
             NewBlock(4, 4)
@@ -95,7 +101,9 @@ using UnityTetris;
     {
         StubSoundManager sound = new StubSoundManager();
         Field f = NewField();
-        f.ResetField(sound, 8, 8, 5);
+        StubStatusPanel statusPanel = new StubStatusPanel();
+        f.ResetField(statusPanel, sound, 8, 8, 5);
+        Assert.AreEqual("ResetScore\n", statusPanel.CallList);
         Block[] blocks = new Block[]
         {
             NewBlock(0, 3),
@@ -157,7 +165,9 @@ oooo****
     {
         Field f = NewField();
         StubSoundManager sound = new StubSoundManager();
-        f.ResetField(sound, 8, 8, 5);
+        StubStatusPanel statusPanel = new StubStatusPanel();
+        f.ResetField(statusPanel, sound, 8, 8, 5);
+        Assert.AreEqual("ResetScore\n", statusPanel.CallList);
         Block[] blocks = new Block[]
         {
             NewBlock(0, 3),
@@ -277,7 +287,10 @@ oooo****
     {
         Field f = NewField();
         StubSoundManager sound = new StubSoundManager();
-        f.ResetField(sound, 8, 8, 5);
+        StubStatusPanel statusPanel = new StubStatusPanel();
+        Assert.AreEqual("", statusPanel.CallList); 
+        f.ResetField(statusPanel, sound, 8, 8, 5);
+        Assert.AreEqual("ResetScore\n", statusPanel.CallList);
         yield return new WaitForFixedUpdate(); // 1フレーム待たないと消えない
 
         Block[] setBlocks;
@@ -306,7 +319,9 @@ oooooooo
 ";
         Assert.AreEqual(expected, f.DebugField());
 
-        f.ResetField(sound, 8, 8, 5);
+        statusPanel.ClearCallList(); 
+        f.ResetField(statusPanel, sound, 8, 8, 5);
+        Assert.AreEqual("ResetScore\n", statusPanel.CallList);
 
         yield return new WaitForFixedUpdate(); // 1フレーム待たないと消えない
         expected = @"oooooooo
@@ -326,7 +341,7 @@ oooooooo
     }
     private Block NewBlock(int x, int y)
     {
-        Block prefab = Resources.Load<Block>("UnityTetris/Prefabs/Block");
+        Block prefab = Resources.Load<Block>("UnityTetris/Prefabs/BlockParts/BlockA");
         Block obj = GameObject.Instantiate(prefab); 
 
         obj.Px = x;

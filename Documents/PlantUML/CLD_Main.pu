@@ -19,7 +19,7 @@ abstract class AbstractField
     + NumberOfFramesToReduce: int
     ..
 
-    + ResetField(sound : ISoundManager, width: int, height: int, borderLine : int) : void[]
+    + ResetField(statusPanel: IStatusPanel, sound : ISoundManager, width: int, height: int, borderLine : int) : void[]
     + Width() : int
     + Height() : int
     ' @return ブロックが積みあがってしまったらtrue, そうでなければfalse を返す
@@ -42,7 +42,7 @@ class Field
     - _outsideBlocks : List<UnityEngine.GameObject>
 
     --
-    + ResetField(sound : ISoundManager, width: int, height: int, borderLine : int) : void[]
+    + ResetField(statusPanel: IStatusPanel, sound : ISoundManager, width: int, height: int, borderLine : int) : void[]
     + Width() : int
     + Height() : int
     ' @return ブロックが積みあがってしまったらtrue, そうでなければfalse を返す
@@ -94,6 +94,7 @@ interface IPlayer
 class Player
 {
     - _input : InputManager
+    - _statusPanel : StatusPanel
     - _soundCollide : UnityEngine.AudioSource
     ..
     - _parent : AbstractStateGameMain
@@ -245,10 +246,14 @@ class UnitySoundManager
 
 class StatusPanel
 {
-    - _scoreText : Text
+    - _scoreLabel : Text
+    --
+    - _currentScore : int
  
+    - UpdateScoreLabel : void
+
     + ResetScore() : void
-    + AddScore(addedScore : int) : void
+    + AddScore(numberOfLines : int) : void
 }
 
 Player "1" *-- "1" AbstractField
@@ -276,6 +281,7 @@ AbstractBlockSet <|.. BlockSet
 AbstractField <|.. Field
 AbstractStateGameMain <|.. StateGameMain
 IPlayer <|.. Player
+IStatusPanel <|.. StatusPanel
 
 Field "1" o-- "*" Block
 BlockSet "1" o-- "*" Block

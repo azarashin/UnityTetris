@@ -15,7 +15,7 @@ namespace UnityTetris.Abstract
         // フィールド上のブロックが削除されることにより次のブロックの発生が猶予されるフレーム数
         public const int NumberOfFramesToReduce = 30;
 
-        public abstract void ResetField(ISoundManager sound, int width, int height, int borderLine);
+        public abstract void ResetField(IStatusPanel statusPanel, ISoundManager sound, int width, int height, int borderLine);
 
         public abstract int Width();
         public abstract int Height();

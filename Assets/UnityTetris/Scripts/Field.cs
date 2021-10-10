@@ -26,11 +26,13 @@ namespace UnityTetris
 
         private Block[,] _activeParts;
         private ISoundManager _sound;
+        private IStatusPanel _statusPanel;
         private List<GameObject> _outsideBlocks = new List<GameObject>(); 
 
-        public override void ResetField(ISoundManager sound, int width = -1, int height = -1, int borderLine = -1)
+        public override void ResetField(IStatusPanel statusPanel, ISoundManager sound, int width = -1, int height = -1, int borderLine = -1)
         {
-            _sound = sound; 
+            _sound = sound;
+            _statusPanel = statusPanel; 
             if (width > 0 && height > 0)
             {
                 _width = width;
@@ -73,6 +75,8 @@ namespace UnityTetris
                 obj.transform.localPosition = new Vector3(x, -1, 0);
                 _outsideBlocks.Add(obj);
             }
+
+            _statusPanel.ResetScore(); 
         }
 
         public override int Width()
@@ -277,6 +281,7 @@ namespace UnityTetris
                 _activeParts[b.Px, b.Py] = b; 
             }
 
+            _statusPanel.AddScore(reducedIndex.Count());
 
             owner.PullNextBlock();
             yield return null; 
