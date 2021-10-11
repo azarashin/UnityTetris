@@ -243,9 +243,10 @@ namespace UnityTetris
         private void ShowBlocks()
         {
             float rotSpeed = 0.2f; // これは適当な固定値にしておく
+            float moveSpeed = 0.2f; 
             transform.localRotation = Quaternion.Lerp(
                 transform.localRotation, Quaternion.Euler(0.0f, 0.0f, _rotStep * 90.0f), rotSpeed);
-            transform.localPosition = new Vector3(_centerPos.x, _centerPos.y);
+            transform.localPosition += (new Vector3(_centerPos.x, _centerPos.y) - transform.localPosition) * moveSpeed;
         }
 
         private bool NeedToFall()
