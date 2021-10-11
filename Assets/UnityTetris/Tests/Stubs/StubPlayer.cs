@@ -31,7 +31,7 @@ public class StubPlayer : IPlayer
         CallList += "PullNextBlock\n";
     }
 
-    public void Setup(AbstractField fieldPrefab, AbstractBlockSet[] blockSetPrefabOptions, ISoundManager sound, int fallLevel)
+    public void Setup(AbstractField fieldPrefab, AbstractBlockSet[] blockSetPrefabOptions, ISoundManager sound, LevelController levelController)
     {
         CallList += "Setup\n";
     }

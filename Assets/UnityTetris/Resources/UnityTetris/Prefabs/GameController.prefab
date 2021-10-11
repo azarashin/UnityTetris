@@ -190,7 +190,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _players:
-  - {fileID: 3881114718583586003}
+  - _player: {fileID: 3881114718583586003}
+    _statusPanel: {fileID: 3740241631537563855}
   _fieldPrefab: {fileID: 3210513471458461860, guid: b5011719afc48764eadfbc842cdc4f22, type: 3}
   _blockSetPrefabOptions:
   - {fileID: 878517007570917642, guid: e20a8d4161c1398499419f3ce5dd02ef, type: 3}
@@ -380,11 +381,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2332463885520698106, guid: c4aab27c4eaa9ce46ae38a9e1955ee1c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -1291.9861
+      value: -1287.2545
       objectReference: {fileID: 0}
     - target: {fileID: 2332463885520698106, guid: c4aab27c4eaa9ce46ae38a9e1955ee1c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -980.2888
+      value: -862.001
       objectReference: {fileID: 0}
     - target: {fileID: 2332463885520698106, guid: c4aab27c4eaa9ce46ae38a9e1955ee1c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -416,11 +417,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2332463885520698106, guid: c4aab27c4eaa9ce46ae38a9e1955ee1c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 564.9518
+      value: 567.3176
       objectReference: {fileID: 0}
     - target: {fileID: 2332463885520698106, guid: c4aab27c4eaa9ce46ae38a9e1955ee1c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 421.571
+      value: 362.4271
       objectReference: {fileID: 0}
     - target: {fileID: 2332463885520698106, guid: c4aab27c4eaa9ce46ae38a9e1955ee1c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

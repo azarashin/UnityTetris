@@ -59,10 +59,21 @@ interface IGameController
     + FinishGame() : void
 }
 
+class PlayerAndStatusPanel
+{
+    - _player : Player
+    - _statusPanel : StatusPanel
+    --
+    + PlayerInstance : Player
+    ..
+
+    + Pack() : void
+}
+
 ' ゲームの進行を管理する
 class GameController
 {
-    - _players : Player[]
+    - _players : PlayerAndStatusPanel[]
     - _fieldPrefab: AbstractField
     - _blockSetPrefabOptions : AbstractBlockSet[]
     - _sound : UnitySoundManager
@@ -82,39 +93,40 @@ class GameController
 
 interface IPlayer
 {
-    + Setup(fieldPrefab: AbstractField, blockSetPrefabOptions : AbstractBlockSet[], sound : ISoundManager, fallLevel: int) : void
+    + Setup(fieldPrefab: AbstractField, blockSetPrefabOptions : AbstractBlockSet[], sound : ISoundManager, levelController : LevelController) : void
     + StartGame(parent : AbstractStateGameMain) : void
     + IsAlive() : bool
     + Dead() : void
     + PullNextBlock() : void
-    + BlockSetHasBeenPlaced : void
+    + BlockSetHasBeenPlaced() : void
 }
 
 
 class Player
 {
     - _input : InputManager
-    - _statusPanel : StatusPanel
     - _soundCollide : UnityEngine.AudioSource
     ..
+    - _blockSetPrefabOptions : AbstractBlockSet[]
     - _parent : AbstractStateGameMain
     - _field : AbstractField
-    - _blockSetPrefabOptions : AbstractBlockSet[]
+    - _currentBlock : AbstractBlockSet
     - _sound : ISoundManager
     - _alive : bool
-    - _currentBlock : AbstractBlockSet
-    - _fallLevel: int
     - _reservation : List<int>
+    - _levelController : LevelController
+    - _statusPanel : IStatusPanel
     --
 
     - FixedUpdate() : void
 
-    + Setup(fieldPrefab: AbstractField, blockSetPrefabOptions : AbstractBlockSet[], sound : ISoundManager, fallLevel: int) : void
+    + Setup(fieldPrefab: AbstractField, blockSetPrefabOptions : AbstractBlockSet[], sound : ISoundManager, levelController : LevelController) : void
     + StartGame(parent : AbstractStateGameMain) : void
     + IsAlive() : bool
     + Dead() : void
     + PullNextBlock() : void
-    + BlockSetHasBeenPlaced : void
+    + BlockSetHasBeenPlaced() : void
+
 }
 
 class StateGameBoot
@@ -252,20 +264,24 @@ interface IStatusPanel
     + ResetScore() : void
     + AddScore(numberOfLines : int) : void
     + UpdateReservation(reservation : List<int>) : void
+    + UpdateLevel(level : int) : void
 }
 
 class StatusPanel
 {
     - _scoreLabel : Text
+    - _levelLabel : Text
     _reservationList : ReservationList[]
     --
     - _currentScore : int
+    - _currentLevel : int
  
     - UpdateScoreLabel : void
 
     + ResetScore() : void
     + AddScore(numberOfLines : int) : void
     + UpdateReservation(reservation : List<int>) : void
+    + UpdateLevel(level : int) : void
 }
 
 class ReservationList
@@ -275,6 +291,22 @@ class ReservationList
     ..
 
     + SetId(id : int) : void
+}
+
+class LevelController
+{
+    + MinimumFallLevel : int
+    + NumberOfPhasesToChangeFallLevel
+
+    - _fallLevel : int
+    - _initialFallLevel : int
+    - _step : int
+
+    + LevelController(fallLevel : int)
+    + CurrentDisplayLevel() : int
+    +CurrentFallLevel() : int
+    + NextBlockHasBeenPulled() : void
+
 }
 
 Player "1" *-- "1" AbstractField

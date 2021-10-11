@@ -24,7 +24,7 @@ namespace UnityTetris
             _parent = parent;
             foreach (var p in players)
             {
-                p.Setup(fieldPrefab, blockSetPrefabOptions, sound, fallLevel);
+                p.Setup(fieldPrefab, blockSetPrefabOptions, sound, new LevelController(fallLevel));
             }
             StartCoroutine(CoRun());
         }

@@ -1,0 +1,38 @@
+@startuml
+
+[-> LevelController : LevelController
+activate LevelController
+    LevelController -> LevelController : 内部状態を初期化する
+    activate LevelController
+    deactivate LevelController
+    [<-- LevelController
+deactivate LevelController
+
+[-> LevelController : CurrentDisplayLevel
+activate LevelController
+    [<-- LevelController : 画面に表示するレベル値を返す
+deactivate LevelController
+
+[-> LevelController : CurrentFallLevel
+activate LevelController
+    [<-- LevelController : １マス落下する時の時間間隔を返す
+deactivate LevelController
+
+[-> LevelController : NextBlockHasBeenPulled
+activate LevelController
+    opt 落下速度が十分に早い場合
+        [<-- LevelController
+    end
+    LevelController -> LevelController : 設置済み回数を増やす
+    activate LevelController
+    deactivate LevelController
+    opt 設置済み回数が一定基準に到達した
+        LevelController -> LevelController : 落下速度を上げる
+        activate LevelController
+        deactivate LevelController
+    end
+    [<-- LevelController
+deactivate LevelController
+
+
+@enduml

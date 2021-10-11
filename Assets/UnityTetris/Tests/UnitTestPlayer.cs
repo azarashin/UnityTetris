@@ -15,15 +15,20 @@ public class UnitTestPlayer
     {
         ObjectPicker<StubField> fieldPicker = new ObjectPicker<StubField>();
         ObjectPicker<StubBlockSet> blockSetPicker = new ObjectPicker<StubBlockSet>();
-        int fallLevel = 4;
+        LevelController levelController = new LevelController(4);
         Player p = NewPlayer();
         ISoundManager sound = new StubSoundManager();
         StubBlockSet[] bs = new StubBlockSet[] { StubBlockSetPrefab() };
         StubField fieldPrefab = StubFieldPrefab();
-        StubStateGameMain gameMain = StubStateGameMain(); 
+        StubStateGameMain gameMain = StubStateGameMain();
         fieldPicker.Pick();
         //Player のインスタンスが問題なく生成されてることを確認。
-        p.Setup(fieldPrefab, bs, sound, fallLevel);
+        StubStatusPanel statusPanel = new StubStatusPanel();
+        p.SetStatusPanel(statusPanel); 
+        p.Setup(fieldPrefab, bs, sound, levelController);
+
+        Assert.AreEqual("UpdateReservation\nUpdateLevel(1)\n", statusPanel.CallList);
+        statusPanel.ClearCallList(); 
 
         // Setup の呼び出しにより、内部でStubField(fieldPrefab) のインスタンスができているはず。
         StubField[] fields = fieldPicker.Pick();
@@ -38,8 +43,9 @@ public class UnitTestPlayer
         p.StartGame(gameMain);
 
         blocks = blockSetPicker.Pick();
+        Assert.AreEqual("UpdateReservation\nUpdateLevel(1)\n", statusPanel.CallList);
         Assert.AreEqual(1, blocks.Length); // この時点でブロックが１つで来ているはず
-        Assert.AreEqual($"Setup({fallLevel})\n", blocks[0].CallList);
+        Assert.AreEqual($"Setup({levelController.CurrentFallLevel()})\n", blocks[0].CallList);
         GameObject.Destroy(p.gameObject);
         GameObject.Destroy(gameMain.gameObject);
     }
@@ -47,14 +53,16 @@ public class UnitTestPlayer
     [Test]
     public void UnitTestPlayerSimplePasses002()
     {
-        int fallLevel = 4;
+        LevelController levelController = new LevelController(4);
         Player p = NewPlayer();
         ISoundManager sound = new StubSoundManager();
         StubBlockSet[] bs = new StubBlockSet[] { StubBlockSetPrefab() };
         StubField fieldPrefab = StubFieldPrefab();
         StubStateGameMain gameMain = StubStateGameMain();
 
-        p.Setup(fieldPrefab, bs, sound, fallLevel);
+        StubStatusPanel statusPanel = new StubStatusPanel();
+        p.SetStatusPanel(statusPanel);
+        p.Setup(fieldPrefab, bs, sound, levelController);
         p.StartGame(gameMain);
 
         Assert.AreEqual(true, p.IsAlive()); // まだ生きている
@@ -71,7 +79,7 @@ public class UnitTestPlayer
     [UnityTest]
     public IEnumerator UnitTestPlayerWithEnumeratorPasses001()
     {
-        int fallLevel = 4;
+        LevelController levelController = new LevelController(4);
         StubField[] fields; 
         Player p = NewPlayer();
         ISoundManager sound = new StubSoundManager();
@@ -81,13 +89,15 @@ public class UnitTestPlayer
 
 
         fields = GameObject.FindObjectsOfType<StubField>();
-        Assert.AreEqual(0, fields.Length); 
-        p.Setup(fieldPrefab, bs, sound, fallLevel);
+        Assert.AreEqual(0, fields.Length);
+        StubStatusPanel statusPanel = new StubStatusPanel();
+        p.SetStatusPanel(statusPanel);
+        p.Setup(fieldPrefab, bs, sound, levelController);
         yield return new WaitForFixedUpdate(); 
 
         fields = GameObject.FindObjectsOfType<StubField>();
         Assert.AreEqual(1, fields.Length);
-        p.Setup(fieldPrefab, bs, sound, fallLevel);
+        p.Setup(fieldPrefab, bs, sound, levelController);
         yield return new WaitForFixedUpdate();
 
         fields = GameObject.FindObjectsOfType<StubField>();
@@ -102,7 +112,7 @@ public class UnitTestPlayer
     [UnityTest]
     public IEnumerator UnitTestPlayerWithEnumeratorPasses002()
     {
-        int fallLevel = 4;
+        LevelController levelController = new LevelController(4);
         StubBlockSet[] blocks, childBlocks;
         StubField[] fields, childFields;
         GameObject fieldObj, blockObj; 
@@ -112,7 +122,9 @@ public class UnitTestPlayer
         StubField fieldPrefab = StubFieldPrefab();
         StubStateGameMain gameMain = StubStateGameMain();
 
-        p.Setup(fieldPrefab, bs, sound, fallLevel);
+        StubStatusPanel statusPanel = new StubStatusPanel();
+        p.SetStatusPanel(statusPanel);
+        p.Setup(fieldPrefab, bs, sound, levelController);
         p.StartGame(gameMain);
 
         Assert.AreEqual(true, p.IsAlive()); // まだ生きている
@@ -158,7 +170,7 @@ public class UnitTestPlayer
         Assert.IsTrue(objs.Contains(fieldObj));
 
         // ２回目の初期化
-        p.Setup(fieldPrefab, bs, sound, fallLevel);
+        p.Setup(fieldPrefab, bs, sound, levelController);
         yield return new WaitForFixedUpdate();
 
         fields = GameObject.FindObjectsOfType<StubField>();

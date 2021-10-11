@@ -14,13 +14,18 @@ namespace UnityTetris
         private Text _scoreLabel;
 
         [SerializeField]
+        private Text _levelLabel;
+
+        [SerializeField]
         private ReservationList[] _reservationList; 
 
         private int _currentScore;
+        private int _currentLevel; 
 
         private void UpdateScoreLabel()
         {
             _scoreLabel.text = $"{_currentScore:00000000}";
+            _levelLabel.text = $"{_currentLevel:00}";
         }
 
         public void ResetScore()
@@ -35,7 +40,7 @@ namespace UnityTetris
             {
                 Debug.LogError($"Invalid number of lines {numberOfLines}");
             }
-            _currentScore += numberOfLines * numberOfLines * 100;
+            _currentScore += _currentLevel * numberOfLines * numberOfLines * 100;
             UpdateScoreLabel();
         }
 
@@ -51,6 +56,12 @@ namespace UnityTetris
                     _reservationList[i].SetId(-1);
                 }
             }
+        }
+
+        public void UpdateLevel(int level)
+        {
+            _currentLevel = level;
+            UpdateScoreLabel(); 
         }
     }
 

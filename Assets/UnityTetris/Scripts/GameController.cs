@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityTetris.Abstract;
 using UnityTetris.Interface;
@@ -9,7 +10,7 @@ namespace UnityTetris
     public class GameController : MonoBehaviour, IGameController
     {
         [SerializeField]
-        private Player[] _players;
+        private PlayerAndStatusPanel[] _players;
 
         [SerializeField]
         AbstractField _fieldPrefab;
@@ -41,10 +42,15 @@ namespace UnityTetris
         public void BootGame()
         {
             Debug.Log("GameController.BootGame");
+            foreach(PlayerAndStatusPanel psp in _players)
+            {
+                psp.Pack(); 
+            }
             _boot.gameObject.SetActive(true);
             _main.gameObject.SetActive(false);
             _finish.gameObject.SetActive(false);
-            _boot.Setup(this, _fieldPrefab, _players, _blockSetPrefabOptions, _sound, _fallLevel);
+            Player[] players = _players.Select(s => s.PlayerInstance).ToArray(); 
+            _boot.Setup(this, _fieldPrefab, players, _blockSetPrefabOptions, _sound, _fallLevel);
         }
 
         public void RunGame()
@@ -53,7 +59,8 @@ namespace UnityTetris
             _boot.gameObject.SetActive(false);
             _main.gameObject.SetActive(true);
             _finish.gameObject.SetActive(false);
-            _main.Setup(this, _players);
+            Player[] players = _players.Select(s => s.PlayerInstance).ToArray();
+            _main.Setup(this, players);
         }
 
         public void FinishGame()

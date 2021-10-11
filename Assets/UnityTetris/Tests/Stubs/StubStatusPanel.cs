@@ -26,4 +26,10 @@ public class StubStatusPanel : IStatusPanel
     {
         CallList += $"UpdateReservation\n";
     }
+
+    public void UpdateLevel(int level)
+    {
+        CallList += $"UpdateLevel({level})\n";
+    }
+
 }

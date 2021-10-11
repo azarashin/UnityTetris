@@ -8,6 +8,7 @@ namespace UnityTetris.Interface
     {
         void ResetScore();
         void AddScore(int numberOfLines);
-        void UpdateReservation(List<int> reservation); 
+        void UpdateReservation(List<int> reservation);
+        void UpdateLevel(int level); 
     }
 }

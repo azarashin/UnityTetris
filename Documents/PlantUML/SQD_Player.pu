@@ -30,6 +30,10 @@ activate Player
     activate StatusPanel
         Player <-- StatusPanel
     deactivate StatusPanel
+    Player -> StatusPanel : UpdateLevel
+    activate StatusPanel
+        Player <-- StatusPanel
+    deactivate StatusPanel
     [<-- Player
 deactivate Player
 
@@ -66,6 +70,11 @@ activate Player
     deactivate Player
     Player -> StatusPanel : UpdateReservation
     activate StatusPanel
+        Player <-- StatusPanel
+    deactivate StatusPanel
+    Player -> StatusPanel : UpdateLevel
+    activate StatusPanel
+        Player <-- StatusPanel
     deactivate StatusPanel
     Player -> MonoBehaviour : Instantiate
     activate MonoBehaviour
@@ -82,7 +91,7 @@ activate Player
     [<-- Player
 deactivate Player
 
-[-> Player : Dead()
+[-> Player : Dead
 activate Player
     Player -> Player : 生存フラグを無効にする
     activate Player
@@ -94,5 +103,12 @@ activate Player
     [<-- Player
 deactivate Player
 
+[-> Player : SetStatusPanel
+activate Player
+    Player -> Player : ステータスパネルを関連付ける
+    activate Player
+    deactivate Player
+    [<-- Player
+deactivate Player
 
 @enduml

@@ -10,6 +10,12 @@ deactivate GameController
 
 [-> GameController : BootGame
 activate GameController
+    loop プレイヤーごとに実行、Player のインスタンスとStatusPanel のインスタンスとを関連付ける
+        GameController -> PlayerAndStatusPanel : Pack
+        activate PlayerAndStatusPanel
+            GameController <- PlayerAndStatusPanel
+        deactivate PlayerAndStatusPanel
+    end
     GameController -> StateGameBoot : gameObject.SetActive(true)
     activate StateGameBoot
         GameController <-- StateGameBoot
@@ -22,7 +28,12 @@ activate GameController
     activate StateGameFinish
         GameController <-- StateGameFinish
     deactivate StateGameFinish
-
+    loop プレイヤーのリストを生成
+        GameController -> PlayerAndStatusPanel : PlayerInstance
+        activate PlayerAndStatusPanel
+            GameController <- PlayerAndStatusPanel
+        deactivate PlayerAndStatusPanel
+    end
     GameController -> StateGameBoot : Setup
     activate StateGameBoot
         GameController <-- StateGameBoot
@@ -45,6 +56,12 @@ activate GameController
         GameController <-- StateGameFinish
     deactivate StateGameFinish
 
+    loop プレイヤーのリストを生成
+        GameController -> PlayerAndStatusPanel : PlayerInstance
+        activate PlayerAndStatusPanel
+            GameController <- PlayerAndStatusPanel
+        deactivate PlayerAndStatusPanel
+    end
     GameController -> StateGameMain : Setup
     activate StateGameMain
         GameController <-- StateGameMain
