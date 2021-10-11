@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['unitykeyinputmanager_44',['UnityKeyInputManager',['../class_unity_tetris_1_1_unity_key_input_manager.html',1,'UnityTetris']]],
-  ['unitysoundmanager_45',['UnitySoundManager',['../class_unity_tetris_1_1_unity_sound_manager.html',1,'UnityTetris']]]
+  ['stategameboot_44',['StateGameBoot',['../class_unity_tetris_1_1_state_game_boot.html',1,'UnityTetris']]],
+  ['stategamefinish_45',['StateGameFinish',['../class_unity_tetris_1_1_state_game_finish.html',1,'UnityTetris']]],
+  ['stategamemain_46',['StateGameMain',['../class_unity_tetris_1_1_state_game_main.html',1,'UnityTetris']]],
+  ['statuspanel_47',['StatusPanel',['../class_unity_tetris_1_1_status_panel.html',1,'UnityTetris']]]
 ];

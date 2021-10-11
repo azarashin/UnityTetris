@@ -1,0 +1,24 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$interface_unity_tetris_1_1_interface_1_1_i_game_controller.html" title=" " alt="" coords="7,5,188,47"/>
+<area shape="rect" id="node2" href="$class_unity_tetris_1_1_game_controller.html" title=" " alt="" coords="251,19,429,46"/>
+<area shape="rect" id="node3" href="$interface_unity_tetris_1_1_interface_1_1_i_input_manager.html" title=" " alt="" coords="10,71,185,112"/>
+<area shape="rect" id="node4" href="$class_unity_tetris_1_1_input_manager.html" title=" " alt="" coords="257,79,423,106"/>
+<area shape="rect" id="node5" href="$class_unity_tetris_1_1_unity_key_input_manager.html" title=" " alt="" coords="497,72,667,113"/>
+<area shape="rect" id="node6" href="$interface_unity_tetris_1_1_interface_1_1_i_player.html" title=" " alt="" coords="6,137,189,163"/>
+<area shape="rect" id="node7" href="$class_unity_tetris_1_1_player.html" title=" " alt="" coords="278,134,402,161"/>
+<area shape="rect" id="node8" href="$interface_unity_tetris_1_1_interface_1_1_i_sound_manager.html" title=" " alt="" coords="6,188,189,229"/>
+<area shape="rect" id="node9" href="$class_unity_tetris_1_1_unity_sound_manager.html" title=" " alt="" coords="237,185,443,211"/>
+<area shape="rect" id="node10" href="$interface_unity_tetris_1_1_interface_1_1_i_status_panel.html" title=" " alt="" coords="5,628,189,669"/>
+<area shape="rect" id="node11" href="$class_unity_tetris_1_1_status_panel.html" title=" " alt="" coords="261,635,419,662"/>
+<area shape="rect" id="node12" title=" " alt="" coords="41,315,153,342"/>
+<area shape="rect" id="node13" href="$class_reservation_list.html" title=" " alt="" coords="283,286,397,313"/>
+<area shape="rect" id="node14" href="$class_unity_tetris_1_1_abstract_1_1_abstract_block_set.html" title=" " alt="" coords="245,337,435,379"/>
+<area shape="rect" id="node16" href="$class_unity_tetris_1_1_abstract_1_1_abstract_field.html" title=" " alt="" coords="245,403,435,444"/>
+<area shape="rect" id="node18" href="$class_unity_tetris_1_1_abstract_1_1_abstract_state_game_main.html" title=" " alt="" coords="245,468,435,509"/>
+<area shape="rect" id="node20" href="$class_unity_tetris_1_1_block.html" title=" " alt="" coords="279,534,401,561"/>
+<area shape="rect" id="node21" href="$class_unity_tetris_1_1_state_game_boot.html" title=" " alt="" coords="249,585,431,611"/>
+<area shape="rect" id="node22" href="$class_unity_tetris_1_1_state_game_finish.html" title=" " alt="" coords="245,235,435,262"/>
+<area shape="rect" id="node15" href="$class_unity_tetris_1_1_block_set.html" title=" " alt="" coords="511,345,653,371"/>
+<area shape="rect" id="node17" href="$class_unity_tetris_1_1_field.html" title=" " alt="" coords="524,410,640,437"/>
+<area shape="rect" id="node19" href="$class_unity_tetris_1_1_state_game_main.html" title=" " alt="" coords="491,475,673,502"/>
+</map>

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['reservationlist_39',['ReservationList',['../class_reservation_list.html',1,'']]]
+  ['player_41',['Player',['../class_unity_tetris_1_1_player.html',1,'UnityTetris']]],
+  ['playerandstatuspanel_42',['PlayerAndStatusPanel',['../class_unity_tetris_1_1_player_and_status_panel.html',1,'UnityTetris']]]
 ];

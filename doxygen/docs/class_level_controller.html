@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>UnityTetris: UnityTetris.Interface.IStatusPanel Interface Reference</title>
+<title>UnityTetris: LevelController Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,46 +60,43 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespace_unity_tetris.html">UnityTetris</a></li><li class="navelem"><a class="el" href="namespace_unity_tetris_1_1_interface.html">Interface</a></li><li class="navelem"><a class="el" href="interface_unity_tetris_1_1_interface_1_1_i_status_panel.html">IStatusPanel</a></li>  </ul>
-</div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="interface_unity_tetris_1_1_interface_1_1_i_status_panel-members.html">List of all members</a>  </div>
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="class_level_controller-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">UnityTetris.Interface.IStatusPanel Interface Reference</div>  </div>
+<div class="title">LevelController Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Inheritance diagram for UnityTetris.Interface.IStatusPanel:</div>
-<div class="dyncontent">
-<div class="center"><img src="interface_unity_tetris_1_1_interface_1_1_i_status_panel__inherit__graph.png" border="0" usemap="#a_unity_tetris_8_interface_8_i_status_panel_inherit__map" alt="Inheritance graph"/></div>
-<map name="a_unity_tetris_8_interface_8_i_status_panel_inherit__map" id="a_unity_tetris_8_interface_8_i_status_panel_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,5,189,47"/>
-<area shape="rect" href="class_unity_tetris_1_1_status_panel.html" title=" " alt="" coords="18,95,177,121"/>
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a57f4066a6b1878459281f897a81181fe"><td class="memItemLeft" align="right" valign="top"><a id="a57f4066a6b1878459281f897a81181fe"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ResetScore</b> ()</td></tr>
-<tr class="separator:a57f4066a6b1878459281f897a81181fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adef1195f8e72d76946acff3a91f9c5a8"><td class="memItemLeft" align="right" valign="top"><a id="adef1195f8e72d76946acff3a91f9c5a8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>AddScore</b> (int numberOfLines)</td></tr>
-<tr class="separator:adef1195f8e72d76946acff3a91f9c5a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38a77fcf04cec14f4b81dcdab63bdf27"><td class="memItemLeft" align="right" valign="top"><a id="a38a77fcf04cec14f4b81dcdab63bdf27"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateReservation</b> (List&lt; int &gt; reservation)</td></tr>
-<tr class="separator:a38a77fcf04cec14f4b81dcdab63bdf27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc3ace9047d0844a96d1265d243a84ed"><td class="memItemLeft" align="right" valign="top"><a id="afc3ace9047d0844a96d1265d243a84ed"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateLevel</b> (int level)</td></tr>
-<tr class="separator:afc3ace9047d0844a96d1265d243a84ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9e4d0a759e43336efc657655ced819e"><td class="memItemLeft" align="right" valign="top"><a id="af9e4d0a759e43336efc657655ced819e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>LevelController</b> (int fallLevel)</td></tr>
+<tr class="separator:af9e4d0a759e43336efc657655ced819e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52069fd56bd69d8db5beb91abd8aa418"><td class="memItemLeft" align="right" valign="top"><a id="a52069fd56bd69d8db5beb91abd8aa418"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>CurrentDisplayLevel</b> ()</td></tr>
+<tr class="separator:a52069fd56bd69d8db5beb91abd8aa418"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a37925218b9c6fcdd317e65556f79dc"><td class="memItemLeft" align="right" valign="top"><a id="a8a37925218b9c6fcdd317e65556f79dc"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>CurrentFallLevel</b> ()</td></tr>
+<tr class="separator:a8a37925218b9c6fcdd317e65556f79dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84452d25d4aeb7d6dbc4be2cfd2346c4"><td class="memItemLeft" align="right" valign="top"><a id="a84452d25d4aeb7d6dbc4be2cfd2346c4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>NextBlockHasBeenPulled</b> ()</td></tr>
+<tr class="separator:a84452d25d4aeb7d6dbc4be2cfd2346c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:adf5ccd6e4ce114acd59f71c2b1848637"><td class="memItemLeft" align="right" valign="top"><a id="adf5ccd6e4ce114acd59f71c2b1848637"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>MinimumFallLevel</b> = 2</td></tr>
+<tr class="separator:adf5ccd6e4ce114acd59f71c2b1848637"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36e78bbdec94adb9bb1281ed4baa6a5e"><td class="memItemLeft" align="right" valign="top"><a id="a36e78bbdec94adb9bb1281ed4baa6a5e"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>NumberOfPhasesToChangeFallLevel</b> = 20</td></tr>
+<tr class="separator:a36e78bbdec94adb9bb1281ed4baa6a5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this interface was generated from the following file:<ul>
-<li>Assets/UnityTetris/Scripts/Interface/IStatusPanel.cs</li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>Assets/UnityTetris/Scripts/LevelController.cs</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
