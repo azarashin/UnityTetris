@@ -1,5 +1,8 @@
 @startuml
 
+' StatusPanel のインスタンスはPlayer からしかアクセスできないのと、
+' 単純な処理しか実行していないため、スタブを用いた試験は一旦見送る
+
 [-> Player : Setup
 activate Player
     Player -> Player : 生存フラグを有効にする
@@ -20,6 +23,13 @@ activate Player
     activate AbstractField
         Player <-- AbstractField
     deactivate AbstractField
+    Player -> Player : _blockSetOptions からブロックの発生予定リストを生成する
+    activate Player
+    deactivate Player
+    Player -> StatusPanel : UpdateReservation
+    activate StatusPanel
+        Player <-- StatusPanel
+    deactivate StatusPanel
     [<-- Player
 deactivate Player
 
@@ -51,9 +61,12 @@ deactivate Player
 
 [-> Player : PullNextBlock
 activate Player
-    Player -> Player : _blockSetOptions からブロックをランダムに選択する
+    Player -> Player : _blockSetOptions からブロックの発生予定リストを生成する
     activate Player
     deactivate Player
+    Player -> StatusPanel : UpdateReservation
+    activate StatusPanel
+    deactivate StatusPanel
     Player -> MonoBehaviour : Instantiate
     activate MonoBehaviour
         MonoBehaviour -> BlockSet : create

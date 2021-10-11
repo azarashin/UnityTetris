@@ -21,4 +21,9 @@ public class StubStatusPanel : IStatusPanel
     {
         CallList += $"ResetScore\n";
     }
+
+    public void UpdateReservation(List<int> reservation)
+    {
+        CallList += $"UpdateReservation\n";
+    }
 }

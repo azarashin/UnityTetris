@@ -23,7 +23,8 @@ namespace UnityTetris
         private AbstractBlockSet _currentBlock;
         private ISoundManager _sound;
         private bool _alive;
-        private int _fallLevel; 
+        private int _fallLevel;
+        private List<int> _reservation; 
 
         public void Setup(AbstractField fieldPrefab, AbstractBlockSet[] blockSetOptions, ISoundManager sound, int fallLevel)
         {
@@ -41,6 +42,11 @@ namespace UnityTetris
             _field.transform.localPosition = Vector3.zero; 
             _field.ResetField(_statusPanel, _sound, -1, -1, -1);
             _fallLevel =fallLevel;
+
+            _reservation = new List<int>();
+            _reservation.Add(Random.Range(0, _blockSetPrefabOptions.Length));
+            _reservation.Add(Random.Range(0, _blockSetPrefabOptions.Length));
+            _statusPanel.UpdateReservation(_reservation);
         }
 
         public void StartGame(AbstractStateGameMain parent)
@@ -73,7 +79,12 @@ namespace UnityTetris
 
         public void PullNextBlock()
         {
-            int id = Random.Range(0, _blockSetPrefabOptions.Length);
+            _reservation.Add(Random.Range(0, _blockSetPrefabOptions.Length));
+            int id = _reservation[0];
+            _reservation.RemoveAt(0);
+
+            _statusPanel.UpdateReservation(_reservation); 
+
             Debug.Log($"Player.PullNextBlock: id={id}");
             AbstractBlockSet next = _blockSetPrefabOptions[id];
 

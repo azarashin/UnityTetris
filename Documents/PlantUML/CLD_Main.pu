@@ -104,6 +104,7 @@ class Player
     - _alive : bool
     - _currentBlock : AbstractBlockSet
     - _fallLevel: int
+    - _reservation : List<int>
     --
 
     - FixedUpdate() : void
@@ -246,9 +247,17 @@ class UnitySoundManager
     + Stop(sound : AudioSource) : void
 }
 
+interface IStatusPanel
+{
+    + ResetScore() : void
+    + AddScore(numberOfLines : int) : void
+    + UpdateReservation(reservation : List<int>) : void
+}
+
 class StatusPanel
 {
     - _scoreLabel : Text
+    _reservationList : ReservationList[]
     --
     - _currentScore : int
  
@@ -256,6 +265,16 @@ class StatusPanel
 
     + ResetScore() : void
     + AddScore(numberOfLines : int) : void
+    + UpdateReservation(reservation : List<int>) : void
+}
+
+class ReservationList
+{
+    - _items : UnityEngine.GameObject[]
+    --
+    ..
+
+    + SetId(id : int) : void
 }
 
 Player "1" *-- "1" AbstractField
@@ -290,5 +309,7 @@ BlockSet "1" o-- "*" Block
 BlockSet "1" o-- "1" ISoundManager
 BlockSet "1" o-- "1" IPlayer
 BlockSet "1" o-- "1" AbstractField
+
+ReservationList "2" --* "1" StatusPanel
 
 @enduml

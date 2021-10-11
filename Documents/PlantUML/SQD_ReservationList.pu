@@ -1,0 +1,12 @@
+@startuml
+
+[-> ReservationList : SetId
+activate ReservationList
+    ReservationList -> ReservationList : 指定されたid に対するブロックアイコンのみ表示し、それ以外を非表示
+    activate ReservationList
+    deactivate ReservationList
+    [<-- ReservationList
+deactivate ReservationList
+
+
+@enduml

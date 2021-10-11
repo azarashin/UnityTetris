@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityTetris.Interface;
@@ -11,6 +12,9 @@ namespace UnityTetris
     {
         [SerializeField]
         private Text _scoreLabel;
+
+        [SerializeField]
+        private ReservationList[] _reservationList; 
 
         private int _currentScore;
 
@@ -33,6 +37,20 @@ namespace UnityTetris
             }
             _currentScore += numberOfLines * numberOfLines * 100;
             UpdateScoreLabel();
+        }
+
+        public void UpdateReservation(List<int> reservation)
+        {
+            for(int i=0;i<_reservationList.Length;i++)
+            {
+                if(i < reservation.Count())
+                {
+                    _reservationList[i].SetId(reservation[i]);
+                } else
+                {
+                    _reservationList[i].SetId(-1);
+                }
+            }
         }
     }
 

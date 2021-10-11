@@ -12,4 +12,5 @@ UnityEngine.MonoBehaviour <|-- InputManager
 UnityEngine.MonoBehaviour <|-- StateGameBoot
 UnityEngine.MonoBehaviour <|-- StateGameMain
 UnityEngine.MonoBehaviour <|-- StateGameFinish
+UnityEngine.MonoBehaviour <|-- ReservationList
 @enduml
