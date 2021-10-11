@@ -298,9 +298,9 @@ IInputManager <|.. InputManager
 InputManager <|.. UnityKeyInputManager
 ISoundManager <|.. UnitySoundManager
 IGameController <|.. GameController
-AbstractBlockSet <|.. BlockSet
-AbstractField <|.. Field
-AbstractStateGameMain <|.. StateGameMain
+AbstractBlockSet <|-- BlockSet
+AbstractField <|-- Field
+AbstractStateGameMain <|-- StateGameMain
 IPlayer <|.. Player
 IStatusPanel <|.. StatusPanel
 
