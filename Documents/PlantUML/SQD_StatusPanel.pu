@@ -1,0 +1,54 @@
+@startuml
+
+' ReservationList のインスタンスはStatusPanel からしかアクセスできないのと、
+' 単純な処理しか実行していないため、スタブを用いた試験は一旦見送る
+
+[-> StatusPanel : UpdateScoreLabel
+activate StatusPanel
+    StatusPanel -> StatusPanel : ラベルを更新する
+    activate StatusPanel
+    deactivate StatusPanel
+    [<-- StatusPanel
+deactivate StatusPanel
+
+[-> StatusPanel : ResetScore
+activate StatusPanel
+    StatusPanel -> StatusPanel : スコアを0にする
+    activate StatusPanel
+    deactivate StatusPanel
+    StatusPanel -> StatusPanel : UpdateScoreLabel
+    activate StatusPanel
+    deactivate StatusPanel
+    [<-- StatusPanel
+deactivate StatusPanel
+
+[-> StatusPanel : ResetScore
+activate StatusPanel
+    StatusPanel -> StatusPanel : 消したラインの数に応じてスコアを加算する
+    activate StatusPanel
+    deactivate StatusPanel
+    StatusPanel -> StatusPanel : UpdateScoreLabel
+    activate StatusPanel
+    deactivate StatusPanel
+    [<-- StatusPanel
+deactivate StatusPanel
+
+[-> StatusPanel : UpdateReservation
+activate StatusPanel
+    loop ブロック予告欄ごとに実行する
+        alt ブロック予告情報が存在している
+            StatusPanel -> ReservationList : SetId(ブロック種別)
+            activate ReservationList
+                StatusPanel <-- ReservationList
+            deactivate ReservationList
+        else
+            StatusPanel -> ReservationList : SetId(無効な番号)
+            activate ReservationList
+                StatusPanel <-- ReservationList
+            deactivate ReservationList
+        end
+    end
+    [<-- StatusPanel
+deactivate StatusPanel
+
+@enduml
