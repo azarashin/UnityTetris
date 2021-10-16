@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,17 +6,30 @@ using UnityEngine;
 public class ReservationList : MonoBehaviour
 {
     [SerializeField]
-    GameObject[] _items; 
+    GameObject[] _items;
+
+    private int _id; 
 
     public void SetId(int id)
     {
+        _id = id; 
         foreach(GameObject item in _items)
         {
             item.SetActive(false); 
         }
-        if(id >= 0 && id < _items.Length)
+        if(_id >= 0 && _id < _items.Length)
         {
-            _items[id].SetActive(true);
+            _items[_id].SetActive(true);
         }
+    }
+
+    public int GetId()
+    {
+        return _id;
+    }
+
+    public int GetIdMax()
+    {
+        return _items.Length; 
     }
 }
