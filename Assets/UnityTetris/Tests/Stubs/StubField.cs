@@ -14,6 +14,7 @@ public class StubField : AbstractField
     public bool ReturnSetBlocks;
     public int ReturnWidth;
     public int ReturnHeight;
+    public float[,] ReturnGetFieldMap; 
 
     public void ClearCallList()
     {
@@ -60,5 +61,11 @@ public class StubField : AbstractField
     public override void ReduceLines(IPlayer owner)
     {
         CallList += $"ReduceLines({owner.GetHashCode()})\n";
+    }
+
+    public override float[,] GetFieldMap()
+    {
+        CallList += "GetFieldMap\n";
+        return ReturnGetFieldMap;
     }
 }
