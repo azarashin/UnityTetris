@@ -30,5 +30,7 @@ namespace UnityTetris.Abstract
         public abstract bool IsHit(Vector2Int[] blocks);
 
         public abstract void ReduceLines(IPlayer owner);
+
+        public abstract int[,] GetFieldMap();
     }
 }
