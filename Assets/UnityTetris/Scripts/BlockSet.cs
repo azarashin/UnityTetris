@@ -48,6 +48,8 @@ namespace UnityTetris
 
         private void UpdateInput()
         {
+            _input.UpdateState(); 
+
             if (_input.IsRotateRight())
             {
                 RotateRight();
@@ -317,9 +319,14 @@ namespace UnityTetris
             }
         }
 
-        public Vector2Int CenterPos()
+        public override Vector2Int CenterPos()
         {
             return _centerPos;
+        }
+
+        public override int RotStep()
+        {
+            return _rotStep; 
         }
     }
 }

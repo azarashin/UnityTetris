@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityTetris.Abstract;
 
 namespace UnityTetris
 {
@@ -17,9 +18,13 @@ namespace UnityTetris
         private bool _rightRotate;
 
 
-        private void FixedUpdate()
+        public override void StartGame()
         {
-            if(_suspendTime > 0.0f)
+        }
+
+        public override void UpdateState()
+        {
+            if (_suspendTime > 0.0f)
             {
                 _suspendTime -= Time.deltaTime; 
             }
@@ -74,6 +79,10 @@ namespace UnityTetris
                 _repeat = 0;
                 _suspendTime = 0;
             }
+        }
+
+        public override void FinishGame()
+        {
         }
 
         public override bool IsMoveDown()
