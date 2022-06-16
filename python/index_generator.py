@@ -149,7 +149,7 @@ def generate_svg_page(input_path, svgs_path):
 	for pu in pus:
 		pu=pu.replace('\\', '/')
 		title=None
-		m=path_pattern.search(pu[len(input_path):])
+		m=path_pattern.search(pu[len(input_path)+1:])
 		if not m:
 			continue
 		category=m.group(1)
