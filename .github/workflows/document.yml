@@ -41,7 +41,7 @@ jobs:
     - name: copy svg for PlantUML into public
       run: |
         mkdir -p ./Documents/public/plant_uml
-        find ./Documents/PlantUML -name *.svg | xargs mv ./Documents/public/plant_uml/
+        find ./Documents/PlantUML -name *.svg | xargs mv -t ./Documents/public/plant_uml/
     - name: convert .md to .html in public
       run: |
         pip3 install markdown
