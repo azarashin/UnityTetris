@@ -1,0 +1,8 @@
+@startuml
+class Block {
+    + Px : int
+    + Py : int
+    + Remove() : void
+}
+MonoBehaviour <|-- Block
+@enduml

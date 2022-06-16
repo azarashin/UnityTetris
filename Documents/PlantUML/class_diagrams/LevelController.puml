@@ -1,0 +1,13 @@
+@startuml
+class LevelController {
+    + <<const>> MinimumFallLevel : int = 2
+    + <<const>> NumberOfPhasesToChangeFallLevel : int = 20
+    - _fallLevel : int
+    - _initialFallLevel : int
+    - _step : int
+    + LevelController(fallLevel:int)
+    + CurrentDisplayLevel() : int
+    + CurrentFallLevel() : int
+    + NextBlockHasBeenPulled() : void
+}
+@enduml

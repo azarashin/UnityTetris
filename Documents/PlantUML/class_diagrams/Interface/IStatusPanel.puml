@@ -1,0 +1,11 @@
+@startuml
+interface IStatusPanel {
+    Score() : int
+    Level() : int
+    Next(id:int) : (int, int)
+    ResetScore() : void
+    AddScore(numberOfLines:int) : void
+    UpdateReservation(reservation:List<int>) : void
+    UpdateLevel(level:int) : void
+}
+@enduml

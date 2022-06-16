@@ -1,0 +1,15 @@
+@startuml
+abstract class AbstractField {
+    + <<const>> NumberOfFramesToStandByNextBlock : int = 30
+    + <<const>> NumberOfFramesToSlide : int = 30
+    + <<const>> NumberOfFramesToReduce : int = 30
+    + {abstract} ResetField(statusPanel:IStatusPanel, sound:ISoundManager, width:int, height:int, borderLine:int) : void
+    + {abstract} Width() : int
+    + {abstract} Height() : int
+    + {abstract} SetBlocks(blocks:Block[]) : bool
+    + {abstract} IsHit(blocks:Vector2Int[]) : bool
+    + {abstract} ReduceLines(owner:IPlayer) : void
+    + {abstract} GetFieldMap() : int[,]
+}
+MonoBehaviour <|-- AbstractField
+@enduml

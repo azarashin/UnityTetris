@@ -1,0 +1,8 @@
+@startuml
+abstract class AbstractBlockSet {
+    + {abstract} Setup(owner:IPlayer, field:AbstractField, input:IInputManager, sound:ISoundManager, fallLevel:int) : void
+    + {abstract} CenterPos() : Vector2Int
+    + {abstract} RotStep() : int
+}
+MonoBehaviour <|-- AbstractBlockSet
+@enduml

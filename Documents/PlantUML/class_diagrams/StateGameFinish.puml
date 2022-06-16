@@ -1,0 +1,11 @@
+@startuml
+class StateGameFinish {
+    - _waitMax : float = 2.0f
+    + WaitMax : float <<get>>
+    + Setup(parent:IGameController) : void
+    - CoRun() : IEnumerator
+}
+MonoBehaviour <|-- StateGameFinish
+StateGameFinish --> "_message" Text
+StateGameFinish --> "_parent" IGameController
+@enduml

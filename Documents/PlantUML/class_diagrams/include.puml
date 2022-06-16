@@ -1,0 +1,267 @@
+@startuml
+class Block {
+    + Px : int
+    + Py : int
+    + Remove() : void
+}
+MonoBehaviour <|-- Block
+class BlockSet {
+    - _falling : bool
+    - _rotStep : int
+    - _countWaitFalling : int
+    - _countFalling : int
+    - _working : bool
+    + <<const>> CountWaitFallingLimit : float = 4
+    + CountFallingLimit : float <<get>>
+    - FixedUpdate() : void
+    - UpdateInput() : void
+    - RotateRight() : void
+    - RotateLeft() : void
+    - Rotate(dir:int) : void
+    - ToBlocks() : Vector2Int[]
+    - RotatePart(p:Vector2Int) : Vector2Int
+    - MoveRight() : bool
+    - MoveLeft() : bool
+    - MoveDown() : void
+    - Move() : void
+    - PlaceBlock() : IEnumerator
+    - ShowBlocks() : void
+    - NeedToFall() : bool
+    + <<override>> Setup(owner:IPlayer, field:AbstractField, input:IInputManager, sound:ISoundManager, fallLevel:int) : void
+    + <<override>> CenterPos() : Vector2Int
+    + <<override>> RotStep() : int
+}
+AbstractBlockSet <|-- BlockSet
+BlockSet --> "_soundCollide" AudioSource
+BlockSet --> "_prefabPart" Block
+BlockSet --> "_field" AbstractField
+BlockSet --> "_owner" IPlayer
+BlockSet --> "_input" IInputManager
+BlockSet --> "_sound" ISoundManager
+BlockSet --> "_centerPos" Vector2Int
+class Field {
+    _width : int = 8
+    _height : int = 16
+    _borderLine : int = 14
+    + <<override>> ResetField(statusPanel:IStatusPanel, sound:ISoundManager, width:int, height:int, borderLine:int) : void
+    + <<override>> Width() : int
+    + <<override>> Height() : int
+    + <<override>> SetBlocks(blocks:Block[]) : bool
+    + <<override>> IsHit(blocks:Vector2Int[]) : bool
+    + DebugField() : string
+    + <<override>> ReduceLines(owner:IPlayer) : void
+    - CoReduceLines(owner:IPlayer, reducedIndex:List<int>, reduceMap:Dictionary<int, int>) : IEnumerator
+    + <<override>> GetFieldMap() : int[,]
+}
+class "List`1"<T> {
+}
+AbstractField <|-- Field
+Field --> "_soundPlaced" AudioSource
+Field --> "_prefabOutsideBlock" GameObject
+Field --> "_sound" ISoundManager
+Field --> "_statusPanel" IStatusPanel
+Field o-> "_outsideBlocks<GameObject>" "List`1"
+class GameController {
+    - _fallLevel : int = 16
+    - Start() : void
+    + BootGame() : void
+    + RunGame() : void
+    + FinishGame() : void
+}
+MonoBehaviour <|-- GameController
+IGameController <|-- GameController
+GameController --> "_fieldPrefab" AbstractField
+GameController --> "_sound" UnitySoundManager
+GameController --> "_boot" StateGameBoot
+GameController --> "_main" StateGameMain
+GameController --> "_finish" StateGameFinish
+abstract class InputManager {
+    + {abstract} StartGame() : void
+    + {abstract} UpdateState() : void
+    + {abstract} FinishGame() : void
+    + {abstract} IsRotateRight() : bool
+    + {abstract} IsRotateLeft() : bool
+    + {abstract} IsMoveRight() : bool
+    + {abstract} IsMoveLeft() : bool
+    + {abstract} IsMoveDown() : bool
+}
+MonoBehaviour <|-- InputManager
+IInputManager <|-- InputManager
+class LevelController {
+    + <<const>> MinimumFallLevel : int = 2
+    + <<const>> NumberOfPhasesToChangeFallLevel : int = 20
+    - _fallLevel : int
+    - _initialFallLevel : int
+    - _step : int
+    + LevelController(fallLevel:int)
+    + CurrentDisplayLevel() : int
+    + CurrentFallLevel() : int
+    + NextBlockHasBeenPulled() : void
+}
+class Player {
+    - _currentBlockId : int
+    - _alive : bool
+    + Setup(fieldPrefab:AbstractField, blockSetOptions:AbstractBlockSet[], sound:ISoundManager, levelController:LevelController) : void
+    + SetStatusPanel(statusPanel:IStatusPanel) : void
+    + StartGame(parent:AbstractStateGameMain) : void
+    + IsAlive() : bool
+    + Dead() : void
+    + BlockSetHasBeenPlaced() : void
+    + PullNextBlock() : void
+    + Observe() : (int, int)[]
+}
+class "List`1"<T> {
+}
+MonoBehaviour <|-- Player
+IPlayer <|-- Player
+Player --> "_input" InputManager
+Player --> "_soundCollide" AudioSource
+Player --> "_parent" AbstractStateGameMain
+Player o-> "_field" AbstractField
+Player --> "_currentBlock" AbstractBlockSet
+Player --> "_sound" ISoundManager
+Player --> "_reservation<int>" "List`1"
+Player --> "_levelController" LevelController
+Player --> "_statusPanel" IStatusPanel
+Player --> "Field" AbstractField
+Player --> "StatusPanel" IStatusPanel
+class PlayerAndStatusPanel {
+    + Pack() : void
+}
+PlayerAndStatusPanel --> "_player" Player
+PlayerAndStatusPanel --> "_statusPanel" StatusPanel
+PlayerAndStatusPanel --> "PlayerInstance" Player
+class ReservationList {
+    - _id : int
+    + SetId(id:int) : void
+    + GetId() : int
+    + GetIdMax() : int
+}
+MonoBehaviour <|-- ReservationList
+class StateGameBoot {
+    _countMax : int
+    + CountMax : int <<get>>
+    + Setup(parent:IGameController, fieldPrefab:AbstractField, players:IPlayer[], blockSetPrefabOptions:AbstractBlockSet[], sound:ISoundManager, fallLevel:int) : void
+    - CoRun() : IEnumerator
+}
+MonoBehaviour <|-- StateGameBoot
+StateGameBoot --> "_counter" Text
+StateGameBoot --> "_parent" IGameController
+class StateGameFinish {
+    - _waitMax : float = 2.0f
+    + WaitMax : float <<get>>
+    + Setup(parent:IGameController) : void
+    - CoRun() : IEnumerator
+}
+MonoBehaviour <|-- StateGameFinish
+StateGameFinish --> "_message" Text
+StateGameFinish --> "_parent" IGameController
+class StateGameMain {
+    + <<override>> Setup(parent:IGameController, players:IPlayer[]) : void
+    + <<override>> PlayerGameOver(player:IPlayer) : void
+    - GetNumberOfAlivingPlayer() : int
+}
+AbstractStateGameMain <|-- StateGameMain
+StateGameMain --> "_parent" IGameController
+class StatusPanel {
+    - _currentScore : int
+    - _currentLevel : int
+    + Score() : int
+    + Level() : int
+    + Next(id:int) : (int, int)
+    - UpdateScoreLabel() : void
+    + ResetScore() : void
+    + AddScore(numberOfLines:int) : void
+    + UpdateReservation(reservation:List<int>) : void
+    + UpdateLevel(level:int) : void
+}
+MonoBehaviour <|-- StatusPanel
+IStatusPanel <|-- StatusPanel
+StatusPanel --> "_scoreLabel" Text
+StatusPanel --> "_levelLabel" Text
+class UnityKeyInputManager {
+    - <<const>> _maxKeepTime : float = 0.20f
+    - <<const>> _maxRepeatTime : float = 0.05f
+    - _suspendTime : float = 0.0f
+    - _repeat : int = 0
+    - _leftMove : bool
+    - _rightMove : bool
+    - _leftRotate : bool
+    - _rightRotate : bool
+    + <<override>> StartGame() : void
+    + <<override>> UpdateState() : void
+    + <<override>> FinishGame() : void
+    + <<override>> IsMoveDown() : bool
+    + <<override>> IsMoveLeft() : bool
+    + <<override>> IsMoveRight() : bool
+    + <<override>> IsRotateLeft() : bool
+    + <<override>> IsRotateRight() : bool
+}
+InputManager <|-- UnityKeyInputManager
+class UnitySoundManager {
+    + Play(sound:AudioSource) : void
+    + Stop(sound:AudioSource) : void
+}
+MonoBehaviour <|-- UnitySoundManager
+ISoundManager <|-- UnitySoundManager
+abstract class AbstractBlockSet {
+    + {abstract} Setup(owner:IPlayer, field:AbstractField, input:IInputManager, sound:ISoundManager, fallLevel:int) : void
+    + {abstract} CenterPos() : Vector2Int
+    + {abstract} RotStep() : int
+}
+MonoBehaviour <|-- AbstractBlockSet
+abstract class AbstractField {
+    + <<const>> NumberOfFramesToStandByNextBlock : int = 30
+    + <<const>> NumberOfFramesToSlide : int = 30
+    + <<const>> NumberOfFramesToReduce : int = 30
+    + {abstract} ResetField(statusPanel:IStatusPanel, sound:ISoundManager, width:int, height:int, borderLine:int) : void
+    + {abstract} Width() : int
+    + {abstract} Height() : int
+    + {abstract} SetBlocks(blocks:Block[]) : bool
+    + {abstract} IsHit(blocks:Vector2Int[]) : bool
+    + {abstract} ReduceLines(owner:IPlayer) : void
+    + {abstract} GetFieldMap() : int[,]
+}
+MonoBehaviour <|-- AbstractField
+abstract class AbstractStateGameMain {
+    + {abstract} Setup(parent:IGameController, players:IPlayer[]) : void
+    + {abstract} PlayerGameOver(player:IPlayer) : void
+}
+MonoBehaviour <|-- AbstractStateGameMain
+interface IGameController {
+    BootGame() : void
+    RunGame() : void
+    FinishGame() : void
+}
+interface IInputManager {
+    StartGame() : void
+    UpdateState() : void
+    FinishGame() : void
+    IsRotateRight() : bool
+    IsRotateLeft() : bool
+    IsMoveRight() : bool
+    IsMoveLeft() : bool
+    IsMoveDown() : bool
+}
+interface IPlayer {
+    Setup(fieldPrefab:AbstractField, blockSetPrefabOptions:AbstractBlockSet[], sound:ISoundManager, levelController:LevelController) : void
+    StartGame(parent:AbstractStateGameMain) : void
+    IsAlive() : bool
+    Dead() : void
+    PullNextBlock() : void
+    BlockSetHasBeenPlaced() : void
+}
+interface ISoundManager {
+    Play(sound:AudioSource) : void
+    Stop(sound:AudioSource) : void
+}
+interface IStatusPanel {
+    Score() : int
+    Level() : int
+    Next(id:int) : (int, int)
+    ResetScore() : void
+    AddScore(numberOfLines:int) : void
+    UpdateReservation(reservation:List<int>) : void
+    UpdateLevel(level:int) : void
+}
+@enduml

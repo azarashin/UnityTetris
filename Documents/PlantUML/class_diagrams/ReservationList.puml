@@ -1,0 +1,9 @@
+@startuml
+class ReservationList {
+    - _id : int
+    + SetId(id:int) : void
+    + GetId() : int
+    + GetIdMax() : int
+}
+MonoBehaviour <|-- ReservationList
+@enduml

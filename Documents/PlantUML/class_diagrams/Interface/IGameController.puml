@@ -1,0 +1,7 @@
+@startuml
+interface IGameController {
+    BootGame() : void
+    RunGame() : void
+    FinishGame() : void
+}
+@enduml

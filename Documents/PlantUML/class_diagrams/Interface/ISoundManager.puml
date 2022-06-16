@@ -1,0 +1,6 @@
+@startuml
+interface ISoundManager {
+    Play(sound:AudioSource) : void
+    Stop(sound:AudioSource) : void
+}
+@enduml

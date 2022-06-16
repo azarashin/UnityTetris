@@ -1,0 +1,11 @@
+@startuml
+class StateGameBoot {
+    _countMax : int
+    + CountMax : int <<get>>
+    + Setup(parent:IGameController, fieldPrefab:AbstractField, players:IPlayer[], blockSetPrefabOptions:AbstractBlockSet[], sound:ISoundManager, fallLevel:int) : void
+    - CoRun() : IEnumerator
+}
+MonoBehaviour <|-- StateGameBoot
+StateGameBoot --> "_counter" Text
+StateGameBoot --> "_parent" IGameController
+@enduml

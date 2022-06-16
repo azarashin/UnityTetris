@@ -1,0 +1,7 @@
+@startuml
+abstract class AbstractStateGameMain {
+    + {abstract} Setup(parent:IGameController, players:IPlayer[]) : void
+    + {abstract} PlayerGameOver(player:IPlayer) : void
+}
+MonoBehaviour <|-- AbstractStateGameMain
+@enduml

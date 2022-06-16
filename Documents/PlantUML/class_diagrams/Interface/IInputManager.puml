@@ -1,0 +1,12 @@
+@startuml
+interface IInputManager {
+    StartGame() : void
+    UpdateState() : void
+    FinishGame() : void
+    IsRotateRight() : bool
+    IsRotateLeft() : bool
+    IsMoveRight() : bool
+    IsMoveLeft() : bool
+    IsMoveDown() : bool
+}
+@enduml

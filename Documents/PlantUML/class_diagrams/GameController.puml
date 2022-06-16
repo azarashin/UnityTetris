@@ -1,0 +1,16 @@
+@startuml
+class GameController {
+    - _fallLevel : int = 16
+    - Start() : void
+    + BootGame() : void
+    + RunGame() : void
+    + FinishGame() : void
+}
+MonoBehaviour <|-- GameController
+IGameController <|-- GameController
+GameController --> "_fieldPrefab" AbstractField
+GameController --> "_sound" UnitySoundManager
+GameController --> "_boot" StateGameBoot
+GameController --> "_main" StateGameMain
+GameController --> "_finish" StateGameFinish
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+class StateGameMain {
+    + <<override>> Setup(parent:IGameController, players:IPlayer[]) : void
+    + <<override>> PlayerGameOver(player:IPlayer) : void
+    - GetNumberOfAlivingPlayer() : int
+}
+AbstractStateGameMain <|-- StateGameMain
+StateGameMain --> "_parent" IGameController
+@enduml

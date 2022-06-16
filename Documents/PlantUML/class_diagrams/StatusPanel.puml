@@ -1,0 +1,18 @@
+@startuml
+class StatusPanel {
+    - _currentScore : int
+    - _currentLevel : int
+    + Score() : int
+    + Level() : int
+    + Next(id:int) : (int, int)
+    - UpdateScoreLabel() : void
+    + ResetScore() : void
+    + AddScore(numberOfLines:int) : void
+    + UpdateReservation(reservation:List<int>) : void
+    + UpdateLevel(level:int) : void
+}
+MonoBehaviour <|-- StatusPanel
+IStatusPanel <|-- StatusPanel
+StatusPanel --> "_scoreLabel" Text
+StatusPanel --> "_levelLabel" Text
+@enduml

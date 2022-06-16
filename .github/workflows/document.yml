@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
         UML_FILES: "*.pu"
+        UML_FILES_GENERATED: "*.puml"
     steps:
     - name: checkout
       uses: actions/checkout@v1
@@ -21,7 +22,7 @@ jobs:
     - name: Get changed UML files
       id: getfile
       run: |
-        echo "::set-output name=files::$(find ./Documents/PlantUML -name ${{ env.UML_FILES }} | xargs)"
+        echo "::set-output name=files::$(find ./Documents/PlantUML -name ${{ env.UML_FILES }} -o -name ${{ env.UML_FILES_GENERATED }} | xargs)"
     - name: UML files considered echo output
       run: |
         echo ${{ steps.getfile.outputs.files }}

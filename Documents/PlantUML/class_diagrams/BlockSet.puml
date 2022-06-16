@@ -1,0 +1,36 @@
+@startuml
+class BlockSet {
+    - _falling : bool
+    - _rotStep : int
+    - _countWaitFalling : int
+    - _countFalling : int
+    - _working : bool
+    + <<const>> CountWaitFallingLimit : float = 4
+    + CountFallingLimit : float <<get>>
+    - FixedUpdate() : void
+    - UpdateInput() : void
+    - RotateRight() : void
+    - RotateLeft() : void
+    - Rotate(dir:int) : void
+    - ToBlocks() : Vector2Int[]
+    - RotatePart(p:Vector2Int) : Vector2Int
+    - MoveRight() : bool
+    - MoveLeft() : bool
+    - MoveDown() : void
+    - Move() : void
+    - PlaceBlock() : IEnumerator
+    - ShowBlocks() : void
+    - NeedToFall() : bool
+    + <<override>> Setup(owner:IPlayer, field:AbstractField, input:IInputManager, sound:ISoundManager, fallLevel:int) : void
+    + <<override>> CenterPos() : Vector2Int
+    + <<override>> RotStep() : int
+}
+AbstractBlockSet <|-- BlockSet
+BlockSet --> "_soundCollide" AudioSource
+BlockSet --> "_prefabPart" Block
+BlockSet --> "_field" AbstractField
+BlockSet --> "_owner" IPlayer
+BlockSet --> "_input" IInputManager
+BlockSet --> "_sound" ISoundManager
+BlockSet --> "_centerPos" Vector2Int
+@enduml

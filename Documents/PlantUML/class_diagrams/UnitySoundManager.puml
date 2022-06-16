@@ -1,0 +1,8 @@
+@startuml
+class UnitySoundManager {
+    + Play(sound:AudioSource) : void
+    + Stop(sound:AudioSource) : void
+}
+MonoBehaviour <|-- UnitySoundManager
+ISoundManager <|-- UnitySoundManager
+@enduml

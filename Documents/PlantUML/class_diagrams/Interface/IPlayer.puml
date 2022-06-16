@@ -1,0 +1,10 @@
+@startuml
+interface IPlayer {
+    Setup(fieldPrefab:AbstractField, blockSetPrefabOptions:AbstractBlockSet[], sound:ISoundManager, levelController:LevelController) : void
+    StartGame(parent:AbstractStateGameMain) : void
+    IsAlive() : bool
+    Dead() : void
+    PullNextBlock() : void
+    BlockSetHasBeenPlaced() : void
+}
+@enduml

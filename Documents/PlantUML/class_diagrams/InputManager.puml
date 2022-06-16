@@ -1,0 +1,14 @@
+@startuml
+abstract class InputManager {
+    + {abstract} StartGame() : void
+    + {abstract} UpdateState() : void
+    + {abstract} FinishGame() : void
+    + {abstract} IsRotateRight() : bool
+    + {abstract} IsRotateLeft() : bool
+    + {abstract} IsMoveRight() : bool
+    + {abstract} IsMoveLeft() : bool
+    + {abstract} IsMoveDown() : bool
+}
+MonoBehaviour <|-- InputManager
+IInputManager <|-- InputManager
+@enduml

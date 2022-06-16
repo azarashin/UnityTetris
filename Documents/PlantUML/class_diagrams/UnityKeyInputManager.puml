@@ -1,0 +1,21 @@
+@startuml
+class UnityKeyInputManager {
+    - <<const>> _maxKeepTime : float = 0.20f
+    - <<const>> _maxRepeatTime : float = 0.05f
+    - _suspendTime : float = 0.0f
+    - _repeat : int = 0
+    - _leftMove : bool
+    - _rightMove : bool
+    - _leftRotate : bool
+    - _rightRotate : bool
+    + <<override>> StartGame() : void
+    + <<override>> UpdateState() : void
+    + <<override>> FinishGame() : void
+    + <<override>> IsMoveDown() : bool
+    + <<override>> IsMoveLeft() : bool
+    + <<override>> IsMoveRight() : bool
+    + <<override>> IsRotateLeft() : bool
+    + <<override>> IsRotateRight() : bool
+}
+InputManager <|-- UnityKeyInputManager
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+class Player {
+    - _currentBlockId : int
+    - _alive : bool
+    + Setup(fieldPrefab:AbstractField, blockSetOptions:AbstractBlockSet[], sound:ISoundManager, levelController:LevelController) : void
+    + SetStatusPanel(statusPanel:IStatusPanel) : void
+    + StartGame(parent:AbstractStateGameMain) : void
+    + IsAlive() : bool
+    + Dead() : void
+    + BlockSetHasBeenPlaced() : void
+    + PullNextBlock() : void
+    + Observe() : (int, int)[]
+}
+class "List`1"<T> {
+}
+MonoBehaviour <|-- Player
+IPlayer <|-- Player
+Player --> "_input" InputManager
+Player --> "_soundCollide" AudioSource
+Player --> "_parent" AbstractStateGameMain
+Player o-> "_field" AbstractField
+Player --> "_currentBlock" AbstractBlockSet
+Player --> "_sound" ISoundManager
+Player --> "_reservation<int>" "List`1"
+Player --> "_levelController" LevelController
+Player --> "_statusPanel" IStatusPanel
+Player --> "Field" AbstractField
+Player --> "StatusPanel" IStatusPanel
+@enduml

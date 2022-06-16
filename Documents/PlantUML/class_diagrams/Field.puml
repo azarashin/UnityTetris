@@ -1,0 +1,24 @@
+@startuml
+class Field {
+    _width : int = 8
+    _height : int = 16
+    _borderLine : int = 14
+    + <<override>> ResetField(statusPanel:IStatusPanel, sound:ISoundManager, width:int, height:int, borderLine:int) : void
+    + <<override>> Width() : int
+    + <<override>> Height() : int
+    + <<override>> SetBlocks(blocks:Block[]) : bool
+    + <<override>> IsHit(blocks:Vector2Int[]) : bool
+    + DebugField() : string
+    + <<override>> ReduceLines(owner:IPlayer) : void
+    - CoReduceLines(owner:IPlayer, reducedIndex:List<int>, reduceMap:Dictionary<int, int>) : IEnumerator
+    + <<override>> GetFieldMap() : int[,]
+}
+class "List`1"<T> {
+}
+AbstractField <|-- Field
+Field --> "_soundPlaced" AudioSource
+Field --> "_prefabOutsideBlock" GameObject
+Field --> "_sound" ISoundManager
+Field --> "_statusPanel" IStatusPanel
+Field o-> "_outsideBlocks<GameObject>" "List`1"
+@enduml

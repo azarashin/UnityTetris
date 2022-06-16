@@ -1,0 +1,8 @@
+@startuml
+class PlayerAndStatusPanel {
+    + Pack() : void
+}
+PlayerAndStatusPanel --> "_player" Player
+PlayerAndStatusPanel --> "_statusPanel" StatusPanel
+PlayerAndStatusPanel --> "PlayerInstance" Player
+@enduml
