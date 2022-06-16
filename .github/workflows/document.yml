@@ -19,10 +19,19 @@ jobs:
       uses: actions/checkout@v1
       with:
         fetch-depth: 1
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+        architecture: 'x64'
+    - name: Get Python version
+      run: python -V
+    - name: Install dependencies
+      run: pip install -r python/requirements.txt
     - name: Get changed UML files
       id: getfile
       run: |
-        echo "::set-output name=files::$(find ./Documents/PlantUML -name ${{ env.UML_FILES }} -o -name ${{ env.UML_FILES_GENERATED }} | xargs)"
+        echo "::set-output name=files::$(find ./Documents/PlantUML -not -path ./Documents/PlantUML/mindmap/* -name ${{ env.UML_FILES }} -o -name ${{ env.UML_FILES_GENERATED }} | xargs)"
     - name: UML files considered echo output
       run: |
         echo ${{ steps.getfile.outputs.files }}
@@ -38,15 +47,17 @@ jobs:
     - name: show list of .svg which are generated just now
       run: |
         find ./Documents/PlantUML -name *.svg
+    - name: create index of PlantUML # This step must run after svgs are genearted. 
+      run: |
+        python ./python/index_generator.py ./Documents/PlantUML ./Documents/PlantUML ./PlantUML > ./Documents/public/index.html
     - name: copy svg for PlantUML into public
       run: |
-        mkdir -p ./Documents/public/plant_uml
-        find ./Documents/PlantUML -name *.svg | xargs mv -t ./Documents/public/plant_uml/
+        mkdir -p ./Documents/public/PlantUML
+        find  ./Documents/PlantUML -name *.svg | xargs mv -t ./Documents/public/PlantUML/
+        find  ./Documents/PlantUML -name *.html | xargs mv -t ./Documents/public/PlantUML/
     - name: convert .md to .html in public
       run: |
         pip3 install markdown
-        python3 ./Script/md2html.py ./Documents/Planning/Readme.md ./Documents/public/concept.html ./Script/template.html ./Script/template_menu.html
-        python3 ./Script/source2html.py ./Script/HtmlSource/index.html ./Documents/public/index.html ./Script/template.html
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
