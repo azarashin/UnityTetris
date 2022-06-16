@@ -1,0 +1,4 @@
+<map id="UnityTetris.InputManager.FinishGame" name="UnityTetris.InputManager.FinishGame">
+<area shape="rect" id="node1" title=" " alt="" coords="211,5,381,47"/>
+<area shape="rect" id="node2" href="$class_unity_tetris_1_1_player.html#a5f4c2139774c24dd89d6883f2a24c855" title=" " alt="" coords="5,13,163,39"/>
+</map>

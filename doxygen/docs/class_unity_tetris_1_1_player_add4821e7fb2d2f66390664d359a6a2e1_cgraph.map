@@ -1,0 +1,9 @@
+<map id="UnityTetris.Player.PullNextBlock" name="UnityTetris.Player.PullNextBlock">
+<area shape="rect" id="node1" title=" " alt="" coords="5,169,181,211"/>
+<area shape="rect" id="node2" href="$class_level_controller.html#a52069fd56bd69d8db5beb91abd8aa418" title=" " alt="" coords="229,5,425,47"/>
+<area shape="rect" id="node3" href="$class_level_controller.html#a8a37925218b9c6fcdd317e65556f79dc" title=" " alt="" coords="240,71,415,112"/>
+<area shape="rect" id="node4" href="$class_level_controller.html#a84452d25d4aeb7d6dbc4be2cfd2346c4" title=" " alt="" coords="241,136,413,177"/>
+<area shape="rect" id="node5" href="$class_unity_tetris_1_1_abstract_1_1_abstract_block_set.html#abfeadec53bdd3c19d57b3d7c31544227" title=" " alt="" coords="233,201,422,243"/>
+<area shape="rect" id="node6" href="$interface_unity_tetris_1_1_interface_1_1_i_status_panel.html#afc3ace9047d0844a96d1265d243a84ed" title=" " alt="" coords="235,267,419,308"/>
+<area shape="rect" id="node7" href="$interface_unity_tetris_1_1_interface_1_1_i_status_panel.html#a38a77fcf04cec14f4b81dcdab63bdf27" title=" " alt="" coords="235,332,419,373"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="UnityTetris.Player.Dead" name="UnityTetris.Player.Dead">
+<area shape="rect" id="node1" title=" " alt="" coords="5,46,163,73"/>
+<area shape="rect" id="node2" href="$class_unity_tetris_1_1_input_manager.html#a0c9066051efbf8b1adecf4d48e218289" title=" " alt="" coords="235,5,405,47"/>
+<area shape="rect" id="node3" href="$class_unity_tetris_1_1_abstract_1_1_abstract_state_game_main.html#a9063cbb312169a00d0fd65f6a2799a97" title=" " alt="" coords="211,71,429,112"/>
+</map>

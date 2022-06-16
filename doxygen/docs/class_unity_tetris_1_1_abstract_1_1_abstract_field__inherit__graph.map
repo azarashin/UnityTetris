@@ -1,5 +1,5 @@
 <map id="UnityTetris.Abstract.AbstractField" name="UnityTetris.Abstract.AbstractField">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,195,121"/>
-<area shape="rect" id="node3" href="$class_unity_tetris_1_1_field.html" title=" " alt="" coords="42,169,158,196"/>
-<area shape="rect" id="node2" title=" " alt="" coords="44,5,156,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,131,233,355"/>
+<area shape="rect" id="node3" href="$class_unity_tetris_1_1_field.html" title=" " alt="" coords="61,403,178,583"/>
+<area shape="rect" id="node2" title=" " alt="" coords="63,5,175,83"/>
 </map>

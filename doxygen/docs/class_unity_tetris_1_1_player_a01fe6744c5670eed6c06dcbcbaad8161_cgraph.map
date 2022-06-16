@@ -1,0 +1,11 @@
+<map id="UnityTetris.Player.StartGame" name="UnityTetris.Player.StartGame">
+<area shape="rect" id="node1" title=" " alt="" coords="5,210,196,237"/>
+<area shape="rect" id="node2" href="$class_unity_tetris_1_1_player.html#add4821e7fb2d2f66390664d359a6a2e1" title=" " alt="" coords="244,169,420,211"/>
+<area shape="rect" id="node9" href="$class_unity_tetris_1_1_input_manager.html#aaa55a0cecd32ab3bcc88b4cf90837866" title=" " alt="" coords="247,235,417,276"/>
+<area shape="rect" id="node3" href="$class_level_controller.html#a52069fd56bd69d8db5beb91abd8aa418" title=" " alt="" coords="468,5,664,47"/>
+<area shape="rect" id="node4" href="$class_level_controller.html#a8a37925218b9c6fcdd317e65556f79dc" title=" " alt="" coords="479,71,653,112"/>
+<area shape="rect" id="node5" href="$class_level_controller.html#a84452d25d4aeb7d6dbc4be2cfd2346c4" title=" " alt="" coords="480,136,652,177"/>
+<area shape="rect" id="node6" href="$class_unity_tetris_1_1_abstract_1_1_abstract_block_set.html#abfeadec53bdd3c19d57b3d7c31544227" title=" " alt="" coords="471,201,661,243"/>
+<area shape="rect" id="node7" href="$interface_unity_tetris_1_1_interface_1_1_i_status_panel.html#afc3ace9047d0844a96d1265d243a84ed" title=" " alt="" coords="474,267,658,308"/>
+<area shape="rect" id="node8" href="$interface_unity_tetris_1_1_interface_1_1_i_status_panel.html#a38a77fcf04cec14f4b81dcdab63bdf27" title=" " alt="" coords="474,332,658,373"/>
+</map>

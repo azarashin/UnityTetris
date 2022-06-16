@@ -1,5 +1,5 @@
 <map id="UnityTetris.UnitySoundManager" name="UnityTetris.UnitySoundManager">
-<area shape="rect" id="node1" title=" " alt="" coords="27,80,232,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,117,32"/>
-<area shape="rect" id="node3" href="$interface_unity_tetris_1_1_interface_1_1_i_sound_manager.html" title=" " alt="" coords="142,5,255,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="27,145,232,237"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,13,117,90"/>
+<area shape="rect" id="node3" href="$interface_unity_tetris_1_1_interface_1_1_i_sound_manager.html" title=" " alt="" coords="142,5,255,97"/>
 </map>

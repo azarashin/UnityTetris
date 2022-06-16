@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['setblocks_0',['SetBlocks',['../class_unity_tetris_1_1_abstract_1_1_abstract_field.html#a959d1994214937a2b5312794f589af9c',1,'UnityTetris.Abstract.AbstractField.SetBlocks()'],['../class_unity_tetris_1_1_field.html#aeda7623db4beb83e36f558981e2ae001',1,'UnityTetris.Field.SetBlocks()']]]
+  ['addscore_0',['AddScore',['../interface_unity_tetris_1_1_interface_1_1_i_status_panel.html#adef1195f8e72d76946acff3a91f9c5a8',1,'UnityTetris.Interface.IStatusPanel.AddScore()'],['../class_unity_tetris_1_1_status_panel.html#ae520e252f727b4ab20f2adcbdda8a86e',1,'UnityTetris.StatusPanel.AddScore()']]]
 ];

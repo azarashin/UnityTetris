@@ -1,6 +1,6 @@
 <map id="UnityTetris.UnityKeyInputManager" name="UnityTetris.UnityKeyInputManager">
-<area shape="rect" id="node1" title=" " alt="" coords="42,155,211,196"/>
-<area shape="rect" id="node2" href="$class_unity_tetris_1_1_input_manager.html" title=" " alt="" coords="76,80,177,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,5,117,32"/>
-<area shape="rect" id="node4" href="$interface_unity_tetris_1_1_interface_1_1_i_input_manager.html" title=" " alt="" coords="141,5,246,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="46,461,215,656"/>
+<area shape="rect" id="node2" href="$class_unity_tetris_1_1_input_manager.html" title=" " alt="" coords="71,233,191,413"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,57,117,134"/>
+<area shape="rect" id="node4" href="$interface_unity_tetris_1_1_interface_1_1_i_input_manager.html" title=" " alt="" coords="141,5,261,185"/>
 </map>

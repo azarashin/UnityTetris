@@ -1,4 +1,23 @@
 var searchData=
 [
-  ['reservationlist_0',['ReservationList',['../class_reservation_list.html',1,'']]]
+  ['igamecontroller_0',['IGameController',['../interface_unity_tetris_1_1_interface_1_1_i_game_controller.html',1,'UnityTetris::Interface']]],
+  ['igamecontroller_2ecs_1',['IGameController.cs',['../_i_game_controller_8cs.html',1,'']]],
+  ['iinputmanager_2',['IInputManager',['../interface_unity_tetris_1_1_interface_1_1_i_input_manager.html',1,'UnityTetris::Interface']]],
+  ['iinputmanager_2ecs_3',['IInputManager.cs',['../_i_input_manager_8cs.html',1,'']]],
+  ['inputmanager_4',['InputManager',['../class_unity_tetris_1_1_input_manager.html',1,'UnityTetris']]],
+  ['inputmanager_2ecs_5',['InputManager.cs',['../_input_manager_8cs.html',1,'']]],
+  ['int_6',['int',['../interface_unity_tetris_1_1_interface_1_1_i_status_panel.html#ae18e6f442f83a1a281e560e2cdffeb28',1,'UnityTetris.Interface.IStatusPanel.int()'],['../class_unity_tetris_1_1_player.html#ae2d0b4d0dbae161d898e506fb1615272',1,'UnityTetris.Player.int()'],['../class_unity_tetris_1_1_status_panel.html#a0f0cde448b294c54f62f63eea3b4f075',1,'UnityTetris.StatusPanel.int()']]],
+  ['iplayer_7',['IPlayer',['../interface_unity_tetris_1_1_interface_1_1_i_player.html',1,'UnityTetris::Interface']]],
+  ['iplayer_2ecs_8',['IPlayer.cs',['../_i_player_8cs.html',1,'']]],
+  ['isalive_9',['IsAlive',['../class_unity_tetris_1_1_player.html#ad0d730b91a0397cfcfdb461ec9251a02',1,'UnityTetris.Player.IsAlive()'],['../interface_unity_tetris_1_1_interface_1_1_i_player.html#afd62ac98dd1fabf79d147ab08fe73bd2',1,'UnityTetris.Interface.IPlayer.IsAlive()']]],
+  ['ishit_10',['IsHit',['../class_unity_tetris_1_1_abstract_1_1_abstract_field.html#a90e1d3b99dd8dac4338296e02bb030fe',1,'UnityTetris.Abstract.AbstractField.IsHit()'],['../class_unity_tetris_1_1_field.html#a0cae9524ab7f3fba104f11cb715e4c4a',1,'UnityTetris.Field.IsHit()']]],
+  ['ismovedown_11',['IsMoveDown',['../class_unity_tetris_1_1_input_manager.html#a029f16034a29235b34a09e06a2eb0d71',1,'UnityTetris.InputManager.IsMoveDown()'],['../interface_unity_tetris_1_1_interface_1_1_i_input_manager.html#a4994aa0435518f86e1e5ce59c4f72e8d',1,'UnityTetris.Interface.IInputManager.IsMoveDown()'],['../class_unity_tetris_1_1_unity_key_input_manager.html#a484eda922a183520a929b9af2b30c231',1,'UnityTetris.UnityKeyInputManager.IsMoveDown()']]],
+  ['ismoveleft_12',['IsMoveLeft',['../class_unity_tetris_1_1_input_manager.html#ad64e657d6090307f981d68afcc07ffd2',1,'UnityTetris.InputManager.IsMoveLeft()'],['../interface_unity_tetris_1_1_interface_1_1_i_input_manager.html#a82fa599782d8ca211cbe145c482ebcf9',1,'UnityTetris.Interface.IInputManager.IsMoveLeft()'],['../class_unity_tetris_1_1_unity_key_input_manager.html#ab8e8dd66bb1a90fe52a9908c2f515ef7',1,'UnityTetris.UnityKeyInputManager.IsMoveLeft()']]],
+  ['ismoveright_13',['IsMoveRight',['../class_unity_tetris_1_1_unity_key_input_manager.html#a4c79358505a3c354a6e0daf747d9e05b',1,'UnityTetris.UnityKeyInputManager.IsMoveRight()'],['../interface_unity_tetris_1_1_interface_1_1_i_input_manager.html#ad83590089029e731a96dd6cc2e8455b0',1,'UnityTetris.Interface.IInputManager.IsMoveRight()'],['../class_unity_tetris_1_1_input_manager.html#a1331e3b7c143f2390034f0c8fbc5a429',1,'UnityTetris.InputManager.IsMoveRight()']]],
+  ['isoundmanager_14',['ISoundManager',['../interface_unity_tetris_1_1_interface_1_1_i_sound_manager.html',1,'UnityTetris::Interface']]],
+  ['isoundmanager_2ecs_15',['ISoundManager.cs',['../_i_sound_manager_8cs.html',1,'']]],
+  ['isrotateleft_16',['IsRotateLeft',['../class_unity_tetris_1_1_input_manager.html#ae16fe9955cac24cfc61e2a9eeec1f35d',1,'UnityTetris.InputManager.IsRotateLeft()'],['../interface_unity_tetris_1_1_interface_1_1_i_input_manager.html#a7ab6d10e064b6678f28bdd5f91bea0a1',1,'UnityTetris.Interface.IInputManager.IsRotateLeft()'],['../class_unity_tetris_1_1_unity_key_input_manager.html#a5a719072c586688684cfd154d55d9a01',1,'UnityTetris.UnityKeyInputManager.IsRotateLeft()']]],
+  ['isrotateright_17',['IsRotateRight',['../class_unity_tetris_1_1_input_manager.html#a7207690b80fe111f1c9466e125634454',1,'UnityTetris.InputManager.IsRotateRight()'],['../interface_unity_tetris_1_1_interface_1_1_i_input_manager.html#abe6d0e8c87ad1a7d391be5f21c56faa9',1,'UnityTetris.Interface.IInputManager.IsRotateRight()'],['../class_unity_tetris_1_1_unity_key_input_manager.html#a2ba25aa01b57e5d0af017b9a68dcd185',1,'UnityTetris.UnityKeyInputManager.IsRotateRight()']]],
+  ['istatuspanel_18',['IStatusPanel',['../interface_unity_tetris_1_1_interface_1_1_i_status_panel.html',1,'UnityTetris::Interface']]],
+  ['istatuspanel_2ecs_19',['IStatusPanel.cs',['../_i_status_panel_8cs.html',1,'']]]
 ];

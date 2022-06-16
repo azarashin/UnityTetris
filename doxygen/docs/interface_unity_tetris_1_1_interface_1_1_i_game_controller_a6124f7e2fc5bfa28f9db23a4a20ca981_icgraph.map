@@ -1,0 +1,4 @@
+<map id="UnityTetris.Interface.IGameController.FinishGame" name="UnityTetris.Interface.IGameController.FinishGame">
+<area shape="rect" id="node1" title=" " alt="" coords="239,5,420,47"/>
+<area shape="rect" id="node2" href="$class_unity_tetris_1_1_state_game_main.html#a09aac4588b48884cc7632637cd7eb0c0" title=" " alt="" coords="5,5,191,47"/>
+</map>

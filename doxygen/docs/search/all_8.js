@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['setblocks_0',['SetBlocks',['../class_unity_tetris_1_1_abstract_1_1_abstract_field.html#a959d1994214937a2b5312794f589af9c',1,'UnityTetris.Abstract.AbstractField.SetBlocks()'],['../class_unity_tetris_1_1_field.html#aeda7623db4beb83e36f558981e2ae001',1,'UnityTetris.Field.SetBlocks()']]],
-  ['stategameboot_1',['StateGameBoot',['../class_unity_tetris_1_1_state_game_boot.html',1,'UnityTetris']]],
-  ['stategamefinish_2',['StateGameFinish',['../class_unity_tetris_1_1_state_game_finish.html',1,'UnityTetris']]],
-  ['stategamemain_3',['StateGameMain',['../class_unity_tetris_1_1_state_game_main.html',1,'UnityTetris']]],
-  ['statuspanel_4',['StatusPanel',['../class_unity_tetris_1_1_status_panel.html',1,'UnityTetris']]]
+  ['level_0',['Level',['../interface_unity_tetris_1_1_interface_1_1_i_status_panel.html#a6936a12c22ca327e65093057dc512cbe',1,'UnityTetris.Interface.IStatusPanel.Level()'],['../class_unity_tetris_1_1_status_panel.html#aaee47da2975c574b96400d9f6cd96931',1,'UnityTetris.StatusPanel.Level()']]],
+  ['levelcontroller_1',['LevelController',['../class_level_controller.html',1,'LevelController'],['../class_level_controller.html#af9e4d0a759e43336efc657655ced819e',1,'LevelController.LevelController()']]],
+  ['levelcontroller_2ecs_2',['LevelController.cs',['../_level_controller_8cs.html',1,'']]]
 ];

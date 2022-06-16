@@ -1,0 +1,7 @@
+<map id="UnityTetris.Player.Setup" name="UnityTetris.Player.Setup">
+<area shape="rect" id="node1" title=" " alt="" coords="5,111,167,138"/>
+<area shape="rect" id="node2" href="$class_level_controller.html#a52069fd56bd69d8db5beb91abd8aa418" title=" " alt="" coords="215,5,411,47"/>
+<area shape="rect" id="node3" href="$class_unity_tetris_1_1_abstract_1_1_abstract_field.html#afb5eccfa0e6f0930524f82fc4d1ca5e0" title=" " alt="" coords="218,71,407,112"/>
+<area shape="rect" id="node4" href="$interface_unity_tetris_1_1_interface_1_1_i_status_panel.html#afc3ace9047d0844a96d1265d243a84ed" title=" " alt="" coords="221,136,405,177"/>
+<area shape="rect" id="node5" href="$interface_unity_tetris_1_1_interface_1_1_i_status_panel.html#a38a77fcf04cec14f4b81dcdab63bdf27" title=" " alt="" coords="221,201,405,243"/>
+</map>

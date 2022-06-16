@@ -1,4 +1,4 @@
 <map id="UnityTetris.Interface.IStatusPanel" name="UnityTetris.Interface.IStatusPanel">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,189,47"/>
-<area shape="rect" id="node2" href="$class_unity_tetris_1_1_status_panel.html" title=" " alt="" coords="18,95,177,121"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,189,185"/>
+<area shape="rect" id="node2" href="$class_unity_tetris_1_1_status_panel.html" title=" " alt="" coords="18,233,177,399"/>
 </map>
