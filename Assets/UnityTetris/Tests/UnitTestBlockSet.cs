@@ -565,6 +565,38 @@ public class UnitTestBlockSet
         yield return null;
     }
 
+
+    [UnityTest]
+    public IEnumerator UnitTestBlockSetWithEnumeratorPasses008() // 入力更新
+    {
+        int fallLevel = 4;
+        BlockSet bs = NewBlockSet("BlockSetA");
+        StubPlayer player = new StubPlayer();
+        StubField field = StubField();
+        StubInputManager input = new StubInputManager();
+        StubSoundManager sound = new StubSoundManager();
+
+        field.ReturnWidth = 10; // テスト用にフィールド幅を設定
+        field.ReturnHeight = 10; // テスト用にフィールド高さを設定
+
+        bs.Setup(player, field, input, sound, fallLevel);
+
+        Assert.AreEqual("", input.CallList);
+
+        yield return new WaitForFixedUpdate(); // 入力状態の更新、各入力状態のチェックが行われていることを確認する
+        Assert.AreEqual("UpdateState\nIsRotateRight\nIsRotateLeft\nIsMoveRight\nIsMoveLeft\nIsMoveDown\n", input.CallList);
+        input.ClearCallList(); 
+
+        yield return new WaitForFixedUpdate();
+        Assert.AreEqual("UpdateState\nIsRotateRight\nIsRotateLeft\nIsMoveRight\nIsMoveLeft\nIsMoveDown\n", input.CallList);
+        input.ClearCallList();
+
+        GameObject.Destroy(bs.gameObject);
+        GameObject.Destroy(field.gameObject);
+
+        yield return null;
+    }
+
     private BlockSet NewBlockSet(string blockName)
     {
         BlockSet prefab = Resources.Load<BlockSet>("UnityTetris/Prefabs/BlockSet/" + blockName);
