@@ -141,10 +141,11 @@ def generate_mindmap_page(input_path, svgs_path):
     							
 
 def generate_svg_page(input_path, svgs_path):
-	path_pattern = re.compile("^.*/([^/]+)/([^/]+).(pu|puml)$")
+	path_pattern = re.compile("^(.+)/([^/]+).(pu|puml)$")
 	title_pattern = re.compile("^\s*title\s*(.*)$")
 	pus = [d.replace('\\', '/') for d in glob.glob(input_path + '/**/*.pu', recursive=True)]
 	pus.extend([d.replace('\\', '/') for d in glob.glob(input_path + '/**/*.puml', recursive=True)])
+	pus = [d[len(input_path):] for d in pus]
 	dic={}
 	for pu in pus:
 		pu=pu.replace('\\', '/')
