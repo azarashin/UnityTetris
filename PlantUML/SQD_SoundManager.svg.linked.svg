@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="271px" preserveAspectRatio="none" style="width:374px;height:271px;" version="1.1" viewBox="0 0 374 271" width="374px" zoomAndPan="magnify"><defs><filter height="300%" id="fdtmqlyrxeerp" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><rect fill="#FFFFFF" filter="url(#fdtmqlyrxeerp)" height="57.1328" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="81.5" y="69.4297"/><rect fill="#FFFFFF" filter="url(#fdtmqlyrxeerp)" height="57.1328" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="81.5" y="155.6953"/><rect fill="#FFFFFF" filter="url(#fdtmqlyrxeerp)" height="14" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="266" y="98.5625"/><rect fill="#FFFFFF" filter="url(#fdtmqlyrxeerp)" height="14" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="266" y="184.8281"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="86" x2="86" y1="38.2969" y2="230.8281"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="271" x2="271" y1="38.2969" y2="230.8281"/><rect fill="#FEFECE" filter="url(#fdtmqlyrxeerp)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="153" x="8" y="3"/>
+<text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="139" x="15" y="22.9951">UnitySoundManager</text><rect fill="#FEFECE" filter="url(#fdtmqlyrxeerp)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="153" x="8" y="229.8281"/>
+<text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="139" x="15" y="249.8232">UnitySoundManager</text><rect fill="#FEFECE" filter="url(#fdtmqlyrxeerp)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="188" x="175" y="3"/>
+<text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="174" x="182" y="22.9951">UnityEngine.AudioSource</text><rect fill="#FEFECE" filter="url(#fdtmqlyrxeerp)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="188" x="175" y="229.8281"/>
+<text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="174" x="182" y="249.8232">UnityEngine.AudioSource</text><rect fill="#FFFFFF" filter="url(#fdtmqlyrxeerp)" height="57.1328" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="81.5" y="69.4297"/><rect fill="#FFFFFF" filter="url(#fdtmqlyrxeerp)" height="57.1328" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="81.5" y="155.6953"/><rect fill="#FFFFFF" filter="url(#fdtmqlyrxeerp)" height="14" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="266" y="98.5625"/><rect fill="#FFFFFF" filter="url(#fdtmqlyrxeerp)" height="14" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="266" y="184.8281"/><polygon fill="#A80036" points="69.5,65.4297,79.5,69.4297,69.5,73.4297,73.5,69.4297" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="3" x2="75.5" y1="69.4297" y2="69.4297"/>
+<text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="26" x="10" y="64.3638">Play</text><polygon fill="#A80036" points="254,94.5625,264,98.5625,254,102.5625,258,98.5625" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="91.5" x2="260" y1="98.5625" y2="98.5625"/>
+<text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="26" x="98.5" y="93.4966">Play</text><polygon fill="#A80036" points="102.5,108.5625,92.5,112.5625,102.5,116.5625,98.5,112.5625" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="96.5" x2="270" y1="112.5625" y2="112.5625"/><polygon fill="#A80036" points="14,122.5625,4,126.5625,14,130.5625,10,126.5625" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="8" x2="85.5" y1="126.5625" y2="126.5625"/><polygon fill="#A80036" points="69.5,151.6953,79.5,155.6953,69.5,159.6953,73.5,155.6953" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="3" x2="75.5" y1="155.6953" y2="155.6953"/>
+<text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="30" x="10" y="150.6294">Stop</text><polygon fill="#A80036" points="254,180.8281,264,184.8281,254,188.8281,258,184.8281" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="91.5" x2="260" y1="184.8281" y2="184.8281"/>
+<text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="30" x="98.5" y="179.7622">Stop</text><polygon fill="#A80036" points="102.5,194.8281,92.5,198.8281,102.5,202.8281,98.5,198.8281" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="96.5" x2="270" y1="198.8281" y2="198.8281"/><polygon fill="#A80036" points="14,208.8281,4,212.8281,14,216.8281,10,212.8281" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="8" x2="85.5" y1="212.8281" y2="212.8281"/><!--MD5=[efc1fae14f6c3ec70e8b15eacdb6de89]
+@startuml
+
+[-> UnitySoundManager : Play
+activate UnitySoundManager
+    UnitySoundManager -> UnityEngine.AudioSource : Play
+    activate UnityEngine.AudioSource
+        UnitySoundManager <- - UnityEngine.AudioSource
+    deactivate UnityEngine.AudioSource
+    [<- - UnitySoundManager
+deactivate UnitySoundManager
+
+[-> UnitySoundManager : Stop
+activate UnitySoundManager
+    UnitySoundManager -> UnityEngine.AudioSource : Stop
+    activate UnityEngine.AudioSource
+        UnitySoundManager <- - UnityEngine.AudioSource
+    deactivate UnityEngine.AudioSource
+    [<- - UnitySoundManager
+deactivate UnitySoundManager
+
+@enduml
+
+PlantUML version 1.2020.02(Sun Mar 01 10:22:07 GMT 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 11.0.9+11-Ubuntu-0ubuntu1
+Operating System: Linux
+Default Encoding: ANSI_X3.4-1968
+Language: en
+Country: US
+--></g></svg>

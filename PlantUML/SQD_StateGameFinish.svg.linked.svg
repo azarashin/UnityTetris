@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="547px" preserveAspectRatio="none" style="width:351px;height:547px;" version="1.1" viewBox="0 0 351 547" width="351px" zoomAndPan="magnify"><defs><filter height="300%" id="f15drpax1bgwn6" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><rect fill="#FFFFFF" filter="url(#f15drpax1bgwn6)" height="86.1328" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="85.5" y="69.4297"/><rect fill="#FFFFFF" filter="url(#f15drpax1bgwn6)" height="28" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="90.5" y="106.5625"/><rect fill="#FFFFFF" filter="url(#f15drpax1bgwn6)" height="304.6641" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="85.5" y="184.6953"/><rect fill="#FFFFFF" filter="url(#f15drpax1bgwn6)" height="28" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="90.5" y="221.8281"/><rect fill="#FFFFFF" filter="url(#f15drpax1bgwn6)" height="28" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="90.5" y="318.0938"/><rect fill="#FFFFFF" filter="url(#f15drpax1bgwn6)" height="28" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="90.5" y="397.2266"/><rect fill="#FFFFFF" filter="url(#f15drpax1bgwn6)" height="14" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="276.5" y="461.3594"/><rect fill="#FFFFFF" filter="url(#f15drpax1bgwn6)" height="89.2656" style="stroke: #000000; stroke-width: 2.0;" width="243.5" x="13" y="271.8281"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="90" x2="90" y1="38.2969" y2="507.3594"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="281.5" x2="281.5" y1="38.2969" y2="507.3594"/><rect fill="#FEFECE" filter="url(#f15drpax1bgwn6)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="131" x="23" y="3"/>
+<text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="117" x="30" y="22.9951">StateGameFinish</text><rect fill="#FEFECE" filter="url(#f15drpax1bgwn6)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="131" x="23" y="506.3594"/>
+<text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="117" x="30" y="526.3545">StateGameFinish</text><rect fill="#FEFECE" filter="url(#f15drpax1bgwn6)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="122" x="218.5" y="3"/>
+<text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="108" x="225.5" y="22.9951">GameController</text><rect fill="#FEFECE" filter="url(#f15drpax1bgwn6)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="122" x="218.5" y="506.3594"/>
+<text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="108" x="225.5" y="526.3545">GameController</text><rect fill="#FFFFFF" filter="url(#f15drpax1bgwn6)" height="86.1328" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="85.5" y="69.4297"/><rect fill="#FFFFFF" filter="url(#f15drpax1bgwn6)" height="28" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="90.5" y="106.5625"/><rect fill="#FFFFFF" filter="url(#f15drpax1bgwn6)" height="304.6641" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="85.5" y="184.6953"/><rect fill="#FFFFFF" filter="url(#f15drpax1bgwn6)" height="28" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="90.5" y="221.8281"/><rect fill="#FFFFFF" filter="url(#f15drpax1bgwn6)" height="28" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="90.5" y="318.0938"/><rect fill="#FFFFFF" filter="url(#f15drpax1bgwn6)" height="28" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="90.5" y="397.2266"/><rect fill="#FFFFFF" filter="url(#f15drpax1bgwn6)" height="14" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="276.5" y="461.3594"/><polygon fill="#A80036" points="73.5,65.4297,83.5,69.4297,73.5,73.4297,77.5,69.4297" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="3" x2="79.5" y1="69.4297" y2="69.4297"/>
+<text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="38" x="10" y="64.3638">Setup</text><line style="stroke: #A80036; stroke-width: 1.0;" x1="100.5" x2="142.5" y1="98.5625" y2="98.5625"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="142.5" x2="142.5" y1="98.5625" y2="111.5625"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="101.5" x2="142.5" y1="111.5625" y2="111.5625"/><polygon fill="#A80036" points="111.5,107.5625,101.5,111.5625,111.5,115.5625,107.5,111.5625" style="stroke: #A80036; stroke-width: 1.0;"/>
+<text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="155" x="107.5" y="93.4966">StartCoroutine(CoRun())</text><polygon fill="#A80036" points="14,151.5625,4,155.5625,14,159.5625,10,155.5625" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="8" x2="89.5" y1="155.5625" y2="155.5625"/><polygon fill="#A80036" points="73.5,180.6953,83.5,184.6953,73.5,188.6953,77.5,184.6953" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="3" x2="79.5" y1="184.6953" y2="184.6953"/>
+<text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="41" x="10" y="179.6294">CoRun</text><line style="stroke: #A80036; stroke-width: 1.0;" x1="100.5" x2="142.5" y1="213.8281" y2="213.8281"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="142.5" x2="142.5" y1="213.8281" y2="226.8281"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="101.5" x2="142.5" y1="226.8281" y2="226.8281"/><polygon fill="#A80036" points="111.5,222.8281,101.5,226.8281,111.5,230.8281,107.5,226.8281" style="stroke: #A80036; stroke-width: 1.0;"/>
+<text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="154" x="107.5" y="208.7622">ラベル(_message)を表示</text><path d="M13,271.8281 L90,271.8281 L90,278.8281 L80,288.8281 L13,288.8281 L13,271.8281 " fill="#EEEEEE" style="stroke: #000000; stroke-width: 1.0;"/><rect fill="none" height="89.2656" style="stroke: #000000; stroke-width: 2.0;" width="243.5" x="13" y="271.8281"/>
+<text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="32" x="28" y="284.895">loop</text>
+<text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="120" x="105" y="284.0386">[一定時間経過するまで]</text><line style="stroke: #A80036; stroke-width: 1.0;" x1="100.5" x2="142.5" y1="310.0938" y2="310.0938"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="142.5" x2="142.5" y1="310.0938" y2="323.0938"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="101.5" x2="142.5" y1="323.0938" y2="323.0938"/><polygon fill="#A80036" points="111.5,319.0938,101.5,323.0938,111.5,327.0938,107.5,323.0938" style="stroke: #A80036; stroke-width: 1.0;"/>
+<text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="137" x="107.5" y="305.0278">WaitForFixedUpdate()</text><line style="stroke: #A80036; stroke-width: 1.0;" x1="100.5" x2="142.5" y1="389.2266" y2="389.2266"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="142.5" x2="142.5" y1="389.2266" y2="402.2266"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="101.5" x2="142.5" y1="402.2266" y2="402.2266"/><polygon fill="#A80036" points="111.5,398.2266,101.5,402.2266,111.5,406.2266,107.5,402.2266" style="stroke: #A80036; stroke-width: 1.0;"/>
+<text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="167" x="107.5" y="384.1606">ラベル(_message)を非表示</text><polygon fill="#A80036" points="264.5,457.3594,274.5,461.3594,264.5,465.3594,268.5,461.3594" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="95.5" x2="270.5" y1="461.3594" y2="461.3594"/>
+<text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="69" x="102.5" y="456.2935">BootGame</text><polygon fill="#A80036" points="106.5,471.3594,96.5,475.3594,106.5,479.3594,102.5,475.3594" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="100.5" x2="280.5" y1="475.3594" y2="475.3594"/><polygon fill="#A80036" points="14,485.3594,4,489.3594,14,493.3594,10,489.3594" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="8" x2="89.5" y1="489.3594" y2="489.3594"/><!--MD5=[93a33c4712e376e5656e74e0df446b6b]
+@startuml
+
+[-> StateGameFinish : Setup
+activate StateGameFinish
+    StateGameFinish -> StateGameFinish : StartCoroutine(CoRun())
+        activate StateGameFinish
+        deactivate StateGameFinish
+    [<- - StateGameFinish
+deactivate StateGameFinish
+
+[-> StateGameFinish : CoRun
+activate StateGameFinish
+    StateGameFinish -> StateGameFinish : ラベル(_message)を表示
+    activate StateGameFinish
+    deactivate StateGameFinish
+    loop 一定時間経過するまで
+        StateGameFinish -> StateGameFinish : WaitForFixedUpdate()
+        activate StateGameFinish
+        deactivate StateGameFinish
+    end
+    StateGameFinish -> StateGameFinish : ラベル(_message)を非表示
+    activate StateGameFinish
+    deactivate StateGameFinish
+    StateGameFinish -> GameController : BootGame
+    activate GameController
+        StateGameFinish <- - GameController
+    deactivate GameController
+    [<- - StateGameFinish
+deactivate StateGameFinish
+
+
+@enduml
+
+PlantUML version 1.2020.02(Sun Mar 01 10:22:07 GMT 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 11.0.9+11-Ubuntu-0ubuntu1
+Operating System: Linux
+Default Encoding: ANSI_X3.4-1968
+Language: en
+Country: US
+--></g></svg>

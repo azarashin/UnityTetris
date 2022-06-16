@@ -1,169 +1,18 @@
-<!DOCTYPE html>
-<html lang="jp">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="public">
-    <meta name="author" content="azarashin/Shinsule.Ogata">
-    <link rel="icon" type="image/png" href="./images/core/icon.png">
-
-    <title>Unity Tetris</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="./assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-
-  <body>
-
-<!-- ### Header-B ### -->
-
-    <div class="container">
-
-      <!-- Static navbar -->
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Unity Tetris</a>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="./index.html">ホーム</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">概要<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-<li><a href="./concept.html">概要</a></li>
-                </ul>
-              </li>
-
-
-
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">開発資料 <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-<li><a href="./doxygen/docs/index.html" target="_blank" rel="noopener noreferrer">doxygen設計書</a></li>
-<li>--- クラス図 ---</li>
-<li><a href="./plant_uml/CLD_Main.svg" target="_blank" rel="noopener noreferrer">全体クラス図</a></li>
-<li><a href="./plant_uml/CLD_MonoBehaviour.svg" target="_blank" rel="noopener noreferrer">全体クラス(Monobehaviour 継承クラス)</a></li>
-
-<li> --- ステートチャート図 ---</li>
-
-<li><a href="./plant_uml/STD_Main.svg" target="_blank" rel="noopener noreferrer">状態遷移図全体</a></li>
-                    
-<li> --- シーケンス図 ---</li>
-<li><a href="./plant_uml/SQD_BlockSet.svg" target="_blank" rel="noopener noreferrer">BlockSet クラス関連のシーケンス</a></li>
-<li><a href="./plant_uml/SQD_GameController.svg" target="_blank" rel="noopener noreferrer">GameController クラス関連のシーケンス</a></li>
-<li><a href="./plant_uml/SQD_Player.svg" target="_blank" rel="noopener noreferrer">Player クラス関連のシーケンス</a></li>
-<li><a href="./plant_uml/SQD_SoundManager.svg" target="_blank" rel="noopener noreferrer">SoundManager クラス関連のシーケンス</a></li>
-<li><a href="./plant_uml/SQD_StateGameBoot.svg" target="_blank" rel="noopener noreferrer">StateGameBoot クラス関連のシーケンス</a></li>
-<li><a href="./plant_uml/SQD_StateGameFinish.svg" target="_blank" rel="noopener noreferrer">StateGameFinish クラス関連のシーケンス</a></li>
-<li><a href="./plant_uml/SQD_StateGameMain.svg" target="_blank" rel="noopener noreferrer">StateGameMainクラス関連のシーケンス</a></li>
-
-                </ul>
-              </li>
-
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-      </nav>
-      
-<!-- ### Header-E ### -->
-
-
-      <!-- Main component for a primary marketing message or call to action -->
-      <div class="container">   <!-- container[menu & contents] -->
-<div class="jumbotron">
-<h1>Unity Tetris</h1>
-<ul>
-    <li>GitHub repository</li>
-    <ul>
-        <li><a href="https://github.com/azarashin/UnityTetris">リポジトリへ</a></li>
-    </ul>
-    <li>概要</li>
-    <ul>
-        <li><a href="./concept.html">コンセプト</a></li>
-    </ul>
-    <li>開発資料</li>
-    <ul>
-        <li>doxygen</li>
-        <ul>
-<li><a href="./doxygen/docs/index.html" target="_blank" rel="noopener noreferrer">doxygen設計書</a></li>
-        </ul>
-    </ul>
-    <ul>
-        <li>PlantUML</li>
-        <ul>
-            <li>クラス図</li>
-            <ul>
-<li><a href="./plant_uml/CLD_Main.svg" target="_blank" rel="noopener noreferrer">全体クラス図</a></li>
-<li><a href="./plant_uml/CLD_MonoBehaviour.svg" target="_blank" rel="noopener noreferrer">全体クラス(Monobehaviour 継承クラス)</a></li>
-
-            </ul>
-            <li>ステートチャート図</li>
-            <ul>
-<li><a href="./plant_uml/STD_Main.svg" target="_blank" rel="noopener noreferrer">状態遷移図全体</a></li>
-            </ul>
-            <li>シーケンス図</li>
-            <ul>
-<li><a href="./plant_uml/SQD_BlockSet.svg" target="_blank" rel="noopener noreferrer">BlockSet クラス関連のシーケンス</a></li>
-<li><a href="./plant_uml/SQD_GameController.svg" target="_blank" rel="noopener noreferrer">GameController クラス関連のシーケンス</a></li>
-<li><a href="./plant_uml/SQD_Player.svg" target="_blank" rel="noopener noreferrer">Player クラス関連のシーケンス</a></li>
-<li><a href="./plant_uml/SQD_SoundManager.svg" target="_blank" rel="noopener noreferrer">SoundManager クラス関連のシーケンス</a></li>
-<li><a href="./plant_uml/SQD_StateGameBoot.svg" target="_blank" rel="noopener noreferrer">StateGameBoot クラス関連のシーケンス</a></li>
-<li><a href="./plant_uml/SQD_StateGameFinish.svg" target="_blank" rel="noopener noreferrer">StateGameFinish クラス関連のシーケンス</a></li>
-<li><a href="./plant_uml/SQD_StateGameMain.svg" target="_blank" rel="noopener noreferrer">StateGameMainクラス関連のシーケンス</a></li>
-            </ul>
-        </ul>
-    </ul>
+<html><header></header><body>
+<ul>sequence_diagrams
+<li><a href="./PlantUML/SQD_BlockSet.svg.linked.svg">SQD_BlockSet</a></li>
+<li><a href="./PlantUML/SQD_Field.svg.linked.svg">SQD_Field</a></li>
+<li><a href="./PlantUML/SQD_GameController.svg.linked.svg">SQD_GameController</a></li>
+<li><a href="./PlantUML/SQD_LevelController.svg.linked.svg">SQD_LevelController</a></li>
+<li><a href="./PlantUML/SQD_Player.svg.linked.svg">SQD_Player</a></li>
+<li><a href="./PlantUML/SQD_ReservationList.svg.linked.svg">SQD_ReservationList</a></li>
+<li><a href="./PlantUML/SQD_SoundManager.svg.linked.svg">SQD_SoundManager</a></li>
+<li><a href="./PlantUML/SQD_StateGameBoot.svg.linked.svg">SQD_StateGameBoot</a></li>
+<li><a href="./PlantUML/SQD_StateGameFinish.svg.linked.svg">SQD_StateGameFinish</a></li>
+<li><a href="./PlantUML/SQD_StateGameMain.svg.linked.svg">SQD_StateGameMain</a></li>
+<li><a href="./PlantUML/SQD_StatusPanel.svg.linked.svg">SQD_StatusPanel</a></li>
 </ul>
-
-
-</div> <!-- <div class="jumbotron"> -->
-
-      </div> <!-- container[menu & contents] -->
-
-    </div> <!-- /container -->
-
-
-	<!-- /footer -->
-    <footer class="footer">
-      <div class="container">
-        <p class="text-muted">azarashin@Unity Developer</p>
-      <div class="fb-like" data-share="true" data-width="450" data-show-faces="true"/>
-      </div>
-      
-    </footer>
-	<!-- /footer -->
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="./assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="./bootstrap/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="./assets/js/ie10-viewport-bug-workaround.js"></script>
-  </body>
-</html>
+<ul>state_chart_diagrams
+<li><a href="./PlantUML/STD_Main.svg.linked.svg">STD_Main</a></li>
+</ul>
+</body></html>
