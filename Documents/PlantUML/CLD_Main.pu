@@ -27,6 +27,7 @@ abstract class AbstractField
 
     + IsHit(blocks : Vector2Int[]) : bool
     + ReduceLines(owner : IPlyaer) : void
+    + GetFieldMap() : int[,]
 }
 
 class Field
@@ -50,6 +51,7 @@ class Field
 
     + IsHit(blocks : Vector2Int[]) : bool
     + ReduceLines(owner : IPlyaer) : void
+    + GetFieldMap() : int[,]
 }
 
 interface IGameController

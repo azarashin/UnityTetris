@@ -280,5 +280,25 @@ namespace UnityTetris
             owner.PullNextBlock();
             yield return null; 
         }
+
+        public override int[,] GetFieldMap()
+        {
+            int[,] ret = new int[_width, _height]; 
+            for(int y=0;y<_height;y++)
+            {
+                for (int x = 0; x < _width; x++)
+                {
+                    if(_activeParts[x, y] != null)
+                    {
+                        ret[x, y] = 1; 
+                    }
+                    else
+                    {
+                        ret[x, y] = 0;
+                    }
+                }
+            }
+            return ret; 
+        }
     }
 }
