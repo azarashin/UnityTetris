@@ -20,7 +20,26 @@ namespace UnityTetris
         private ReservationList[] _reservationList; 
 
         private int _currentScore;
-        private int _currentLevel; 
+        private int _currentLevel;
+
+        public int Score()
+        {
+            return _currentScore; 
+        }
+
+        public int Level()
+        {
+            return _currentLevel; 
+        }
+
+        public (int, int) Next(int id)
+        {
+            if (id < 0 || id >= _reservationList.Length)
+            {
+                return (-1, -1);
+            }
+            return (_reservationList[id].GetId(), _reservationList[id].GetIdMax());
+        }
 
         private void UpdateScoreLabel()
         {

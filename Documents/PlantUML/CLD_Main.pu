@@ -263,6 +263,9 @@ class UnitySoundManager
 
 interface IStatusPanel
 {
+    + Score() : int
+    + Level() : int
+    + Next(id : int) : (int, int)
     + ResetScore() : void
     + AddScore(numberOfLines : int) : void
     + UpdateReservation(reservation : List<int>) : void
@@ -279,7 +282,11 @@ class StatusPanel
     - _currentLevel : int
  
     - UpdateScoreLabel : void
+    ..
 
+    + Score() : int
+    + Level() : int
+    + Next(id : int) : (int, int)
     + ResetScore() : void
     + AddScore(numberOfLines : int) : void
     + UpdateReservation(reservation : List<int>) : void
