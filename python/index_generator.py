@@ -145,12 +145,11 @@ def generate_svg_page(input_path, svgs_path):
 	title_pattern = re.compile("^\s*title\s*(.*)$")
 	pus = [d.replace('\\', '/') for d in glob.glob(input_path + '/**/*.pu', recursive=True)]
 	pus.extend([d.replace('\\', '/') for d in glob.glob(input_path + '/**/*.puml', recursive=True)])
-	pus = [d[len(input_path):] for d in pus]
 	dic={}
 	for pu in pus:
 		pu=pu.replace('\\', '/')
 		title=None
-		m=path_pattern.search(pu)
+		m=path_pattern.search(pu[len(input_path):])
 		if not m:
 			continue
 		category=m.group(1)
